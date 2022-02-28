@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E727322-3FF0-4362-A010-AECC615DCA2E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CapacityСalculationUI</RootNamespace>
+    <AssemblyName>CapacityСalculationUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddEditCabinet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditCabinet.Designer.cs">
+      <DependentUpon>AddEditCabinet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditField.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditField.Designer.cs">
+      <DependentUpon>AddEditField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditPhysChar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditPhysChar.Designer.cs">
+      <DependentUpon>AddEditPhysChar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditWell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditWell.Designer.cs">
+      <DependentUpon>AddEditWell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditWellPad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditWellPad.Designer.cs">
+      <DependentUpon>AddEditWellPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CabinetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CabinetForm.Designer.cs">
+      <DependentUpon>CabinetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProfileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfileForm.Designer.cs">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddEditCabinet.resx">
+      <DependentUpon>AddEditCabinet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditField.resx">
+      <DependentUpon>AddEditField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditPhysChar.resx">
+      <DependentUpon>AddEditPhysChar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditWell.resx">
+      <DependentUpon>AddEditWell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditWellPad.resx">
+      <DependentUpon>AddEditWellPad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CabinetForm.resx">
+      <DependentUpon>CabinetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileForm.resx">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapacityCalculation\CapacityCalculation.csproj">
+      <Project>{2600643b-6adf-48bb-afe4-eda064d8f03c}</Project>
+      <Name>CapacityCalculation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
