@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,10 +49,7 @@
             this.AddWellPadButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.UpdateFIeldButton = new System.Windows.Forms.Button();
             this.FieldDataGridView = new System.Windows.Forms.DataGridView();
-            this.DeleteFieldButton = new System.Windows.Forms.Button();
-            this.AddFieldButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.типыШкафовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.профилиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +60,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.DeletePhysCharButton = new System.Windows.Forms.Button();
             this.AddPhysCharButton = new System.Windows.Forms.Button();
+            this.UpdateFIeldButton = new System.Windows.Forms.Button();
+            this.DeleteFieldButton = new System.Windows.Forms.Button();
+            this.AddFieldButton = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WellDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -118,21 +118,21 @@
             this.WellDataGridView.AccessibleDescription = "";
             this.WellDataGridView.AllowUserToResizeColumns = false;
             this.WellDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.WellDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.WellDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.WellDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.WellDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.WellDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             this.WellDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.WellDataGridView.ColumnHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.WellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.WellDataGridView.DefaultCellStyle = dataGridViewCellStyle10;
             this.WellDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.WellDataGridView.Location = new System.Drawing.Point(14, 47);
             this.WellDataGridView.Margin = new System.Windows.Forms.Padding(2);
@@ -149,23 +149,25 @@
             // 
             // DeleteWellButton
             // 
-            this.DeleteWellButton.Location = new System.Drawing.Point(4, 269);
+            this.DeleteWellButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Delete;
+            this.DeleteWellButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeleteWellButton.Location = new System.Drawing.Point(59, 263);
             this.DeleteWellButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteWellButton.Name = "DeleteWellButton";
-            this.DeleteWellButton.Size = new System.Drawing.Size(60, 19);
+            this.DeleteWellButton.Size = new System.Drawing.Size(40, 40);
             this.DeleteWellButton.TabIndex = 8;
-            this.DeleteWellButton.Text = "Удалить";
             this.DeleteWellButton.UseVisualStyleBackColor = true;
             this.DeleteWellButton.Click += new System.EventHandler(this.DeleteWellButton_Click);
             // 
             // AddWellButton
             // 
-            this.AddWellButton.Location = new System.Drawing.Point(87, 271);
+            this.AddWellButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Add;
+            this.AddWellButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddWellButton.Location = new System.Drawing.Point(15, 263);
             this.AddWellButton.Margin = new System.Windows.Forms.Padding(2);
             this.AddWellButton.Name = "AddWellButton";
-            this.AddWellButton.Size = new System.Drawing.Size(60, 19);
+            this.AddWellButton.Size = new System.Drawing.Size(40, 40);
             this.AddWellButton.TabIndex = 7;
-            this.AddWellButton.Text = "Добавить";
             this.AddWellButton.UseVisualStyleBackColor = true;
             this.AddWellButton.Click += new System.EventHandler(this.AddWellButton_Click);
             // 
@@ -201,21 +203,21 @@
             this.WellPadDataGridView.AccessibleDescription = "";
             this.WellPadDataGridView.AllowUserToResizeColumns = false;
             this.WellPadDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.WellPadDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.WellPadDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.WellPadDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.WellPadDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.WellPadDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             this.WellPadDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.WellPadDataGridView.ColumnHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.WellPadDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.WellPadDataGridView.DefaultCellStyle = dataGridViewCellStyle12;
             this.WellPadDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.WellPadDataGridView.Location = new System.Drawing.Point(13, 49);
             this.WellPadDataGridView.Margin = new System.Windows.Forms.Padding(2);
@@ -232,23 +234,25 @@
             // 
             // DeleteWellPadButton
             // 
-            this.DeleteWellPadButton.Location = new System.Drawing.Point(76, 259);
+            this.DeleteWellPadButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Delete;
+            this.DeleteWellPadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeleteWellPadButton.Location = new System.Drawing.Point(57, 263);
             this.DeleteWellPadButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteWellPadButton.Name = "DeleteWellPadButton";
-            this.DeleteWellPadButton.Size = new System.Drawing.Size(38, 28);
+            this.DeleteWellPadButton.Size = new System.Drawing.Size(40, 40);
             this.DeleteWellPadButton.TabIndex = 8;
-            this.DeleteWellPadButton.Text = "Удалить";
             this.DeleteWellPadButton.UseVisualStyleBackColor = true;
             this.DeleteWellPadButton.Click += new System.EventHandler(this.DeleteWellPadButton_Click);
             // 
             // AddWellPadButton
             // 
-            this.AddWellPadButton.Location = new System.Drawing.Point(13, 271);
+            this.AddWellPadButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Add;
+            this.AddWellPadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddWellPadButton.Location = new System.Drawing.Point(13, 263);
             this.AddWellPadButton.Margin = new System.Windows.Forms.Padding(2);
             this.AddWellPadButton.Name = "AddWellPadButton";
-            this.AddWellPadButton.Size = new System.Drawing.Size(52, 19);
+            this.AddWellPadButton.Size = new System.Drawing.Size(40, 40);
             this.AddWellPadButton.TabIndex = 7;
-            this.AddWellPadButton.Text = "Добавить";
             this.AddWellPadButton.UseVisualStyleBackColor = true;
             this.AddWellPadButton.Click += new System.EventHandler(this.AddWellPadButton_Click);
             // 
@@ -280,37 +284,26 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Название";
             // 
-            // UpdateFIeldButton
-            // 
-            this.UpdateFIeldButton.Location = new System.Drawing.Point(70, 265);
-            this.UpdateFIeldButton.Margin = new System.Windows.Forms.Padding(2);
-            this.UpdateFIeldButton.Name = "UpdateFIeldButton";
-            this.UpdateFIeldButton.Size = new System.Drawing.Size(71, 27);
-            this.UpdateFIeldButton.TabIndex = 6;
-            this.UpdateFIeldButton.Text = "Изменить";
-            this.UpdateFIeldButton.UseVisualStyleBackColor = true;
-            this.UpdateFIeldButton.Click += new System.EventHandler(this.UpdateFIeldButton_Click);
-            // 
             // FieldDataGridView
             // 
             this.FieldDataGridView.AccessibleDescription = "";
             this.FieldDataGridView.AllowUserToResizeColumns = false;
             this.FieldDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.FieldDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.FieldDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.FieldDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.FieldDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.FieldDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             this.FieldDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.FieldDataGridView.ColumnHeadersVisible = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.FieldDataGridView.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.FieldDataGridView.DefaultCellStyle = dataGridViewCellStyle14;
             this.FieldDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.FieldDataGridView.Location = new System.Drawing.Point(12, 47);
             this.FieldDataGridView.Margin = new System.Windows.Forms.Padding(2);
@@ -324,28 +317,6 @@
             this.FieldDataGridView.Size = new System.Drawing.Size(206, 206);
             this.FieldDataGridView.TabIndex = 5;
             this.FieldDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FieldDataGridView_CellClick);
-            // 
-            // DeleteFieldButton
-            // 
-            this.DeleteFieldButton.Location = new System.Drawing.Point(146, 267);
-            this.DeleteFieldButton.Margin = new System.Windows.Forms.Padding(2);
-            this.DeleteFieldButton.Name = "DeleteFieldButton";
-            this.DeleteFieldButton.Size = new System.Drawing.Size(73, 26);
-            this.DeleteFieldButton.TabIndex = 3;
-            this.DeleteFieldButton.Text = "Удалить";
-            this.DeleteFieldButton.UseVisualStyleBackColor = true;
-            this.DeleteFieldButton.Click += new System.EventHandler(this.DeleteFieldButton_Click);
-            // 
-            // AddFieldButton
-            // 
-            this.AddFieldButton.Location = new System.Drawing.Point(4, 265);
-            this.AddFieldButton.Margin = new System.Windows.Forms.Padding(2);
-            this.AddFieldButton.Name = "AddFieldButton";
-            this.AddFieldButton.Size = new System.Drawing.Size(61, 32);
-            this.AddFieldButton.TabIndex = 2;
-            this.AddFieldButton.Text = "Добавить";
-            this.AddFieldButton.UseVisualStyleBackColor = true;
-            this.AddFieldButton.Click += new System.EventHandler(this.AddFieldButton_Click);
             // 
             // menuStrip1
             // 
@@ -380,6 +351,7 @@
             this.подборШкафаToolStripMenuItem.Name = "подборШкафаToolStripMenuItem";
             this.подборШкафаToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.подборШкафаToolStripMenuItem.Text = "Подбор шкафа";
+            this.подборШкафаToolStripMenuItem.Click += new System.EventHandler(this.подборШкафаToolStripMenuItem_Click);
             // 
             // groupBox4
             // 
@@ -414,21 +386,21 @@
             this.PhysCharDataGridView.AccessibleDescription = "";
             this.PhysCharDataGridView.AllowUserToResizeColumns = false;
             this.PhysCharDataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.PhysCharDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.PhysCharDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
             this.PhysCharDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.PhysCharDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PhysCharDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             this.PhysCharDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PhysCharDataGridView.ColumnHeadersVisible = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PhysCharDataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PhysCharDataGridView.DefaultCellStyle = dataGridViewCellStyle16;
             this.PhysCharDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.PhysCharDataGridView.Location = new System.Drawing.Point(9, 49);
             this.PhysCharDataGridView.Margin = new System.Windows.Forms.Padding(2);
@@ -455,24 +427,63 @@
             // 
             // DeletePhysCharButton
             // 
-            this.DeletePhysCharButton.Location = new System.Drawing.Point(94, 263);
+            this.DeletePhysCharButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Delete;
+            this.DeletePhysCharButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeletePhysCharButton.Location = new System.Drawing.Point(61, 263);
             this.DeletePhysCharButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeletePhysCharButton.Name = "DeletePhysCharButton";
-            this.DeletePhysCharButton.Size = new System.Drawing.Size(60, 19);
+            this.DeletePhysCharButton.Size = new System.Drawing.Size(40, 40);
             this.DeletePhysCharButton.TabIndex = 8;
-            this.DeletePhysCharButton.Text = "Удалить";
             this.DeletePhysCharButton.UseVisualStyleBackColor = true;
             // 
             // AddPhysCharButton
             // 
-            this.AddPhysCharButton.Location = new System.Drawing.Point(18, 260);
+            this.AddPhysCharButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Add;
+            this.AddPhysCharButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddPhysCharButton.Location = new System.Drawing.Point(17, 263);
             this.AddPhysCharButton.Margin = new System.Windows.Forms.Padding(2);
             this.AddPhysCharButton.Name = "AddPhysCharButton";
-            this.AddPhysCharButton.Size = new System.Drawing.Size(60, 19);
+            this.AddPhysCharButton.Size = new System.Drawing.Size(40, 40);
             this.AddPhysCharButton.TabIndex = 7;
-            this.AddPhysCharButton.Text = "Добавить";
             this.AddPhysCharButton.UseVisualStyleBackColor = true;
             this.AddPhysCharButton.Click += new System.EventHandler(this.AddPhysCharButton_Click);
+            // 
+            // UpdateFIeldButton
+            // 
+            this.UpdateFIeldButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Update;
+            this.UpdateFIeldButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.UpdateFIeldButton.Location = new System.Drawing.Point(59, 263);
+            this.UpdateFIeldButton.Margin = new System.Windows.Forms.Padding(2);
+            this.UpdateFIeldButton.Name = "UpdateFIeldButton";
+            this.UpdateFIeldButton.Size = new System.Drawing.Size(40, 40);
+            this.UpdateFIeldButton.TabIndex = 6;
+            this.UpdateFIeldButton.UseVisualStyleBackColor = true;
+            this.UpdateFIeldButton.Click += new System.EventHandler(this.UpdateFIeldButton_Click);
+            // 
+            // DeleteFieldButton
+            // 
+            this.DeleteFieldButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Delete;
+            this.DeleteFieldButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.DeleteFieldButton.Location = new System.Drawing.Point(103, 263);
+            this.DeleteFieldButton.Margin = new System.Windows.Forms.Padding(2);
+            this.DeleteFieldButton.Name = "DeleteFieldButton";
+            this.DeleteFieldButton.Size = new System.Drawing.Size(40, 40);
+            this.DeleteFieldButton.TabIndex = 3;
+            this.DeleteFieldButton.UseVisualStyleBackColor = true;
+            this.DeleteFieldButton.Click += new System.EventHandler(this.DeleteFieldButton_Click);
+            // 
+            // AddFieldButton
+            // 
+            this.AddFieldButton.BackgroundImage = global::CapacityСalculationUI.Properties.Resources.Add;
+            this.AddFieldButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AddFieldButton.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddFieldButton.Location = new System.Drawing.Point(15, 263);
+            this.AddFieldButton.Margin = new System.Windows.Forms.Padding(2);
+            this.AddFieldButton.Name = "AddFieldButton";
+            this.AddFieldButton.Size = new System.Drawing.Size(40, 40);
+            this.AddFieldButton.TabIndex = 2;
+            this.AddFieldButton.UseVisualStyleBackColor = true;
+            this.AddFieldButton.Click += new System.EventHandler(this.AddFieldButton_Click);
             // 
             // ProfileForm
             // 

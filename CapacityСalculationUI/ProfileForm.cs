@@ -146,10 +146,20 @@ namespace CapacityСalculationUI
         private void AddWellPadButton_Click(object sender, EventArgs e)
         {
             AddEditWellPad form = new AddEditWellPad();
-            if (form.ShowDialog() == DialogResult.OK)
+            try
             {
-                data.AddWellPad(idField, form.WellPadNum);
-                UpdateWellPadTable(idField);
+                if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        data.AddWellPad(idField, form.WellPadNum);
+                        UpdateWellPadTable(idField);
+                    }
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Выберите месторождение");
             }
         }
 
@@ -296,6 +306,15 @@ namespace CapacityСalculationUI
         {
             this.Hide();
             var form = new CabinetForm();
+            form.StartPosition = FormStartPosition.Manual;
+            form.Location = this.Location;
+            form.Show();
+        }
+
+        private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form = new CalculationForm();
             form.StartPosition = FormStartPosition.Manual;
             form.Location = this.Location;
             form.Show();

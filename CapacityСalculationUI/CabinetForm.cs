@@ -146,5 +146,14 @@ namespace CapacityСalculationUI
             }
             Application.Exit();
         }
+
+        private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form = new CalculationForm();
+            form.StartPosition = FormStartPosition.Manual;
+            form.Location = this.Location;
+            form.Show();
+        }
     }
 }

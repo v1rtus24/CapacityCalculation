@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -82,6 +83,12 @@
     <Compile Include="CabinetForm.Designer.cs">
       <DependentUpon>CabinetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalculationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalculationForm.Designer.cs">
+      <DependentUpon>CalculationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +115,9 @@
     <EmbeddedResource Include="CabinetForm.resx">
       <DependentUpon>CabinetForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CalculationForm.resx">
+      <DependentUpon>CalculationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProfileForm.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,7 +129,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -138,6 +152,16 @@
       <Project>{2600643b-6adf-48bb-afe4-eda064d8f03c}</Project>
       <Name>CapacityCalculation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Image\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\Update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Image\Delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

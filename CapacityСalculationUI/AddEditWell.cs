@@ -24,11 +24,19 @@ namespace CapacityСalculationUI
         
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox1.Text))
+            if (!string.IsNullOrEmpty(textBox1.Text) || !string.IsNullOrEmpty(comboBox1.Text))
             {
-                NumWell = Convert.ToInt32(textBox1.Text);
-                TypeWell = comboBox1.SelectedItem.ToString();
-                DialogResult = DialogResult.OK;
+                try
+                {
+                    NumWell = Convert.ToInt32(textBox1.Text);
+                    TypeWell = comboBox1.SelectedItem.ToString();
+                    DialogResult = DialogResult.OK;
+                }
+                catch
+                {
+                    MessageBox.Show("Проверьте правильность ввода");
+                    return;
+                }
             }
             else
             {

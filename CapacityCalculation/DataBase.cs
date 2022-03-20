@@ -136,5 +136,36 @@ namespace CapacityCalculation
             sqlCommand.Parameters.AddWithValue("Well_id", idWell);
             sqlCommand.ExecuteNonQuery();
         }
+
+        public int CalculationSignal(string typeSignal, int idWellPad, SqlConnection sqlCon)
+        {
+            int count = 0;
+            string query = "SELECT WellPad.WellPad_id, COUNT(*) AS SignalCount " +
+              "FROM PhysChar JOIN Well ON PhysChar.Well_id = Well.Well_id JOIN WellPad ON Well.WellPad_id = WellPad.WellPad_id "+
+                    "Where PhysChar.signal = '" + typeSignal + "' AND WellPad.WellPad_id =" + idWellPad+
+                    "GROUP BY  WellPad.WellPad_id";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCommand.ExecuteReader();
+            while (dataReader.Read())
+            {
+                count =  (int)dataReader[1];
+            }
+            dataReader.Close();
+            return count;
+        }
+
+        public int CalculationWell(string typeWell,int idWellPad, SqlConnection sqlCon)
+        {
+            string query = "SELECT COUNT(*) FROM Well WHERE Well.WellPad_id  = " + idWellPad + "  AND Well.wellType = '" + typeWell + "'";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCommand.ExecuteReader();
+            int dob = 0;
+            while (dataReader.Read())
+            {
+                dob = (int)dataReader[0];
+            }
+            dataReader.Close();
+            return dob;
+        }
     }
 }
