@@ -8,27 +8,43 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapacityCalculation;
+using System.Reflection;
+using Microsoft.Office.Interop.Excel;
+using System.Threading;
 
 namespace CapacityСalculationUI
 {
+    
     public partial class CabinetForm : Form
     {
         public Cabinet cabinet { get; set; } = new Cabinet();
+        public CalculationForm calculationForm { get; set; } 
+        public ProfileForm profileForm { get; set; } 
+
         private DataBase data;
         public CabinetForm()
         {
             InitializeComponent();
+            calculationForm = new CalculationForm(this)
+            {
+                Visible = false
+            };
+            profileForm = new ProfileForm(this)
+            {
+                Visible = false
+            };
             data = new DataBase();
             data.sqlConnection.Open();
             UpdateCabinetTable();          
         }
-
+    
         /// <summary>
         /// Обновление данных в таблице шкафов
         /// </summary>
         private void UpdateCabinetTable()
         {
             dataGridView1.DataSource = data.ShowData("SELECT * FROM TOS");
+            dataGridView1.Columns[1].HeaderText = "Тип";
             dataGridView1.Columns[0].Width = 40;
             dataGridView1.Columns[2].Width = 80;
             dataGridView1.Columns[3].Width = 50;
@@ -39,14 +55,6 @@ namespace CapacityСalculationUI
         }
 
 
-        private void профилиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form = new ProfileForm();
-            form.StartPosition = FormStartPosition.Manual;
-            form.Location = this.Location;
-            form.Show();
-        }
 
         private void AddCabinet()
         {
@@ -135,7 +143,7 @@ namespace CapacityСalculationUI
             {
                 data.sqlConnection.Close();
             }
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void выходToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -144,16 +152,59 @@ namespace CapacityСalculationUI
             {
                 data.sqlConnection.Close();
             }
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form = new CalculationForm();
-            form.StartPosition = FormStartPosition.Manual;
-            form.Location = this.Location;
-            form.Show();
+            calculationForm.StartPosition = FormStartPosition.Manual;
+            calculationForm.Location = this.Location;
+            calculationForm.Show();
         }
+        private void профилиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            profileForm.StartPosition = FormStartPosition.Manual;
+            profileForm.Location = this.Location;
+            profileForm.Show();
+        }
+
+
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = "";
+            saveFileDialog1.DefaultExt = ".xlsx";
+            saveFileDialog1.Filter = ".xlsx|.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
+            {
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                var workbook = ExcelApp.Application.Workbooks.Add();
+                ExcelApp.Columns[7].ColumnWidth = 15;
+                ExcelApp.Columns[8].ColumnWidth = 15;
+                ExcelApp.Cells[1, 1] = "Id";
+                ExcelApp.Cells[1, 2] = "Тип";
+                ExcelApp.Cells[1, 3] = "AI";
+                ExcelApp.Cells[1, 4] = "AO";
+                ExcelApp.Cells[1, 5] = "DI";
+                ExcelApp.Cells[1, 6] = "DO";
+                ExcelApp.Cells[1, 7] = "RS485(ПЛК)";  
+                ExcelApp.Cells[1, 8] = "RS485(ШЛЮЗ)";
+
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    for (int j = 0; j < dataGridView1.RowCount; j++)
+                    {
+                        if (dataGridView1[i, j].Value != null)
+                            ExcelApp.Cells[j + 2, i + 1] = (dataGridView1[i, j].Value).ToString();
+                    }
+                }
+                ExcelApp.AlertBeforeOverwriting = false;
+                workbook.SaveAs(saveFileDialog1.FileName);
+                ExcelApp.Quit();
+            }
+        }
+
     }
 }

@@ -17,8 +17,10 @@ namespace CapacityСalculationUI
         public int idField { get; set; }
         public int idWellPad { get; set; }
         public int idWell { get; set; }
-        public ProfileForm()
+        public CabinetForm _cabinetForm { get; set; }
+        public ProfileForm(CabinetForm cabinetForm)
         {
+            _cabinetForm = cabinetForm;
             InitializeComponent();
             data = new DataBase();
             data.sqlConnection.Open();
@@ -305,19 +307,17 @@ namespace CapacityСalculationUI
         private void типыШкафовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form = new CabinetForm();
-            form.StartPosition = FormStartPosition.Manual;
-            form.Location = this.Location;
-            form.Show();
+            _cabinetForm.StartPosition = FormStartPosition.Manual;
+            _cabinetForm.Location = this.Location;
+            _cabinetForm.Show();
         }
 
         private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form = new CalculationForm();
-            form.StartPosition = FormStartPosition.Manual;
-            form.Location = this.Location;
-            form.Show();
+            _cabinetForm.calculationForm.StartPosition = FormStartPosition.Manual;
+            _cabinetForm.calculationForm.Location = this.Location;
+            _cabinetForm.calculationForm.Show();
         }
     }
 }
