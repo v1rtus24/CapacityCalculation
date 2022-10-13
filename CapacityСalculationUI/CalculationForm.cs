@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapacityCalculation;
+using DGVPrinterHelper;
+using System.Drawing.Printing;
 
 namespace CapacityСalculationUI
 {
@@ -70,6 +72,8 @@ namespace CapacityСalculationUI
         }
 
         private int gridCount { get; set; } = 0;
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text != "" && comboBox2.Text != "")
@@ -127,30 +131,33 @@ namespace CapacityСalculationUI
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int ind = -1;
-            ind = dataGridView1.SelectedRows[0].Index;
-            int AI, AO, DI, DO, RS485PLK, RS485SHL = 0;
-            //AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
-            //AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
-            //DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
-            //DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
-            RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
-            RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
-            double AIrez = (double)dataGridView1["AI", ind].Value;
-            double AOrez = (double)dataGridView1["AO", ind].Value;
-            double DIrez = (double)dataGridView1["DI", ind].Value;
-            double DOrez = (double)dataGridView1["DO", ind].Value;
-            //label1.Text = AIrez.ToString();
-            //label2.Text = DIrez.ToString();
-            //label3.Text = AOrez.ToString();
-            //label4.Text = DOrez.ToString();
-            List<string[]> typeCab = data.CalculationCabinet((int)AIrez,(int)DIrez,(int)AOrez,(int)DOrez,RS485PLK,RS485SHL); 
-            dataGridView2.Rows.Clear();
-            if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
+            if (dataGridView1.SelectedCells[0].Value != null)
             {
-                foreach (string[] s in typeCab)
+                int ind = -1;
+                ind = dataGridView1.SelectedRows[0].Index;
+                int AI, AO, DI, DO, RS485PLK, RS485SHL = 0;
+                AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
+                AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
+                DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
+                DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
+                RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
+                RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
+                double AIrez = (double)dataGridView1["AI", ind].Value;
+                double AOrez = (double)dataGridView1["AO", ind].Value;
+                double DIrez = (double)dataGridView1["DI", ind].Value;
+                double DOrez = (double)dataGridView1["DO", ind].Value;
+                //label1.Text = AIrez.ToString();
+                //label2.Text = DIrez.ToString();
+                //label3.Text = AOrez.ToString();
+                //label4.Text = DOrez.ToString();
+                List<string[]> typeCab = data.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
+                dataGridView2.Rows.Clear();
+                if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
                 {
-                    dataGridView2.Rows.Add(s);
+                    foreach (string[] s in typeCab)
+                    {
+                        dataGridView2.Rows.Add(s);
+                    }
                 }
             }
         }
@@ -210,11 +217,37 @@ namespace CapacityСalculationUI
 
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = "";
+          
+        }
+
+        // обновление бд при изменении visible
+        private void CalculationForm_VisibleChanged(object sender, EventArgs e)
+        {
+            dataField.Clear();
+            comboBox1.Items.Clear();
+            string query = "SELECT * FROM Field";
+            SqlCommand sqlCommand = new SqlCommand(query, data.sqlConnection);
+            SqlDataReader dataReader = sqlCommand.ExecuteReader();
+            while (dataReader.Read())
+            {
+                dataField.Add(new string[2]);
+                dataField[dataField.Count - 1][0] = dataReader[0].ToString();
+                dataField[dataField.Count - 1][1] = dataReader[1].ToString();
+            }
+            dataReader.Close();
+            for (int i = 0; i < dataField.Count; i++)
+            {
+                comboBox1.Items.Add(dataField[i][1]);
+            }
+        }
+
+        private void сохранитьВExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             saveFileDialog1.DefaultExt = ".xlsx";
             saveFileDialog1.Filter = ".xlsx|.xlsx";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 var workbook = ExcelApp.Application.Workbooks.Add();
                 ExcelApp.Columns[9].ColumnWidth = 15;
@@ -240,13 +273,23 @@ namespace CapacityСalculationUI
                             ExcelApp.Cells[j + 2, i + 1] = (dataGridView1[i, j].Value).ToString();
                     }
                 }
-                ExcelApp.AlertBeforeOverwriting = false;
+                ExcelApp.AlertBeforeOverwriting = true;
                 workbook.SaveAs(saveFileDialog1.FileName);
-                ExcelApp.Quit();
 
-
-
+                DialogResult dialogResult = MessageBox.Show("Сохранение завершено. Открыть файл?", "Экспорт .xlsx", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ExcelApp.Visible = true;
+                }
             }
+        }
+
+        private void печатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            Margins margin = new Margins(30, 30, 30, 30);
+            printer.PrintMargins = margin;
+            printer.PrintDataGridView(dataGridView1);
         }
     }
 }

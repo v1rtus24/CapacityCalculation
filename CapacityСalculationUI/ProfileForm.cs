@@ -17,6 +17,7 @@ namespace CapacityСalculationUI
         public int idField { get; set; }
         public int idWellPad { get; set; }
         public int idWell { get; set; }
+        public int idPhysChar { get; set; }
         public CabinetForm _cabinetForm { get; set; }
         public ProfileForm(CabinetForm cabinetForm)
         {
@@ -53,7 +54,6 @@ namespace CapacityСalculationUI
                 WellPadDataGridView.Columns[2].Visible = false;
                 WellPadDataGridView.Columns[1].Width = 140;
                 WellPadDataGridView.ClearSelection();
-
             }
             catch 
             {
@@ -164,6 +164,27 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите месторождение");
             }
         }
+        private void UpdateWellPadButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
+
+                    AddEditWellPad form = new AddEditWellPad();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        data.UpdateWellPad(form.WellPadNum, idWellPad);
+                        UpdateWellPadTable(idField);
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Выберите КП");
+            }
+        }
 
         private void DeleteWellPadButton_Click(object sender, EventArgs e)
         {
@@ -174,6 +195,8 @@ namespace CapacityСalculationUI
                     idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
                     data.DeleteWellPad(idWellPad);
                     UpdateWellPadTable(idField);
+                    WellDataGridView.DataSource = null;
+                    PhysCharDataGridView.DataSource = null;
                 }
             }
             catch
@@ -202,6 +225,27 @@ namespace CapacityСalculationUI
             }
         }
 
+        private void UpdateWellButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
+
+                    AddEditWell form = new AddEditWell();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        data.UpdateWell(form.NumWell,form.TypeWell, idWell);
+                        UpdateWellTable(idWellPad);
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Выберите скважину!");
+            }
+        }
         private void DeleteWellButton_Click(object sender, EventArgs e)
         {
             try
@@ -211,8 +255,6 @@ namespace CapacityСalculationUI
                     idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
                     data.DeleteWell(idWell);
                     UpdateWellTable(idWellPad);
-                    WellPadDataGridView.DataSource = null;
-                    WellDataGridView.DataSource = null;
                     PhysCharDataGridView.DataSource = null;
                 }
             }
@@ -222,14 +264,7 @@ namespace CapacityСalculationUI
             }
         }
 
-        private void ProfileForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (data.sqlConnection.State == ConnectionState.Open)
-            {
-                data.sqlConnection.Close();
-            }
-            Application.Exit();
-        }
+     
 
 
         private void AddPhysCharButton_Click(object sender, EventArgs e)
@@ -240,7 +275,8 @@ namespace CapacityСalculationUI
                 if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     if (form.ShowDialog() == DialogResult.OK)
-                    {idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
+                    {
+                        idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
                         data.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
                         UpdatePhysCharTable(idWell);
                     }
@@ -249,6 +285,43 @@ namespace CapacityСalculationUI
             catch
             {
                 MessageBox.Show("Выберите скважину");
+            }
+        }
+        private void UpdatePhysCharButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
+
+                    AddEditPhysChar form = new AddEditPhysChar();
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        data.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
+                        UpdatePhysCharTable(idWell);
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Выберите подключение!");
+            }
+        }
+        private void DeletePhysCharButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
+                    data.DeletePhysChar(idPhysChar);
+                    UpdatePhysCharTable(idWell);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Выберите подключение");
             }
         }
 
@@ -270,7 +343,14 @@ namespace CapacityСalculationUI
             }
             
         }
-
+        private void ProfileForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (data.sqlConnection.State == ConnectionState.Open)
+            {
+                data.sqlConnection.Close();
+            }
+            Application.Exit();
+        }
         private void WellPadDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -319,5 +399,7 @@ namespace CapacityСalculationUI
             _cabinetForm.calculationForm.Location = this.Location;
             _cabinetForm.calculationForm.Show();
         }
+
+
     }
 }

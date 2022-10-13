@@ -11,6 +11,7 @@ using CapacityCalculation;
 using System.Reflection;
 using Microsoft.Office.Interop.Excel;
 using System.Threading;
+using DGVPrinterHelper; 
 
 namespace CapacityСalculationUI
 {
@@ -171,14 +172,30 @@ namespace CapacityСalculationUI
         }
 
 
-
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string path = "";
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void pdfToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.PrintDataGridView(dataGridView1);
+           
+        }
+
+        private void excelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             saveFileDialog1.DefaultExt = ".xlsx";
             saveFileDialog1.Filter = ".xlsx|.xlsx";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 var workbook = ExcelApp.Application.Workbooks.Add();
                 ExcelApp.Columns[7].ColumnWidth = 15;
@@ -189,7 +206,7 @@ namespace CapacityСalculationUI
                 ExcelApp.Cells[1, 4] = "AO";
                 ExcelApp.Cells[1, 5] = "DI";
                 ExcelApp.Cells[1, 6] = "DO";
-                ExcelApp.Cells[1, 7] = "RS485(ПЛК)";  
+                ExcelApp.Cells[1, 7] = "RS485(ПЛК)";
                 ExcelApp.Cells[1, 8] = "RS485(ШЛЮЗ)";
 
                 for (int i = 0; i < dataGridView1.ColumnCount; i++)
@@ -200,11 +217,14 @@ namespace CapacityСalculationUI
                             ExcelApp.Cells[j + 2, i + 1] = (dataGridView1[i, j].Value).ToString();
                     }
                 }
-                ExcelApp.AlertBeforeOverwriting = false;
+                ExcelApp.AlertBeforeOverwriting = true;
                 workbook.SaveAs(saveFileDialog1.FileName);
-                ExcelApp.Quit();
+                DialogResult dialogResult = MessageBox.Show("Сохранение завершено. Открыть файл?", "Экспорт .xlsx", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ExcelApp.Visible = true;
+                }
             }
         }
-
     }
 }

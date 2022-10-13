@@ -77,14 +77,12 @@ namespace CapacityCalculation
             sqlCommand.Parameters.AddWithValue("name", name);
             sqlCommand.ExecuteNonQuery();
         }
-
         public void DeleteField(int idField)
         {
             SqlCommand command = new SqlCommand("DELETE FROM [Field] WHERE [Id] = @Id", sqlConnection);
             command.Parameters.AddWithValue("Id", idField);
             command.ExecuteNonQuery();
         }
-
         public void UpdateField(string name,int idField)
         {
             SqlCommand command = new SqlCommand("UPDATE [Field] SET name = @name WHERE Id=@Id", sqlConnection);
@@ -99,6 +97,14 @@ namespace CapacityCalculation
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
             sqlCommand.Parameters.AddWithValue("num", num);
             sqlCommand.Parameters.AddWithValue("Field_id", idField);
+            sqlCommand.ExecuteNonQuery();
+        }
+        public void UpdateWellPad(int num,int idWellPad)
+        {
+            string query = "UPDATE  WellPad Set num = @num WHERE WellPad_id =@WellPad_id";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("num", num);
+            sqlCommand.Parameters.AddWithValue("WellPad_id", idWellPad);
             sqlCommand.ExecuteNonQuery();
         }
         public void DeleteWellPad(int idWellPad)
@@ -117,7 +123,15 @@ namespace CapacityCalculation
             sqlCommand.Parameters.AddWithValue("WellPad_id", idWellPad);
             sqlCommand.ExecuteNonQuery();
         }
-
+        public void UpdateWell(int num, string wellType,int idWell)
+        {
+            string query = "UPDATE  Well Set num = @num,wellType = @wellType WHERE Well_id =@Well_id";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("num", num);
+            sqlCommand.Parameters.AddWithValue("wellType", wellType);
+            sqlCommand.Parameters.AddWithValue("Well_id", idWell);
+            sqlCommand.ExecuteNonQuery();
+        }
         public void DeleteWell(int idWell)
         {
             SqlCommand sqlcommand = new SqlCommand("DELETE FROM [Well] WHERE [Well_id] = @Well_id", sqlConnection);
@@ -134,7 +148,21 @@ namespace CapacityCalculation
             sqlCommand.Parameters.AddWithValue("Well_id", idWell);
             sqlCommand.ExecuteNonQuery();
         }
-
+        public void UpdatePhysChar(string name, string signal, int idPhysChar)
+        {
+            string query = "UPDATE  PhysChar Set name = @name,signal = @signal WHERE PhysChar_id =@PhysChar_id";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("name", name);
+            sqlCommand.Parameters.AddWithValue("signal", signal);
+            sqlCommand.Parameters.AddWithValue("PhysChar_id", idPhysChar);
+            sqlCommand.ExecuteNonQuery();
+        }
+        public void DeletePhysChar(int idPhysChar)
+        {
+            SqlCommand sqlcommand = new SqlCommand("DELETE FROM PhysChar WHERE PhysChar_id = @PhysChar_id", sqlConnection);
+            sqlcommand.Parameters.AddWithValue("PhysChar_id", idPhysChar);
+            sqlcommand.ExecuteNonQuery();
+        }
         public int CalculationSignal(string typeSignal, int idWellPad)
         {
             int count = 0;
