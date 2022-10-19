@@ -55,8 +55,11 @@ namespace CapacityСalculationUI
             dataGridView1.Columns[7].Width = 80;
         }
 
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            UpdateCabinetTable();
 
-
+        }
         private void AddCabinet()
         {
             AddEditCabinet form = new AddEditCabinet();
@@ -226,5 +229,6 @@ namespace CapacityСalculationUI
                 }
             }
         }
+
     }
 }
