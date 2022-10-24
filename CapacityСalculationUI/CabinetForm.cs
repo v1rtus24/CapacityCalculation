@@ -20,12 +20,15 @@ namespace CapacityСalculationUI
     {
         public Cabinet cabinet { get; set; } = new Cabinet();
         public CalculationForm calculationForm { get; set; } 
-        public ProfileForm profileForm { get; set; } 
+        public ProfileForm profileForm { get; set; }
+        public LoginForm loginForm { get; set; }
 
-        private DataBase data;
-        public CabinetForm()
+        public DataBase data { get; set; }
+        public CabinetForm(LoginForm loginForm)
         {
             InitializeComponent();
+            data = new DataBase();
+            data = loginForm.dataBase;
             calculationForm = new CalculationForm(this)
             {
                 Visible = false
@@ -34,8 +37,7 @@ namespace CapacityСalculationUI
             {
                 Visible = false
             };
-            data = new DataBase();
-            data.sqlConnection.Open();
+
             UpdateCabinetTable();          
         }
     

@@ -13,7 +13,7 @@ namespace CapacityСalculationUI
 {
     public partial class ProfileForm : Form
     {
-        private DataBase data;
+        //private DataBase data;
         public int idField { get; set; }
         public int idWellPad { get; set; }
         public int idWell { get; set; }
@@ -28,8 +28,8 @@ namespace CapacityСalculationUI
         {
             _cabinetForm = cabinetForm;
             InitializeComponent();
-            data = new DataBase();
-            data.sqlConnection.Open();
+            //data = new DataBase();
+            //data.sqlConnection.Open();
         }
 
         private void ProfileForm_Load(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace CapacityСalculationUI
         /// </summary>
         private void UpdateFieldTable()
         {
-            FieldDataGridView.DataSource = data.ShowData("SELECT * FROM FIELD");
+            FieldDataGridView.DataSource = _cabinetForm.data.ShowData("SELECT * FROM FIELD");
             FieldDataGridView.Columns[0].Visible = false;
             FieldDataGridView.Columns[1].Width = 180;
             FieldDataGridView.ClearSelection();
@@ -56,7 +56,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                WellPadDataGridView.DataSource = data.ShowData("SELECT * FROM WellPad WHERE Field_id =" + idField.ToString() + "");
+                WellPadDataGridView.DataSource = _cabinetForm.data.ShowData("SELECT * FROM WellPad WHERE Field_id =" + idField.ToString() + "");
                 WellPadDataGridView.Columns[0].Visible = false;
                 WellPadDataGridView.Columns[2].Visible = false;
                 WellPadDataGridView.Columns[1].Width = 140;
@@ -72,7 +72,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                WellDataGridView.DataSource = data.ShowData("SELECT * FROM Well WHERE WellPad_id =" + idWellPad.ToString() + "");
+                WellDataGridView.DataSource = _cabinetForm.data.ShowData("SELECT * FROM Well WHERE WellPad_id =" + idWellPad.ToString() + "");
                 WellDataGridView.Columns[0].Visible = false;
                 WellDataGridView.Columns[3].Visible = false;
                 WellDataGridView.Columns[1].Width = 45;
@@ -91,7 +91,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                PhysCharDataGridView.DataSource = data.ShowData("SELECT * FROM PhysChar WHERE Well_id =" + idWell.ToString() + "");
+                PhysCharDataGridView.DataSource = _cabinetForm.data.ShowData("SELECT * FROM PhysChar WHERE Well_id =" + idWell.ToString() + "");
                 PhysCharDataGridView.Columns[0].Visible = false;
                 PhysCharDataGridView.Columns[3].Visible = false;
                 PhysCharDataGridView.Columns[1].Width = 180;
@@ -177,9 +177,9 @@ namespace CapacityСalculationUI
      
             private void ProfileForm_FormClosed(object sender, FormClosedEventArgs e)
             {
-                if (data.sqlConnection.State == ConnectionState.Open)
+                if (_cabinetForm.data.sqlConnection.State == ConnectionState.Open)
                 {
-                    data.sqlConnection.Close();
+                _cabinetForm.data.sqlConnection.Close();
                 }
                 Application.Exit();
             }
@@ -197,7 +197,7 @@ namespace CapacityСalculationUI
             AddEditField form = new AddEditField();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                data.AddField(form.FieldName);
+                _cabinetForm.data.AddField(form.FieldName);
                 UpdateFieldTable();
                 FieldDataGridView.Rows[FieldDataGridView.Rows.Count - 2].Selected = true;
 
@@ -213,7 +213,7 @@ namespace CapacityСalculationUI
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.AddWellPad(idField, form.WellPadNum);
+                        _cabinetForm.data.AddWellPad(idField, form.WellPadNum);
                         UpdateWellPadTable(idField);
                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
                     }
@@ -234,7 +234,7 @@ namespace CapacityСalculationUI
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.AddWell(idWellPad, form.NumWell, form.TypeWell);
+                        _cabinetForm.data.AddWell(idWellPad, form.NumWell, form.TypeWell);
                         UpdateWellTable(idWellPad);
                         WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
 
@@ -257,7 +257,7 @@ namespace CapacityСalculationUI
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
-                        data.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
+                        _cabinetForm.data.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
                         UpdatePhysCharTable(idWell);
                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
 
@@ -280,7 +280,7 @@ namespace CapacityСalculationUI
                     AddEditField form = new AddEditField();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.UpdateField(form.FieldName, idField);
+                        _cabinetForm.data.UpdateField(form.FieldName, idField);
                         UpdateFieldTable();
                         FieldDataGridView.Rows[indexField].Selected = true;
                     }
@@ -303,7 +303,7 @@ namespace CapacityСalculationUI
                     AddEditWellPad form = new AddEditWellPad();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.UpdateWellPad(form.WellPadNum, idWellPad);
+                        _cabinetForm.data.UpdateWellPad(form.WellPadNum, idWellPad);
                         UpdateWellPadTable(idField);
                         WellPadDataGridView.Rows[indexWellPad].Selected = true;
 
@@ -327,7 +327,7 @@ namespace CapacityСalculationUI
                     AddEditWell form = new AddEditWell();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.UpdateWell(form.NumWell, form.TypeWell, idWell);
+                        _cabinetForm.data.UpdateWell(form.NumWell, form.TypeWell, idWell);
                         UpdateWellTable(idWellPad);
                         WellDataGridView.Rows[indexWell].Selected = true;
 
@@ -351,7 +351,7 @@ namespace CapacityСalculationUI
                     AddEditPhysChar form = new AddEditPhysChar();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        data.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
+                        _cabinetForm.data.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
                         UpdatePhysCharTable(idWell);
                         PhysCharDataGridView.Rows[indexPhysChar].Selected = true;
 
@@ -371,7 +371,7 @@ namespace CapacityСalculationUI
                 if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idField = (int)FieldDataGridView.SelectedRows[0].Cells[0].Value;
-                    data.DeleteField(idField);
+                    _cabinetForm.data.DeleteField(idField);
                     UpdateFieldTable();
                 }
             }
@@ -388,7 +388,7 @@ namespace CapacityСalculationUI
                 if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
-                    data.DeleteWellPad(idWellPad);
+                    _cabinetForm.data.DeleteWellPad(idWellPad);
                     UpdateWellPadTable(idField);
                     WellDataGridView.DataSource = null;
                     PhysCharDataGridView.DataSource = null;
@@ -407,7 +407,7 @@ namespace CapacityСalculationUI
                 if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
-                    data.DeleteWell(idWell);
+                    _cabinetForm.data.DeleteWell(idWell);
                     UpdateWellTable(idWellPad);
                     PhysCharDataGridView.DataSource = null;
                 }
@@ -425,7 +425,7 @@ namespace CapacityСalculationUI
                 if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
-                    data.DeletePhysChar(idPhysChar);
+                    _cabinetForm.data.DeletePhysChar(idPhysChar);
                     UpdatePhysCharTable(idWell);
                 }
             }
@@ -454,6 +454,7 @@ namespace CapacityСalculationUI
         {
             indexPhysChar = PhysCharDataGridView.SelectedRows[0].Index;
         }
+
     }
     }
 

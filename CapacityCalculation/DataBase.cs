@@ -11,14 +11,11 @@ namespace CapacityCalculation
     public class DataBase
     {
         public SqlConnection sqlConnection { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
 
-        private readonly string ConnectionString= @"Data Source=.\SQLEXPRESS;
-                                                        Initial Catalog=DBof;Integrated Security=True;Connect Timeout=30;Encrypt=False;
-                                                            TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public DataBase()
-        {
-            sqlConnection = new SqlConnection(ConnectionString);
-        }
+        public string ConnectionString { get; set; }
+      
 
         /// <summary>
         /// Метод для отображения данных в виде таблицы
