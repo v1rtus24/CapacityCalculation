@@ -25,7 +25,7 @@ namespace CapacityСalculationUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataBase.ConnectionString = $@"Data Source=DESKTOP-8GHSQ0R\SQLEXPRESS,1433;
+            dataBase.ConnectionString = $@"Data Source=tcp: DESKTOP-8GHSQ0R\SQLEXPRESS,1433;
                                                         Initial Catalog=DBof;Persist Security Info=True;User ID={LoginTextBox.Text};Password={PasswordTextBox.Text}";
 
             dataBase.sqlConnection = new SqlConnection(dataBase.ConnectionString);
@@ -33,15 +33,26 @@ namespace CapacityСalculationUI
                 try
                 {
                     dataBase.sqlConnection.Open();
-                    MessageBox.Show("Connected!");
                     cabinetForm = new CabinetForm(this);
                     cabinetForm.Show();
+                this.Hide();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Not connected, error: {ex.Message}");
+                    MessageBox.Show($"При подключени произошла ошибка: {ex.Message}");
                 }
             
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+
         }
     }
 }
