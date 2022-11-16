@@ -22,7 +22,7 @@ namespace CapacityСalculationUI
             InitializeComponent();
             dataBase = new DataBase();
         }
-
+        //DESKTOP-8GHSQ0R\SQLEXPRESS
         private void button1_Click(object sender, EventArgs e)
         {
             dataBase.ConnectionString = $@"Data Source=tcp: DESKTOP-8GHSQ0R\SQLEXPRESS,1433;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChoiceForm));
             this.FieldRadioButton = new System.Windows.Forms.RadioButton();
             this.WellPadRadioButton = new System.Windows.Forms.RadioButton();
             this.WellRadioButton = new System.Windows.Forms.RadioButton();
@@ -38,7 +39,6 @@
             // 
             // FieldRadioButton
             // 
-            this.FieldRadioButton.AutoEllipsis = true;
             this.FieldRadioButton.AutoSize = true;
             this.FieldRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FieldRadioButton.Location = new System.Drawing.Point(12, 21);
@@ -118,6 +118,7 @@
             this.Controls.Add(this.WellRadioButton);
             this.Controls.Add(this.WellPadRadioButton);
             this.Controls.Add(this.FieldRadioButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChoiceForm";
             this.Text = "Выберите";
             this.ResumeLayout(false);
