@@ -255,6 +255,7 @@ namespace CapacityСalculationUI
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            /
             try
             {
                 if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
