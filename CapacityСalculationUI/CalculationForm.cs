@@ -281,7 +281,9 @@ namespace CapacityСalculationUI
                 {
                     ExcelApp.Visible = true;
                 }
-            }
+                else
+                    ExcelApp.Quit();
+            }   
         }
 
         private void печатьToolStripMenuItem_Click(object sender, EventArgs e)

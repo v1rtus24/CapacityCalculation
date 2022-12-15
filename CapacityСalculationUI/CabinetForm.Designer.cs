@@ -66,40 +66,41 @@
             this.типыШкафовToolStripMenuItem,
             this.профилиToolStripMenuItem,
             this.подборШкафаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 569);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 461);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(736, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // типыШкафовToolStripMenuItem
             // 
             this.типыШкафовToolStripMenuItem.Name = "типыШкафовToolStripMenuItem";
-            this.типыШкафовToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.типыШкафовToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.типыШкафовToolStripMenuItem.Text = "Типы шкафов";
             // 
             // профилиToolStripMenuItem
             // 
             this.профилиToolStripMenuItem.Name = "профилиToolStripMenuItem";
-            this.профилиToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
+            this.профилиToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.профилиToolStripMenuItem.Text = "Профили";
             this.профилиToolStripMenuItem.Click += new System.EventHandler(this.профилиToolStripMenuItem_Click);
             // 
             // подборШкафаToolStripMenuItem
             // 
             this.подборШкафаToolStripMenuItem.Name = "подборШкафаToolStripMenuItem";
-            this.подборШкафаToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.подборШкафаToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.подборШкафаToolStripMenuItem.Text = "Подбор шкафа";
             this.подборШкафаToolStripMenuItem.Click += new System.EventHandler(this.подборШкафаToolStripMenuItem_Click);
             // 
             // AddCabinetButton
             // 
+            this.AddCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.AddCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddCabinetButton.Location = new System.Drawing.Point(416, 534);
-            this.AddCabinetButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.AddCabinetButton.Location = new System.Drawing.Point(312, 434);
+            this.AddCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddCabinetButton.Name = "AddCabinetButton";
-            this.AddCabinetButton.Size = new System.Drawing.Size(99, 31);
+            this.AddCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.AddCabinetButton.TabIndex = 6;
             this.AddCabinetButton.Text = "Добавить";
             this.AddCabinetButton.UseVisualStyleBackColor = true;
@@ -109,7 +110,10 @@
             // 
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -128,8 +132,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(14, 32);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(10, 26);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -137,16 +141,18 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(709, 497);
+            this.dataGridView1.Size = new System.Drawing.Size(532, 404);
             this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // UpdateCabinetButton
             // 
+            this.UpdateCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.UpdateCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpdateCabinetButton.Location = new System.Drawing.Point(520, 534);
-            this.UpdateCabinetButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.UpdateCabinetButton.Location = new System.Drawing.Point(390, 434);
+            this.UpdateCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.UpdateCabinetButton.Name = "UpdateCabinetButton";
-            this.UpdateCabinetButton.Size = new System.Drawing.Size(99, 31);
+            this.UpdateCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.UpdateCabinetButton.TabIndex = 8;
             this.UpdateCabinetButton.Text = "Изменить";
             this.UpdateCabinetButton.UseVisualStyleBackColor = true;
@@ -154,11 +160,12 @@
             // 
             // DeleteCabinetButton
             // 
+            this.DeleteCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DeleteCabinetButton.Location = new System.Drawing.Point(624, 534);
-            this.DeleteCabinetButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DeleteCabinetButton.Location = new System.Drawing.Point(468, 434);
+            this.DeleteCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DeleteCabinetButton.Name = "DeleteCabinetButton";
-            this.DeleteCabinetButton.Size = new System.Drawing.Size(99, 31);
+            this.DeleteCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.DeleteCabinetButton.TabIndex = 7;
             this.DeleteCabinetButton.Text = "Удалить";
             this.DeleteCabinetButton.UseVisualStyleBackColor = true;
@@ -174,14 +181,15 @@
             this.выходToolStripMenuItem1});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(736, 28);
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip2.Size = new System.Drawing.Size(552, 24);
             this.menuStrip2.TabIndex = 9;
             this.menuStrip2.Text = "menuStrip2";
             // 
             // обновитьToolStripMenuItem
             // 
             this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(14, 24);
+            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
             // 
             // добавитьToolStripMenuItem
             // 
@@ -190,27 +198,27 @@
             this.удалитьToolStripMenuItem,
             this.изменитьToolStripMenuItem});
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.добавитьToolStripMenuItem.Text = "Шкаф ТМ";
             // 
             // добавитьToolStripMenuItem1
             // 
             this.добавитьToolStripMenuItem1.Name = "добавитьToolStripMenuItem1";
-            this.добавитьToolStripMenuItem1.Size = new System.Drawing.Size(161, 26);
+            this.добавитьToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
             this.добавитьToolStripMenuItem1.Text = "Добавить";
             this.добавитьToolStripMenuItem1.Click += new System.EventHandler(this.добавитьToolStripMenuItem1_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(161, 26);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
@@ -220,28 +228,27 @@
             this.pdfToolStripMenuItem,
             this.excelToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.saveToolStripMenuItem.Text = "Экспорт в Excel";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // pdfToolStripMenuItem
             // 
             this.pdfToolStripMenuItem.Name = "pdfToolStripMenuItem";
-            this.pdfToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.pdfToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.pdfToolStripMenuItem.Text = "Печать ";
             this.pdfToolStripMenuItem.Click += new System.EventHandler(this.pdfToolStripMenuItem_Click);
             // 
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.excelToolStripMenuItem.Text = "Экспорт в Excel";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem1
             // 
             this.выходToolStripMenuItem1.Name = "выходToolStripMenuItem1";
-            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(67, 24);
+            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
             this.выходToolStripMenuItem1.Text = "Выход";
             this.выходToolStripMenuItem1.Click += new System.EventHandler(this.выходToolStripMenuItem1_Click);
             // 
@@ -252,11 +259,12 @@
             // 
             // UpdateButton
             // 
+            this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.UpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpdateButton.Location = new System.Drawing.Point(14, 536);
-            this.UpdateButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.UpdateButton.Location = new System.Drawing.Point(10, 436);
+            this.UpdateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.UpdateButton.Name = "UpdateButton";
-            this.UpdateButton.Size = new System.Drawing.Size(99, 31);
+            this.UpdateButton.Size = new System.Drawing.Size(74, 25);
             this.UpdateButton.TabIndex = 10;
             this.UpdateButton.Text = "Обновить";
             this.UpdateButton.UseVisualStyleBackColor = true;
@@ -264,20 +272,22 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(136, 536);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(102, 436);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(174, 31);
+            this.button1.Size = new System.Drawing.Size(130, 25);
             this.button1.TabIndex = 11;
             this.button1.Text = "Подробности шкафа";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CabinetForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 597);
+            this.ClientSize = new System.Drawing.Size(552, 485);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.UpdateButton);
             this.Controls.Add(this.AddCabinetButton);
@@ -288,11 +298,12 @@
             this.Controls.Add(this.menuStrip2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CabinetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Типы шкафов";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CabinetForm_FormClosed);
+            this.Load += new System.EventHandler(this.CabinetForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

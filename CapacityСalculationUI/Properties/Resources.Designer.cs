@@ -83,9 +83,29 @@ namespace CapacityСalculationUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ip {
+            get {
+                object obj = ResourceManager.GetObject("ip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Update {
             get {
                 object obj = ResourceManager.GetObject("Update", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок_экрана_2022_12_05_112854 {
+            get {
+                object obj = ResourceManager.GetObject("Снимок экрана 2022-12-05 112854", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -81,10 +81,10 @@
             // 
             this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(215, 44);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox1.Location = new System.Drawing.Point(161, 36);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(297, 31);
+            this.comboBox1.Size = new System.Drawing.Size(224, 27);
             this.comboBox1.TabIndex = 6;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -92,20 +92,20 @@
             // 
             this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(616, 43);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox2.Location = new System.Drawing.Point(462, 35);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(95, 31);
+            this.comboBox2.Size = new System.Drawing.Size(72, 29);
             this.comboBox2.TabIndex = 7;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(915, 556);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Location = new System.Drawing.Point(594, 464);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(147, 55);
+            this.button2.Size = new System.Drawing.Size(202, 33);
             this.button2.TabIndex = 8;
             this.button2.Text = "Подобрать шкаф";
             this.button2.UseVisualStyleBackColor = true;
@@ -119,31 +119,31 @@
             this.типыШкафовToolStripMenuItem,
             this.профилиToolStripMenuItem,
             this.подборШкафаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 616);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 499);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1076, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(807, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // типыШкафовToolStripMenuItem
             // 
             this.типыШкафовToolStripMenuItem.Name = "типыШкафовToolStripMenuItem";
-            this.типыШкафовToolStripMenuItem.Size = new System.Drawing.Size(118, 24);
+            this.типыШкафовToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.типыШкафовToolStripMenuItem.Text = "Типы шкафов";
             this.типыШкафовToolStripMenuItem.Click += new System.EventHandler(this.типыШкафовToolStripMenuItem_Click);
             // 
             // профилиToolStripMenuItem
             // 
             this.профилиToolStripMenuItem.Name = "профилиToolStripMenuItem";
-            this.профилиToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
+            this.профилиToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.профилиToolStripMenuItem.Text = "Профили";
             this.профилиToolStripMenuItem.Click += new System.EventHandler(this.профилиToolStripMenuItem_Click);
             // 
             // подборШкафаToolStripMenuItem
             // 
             this.подборШкафаToolStripMenuItem.Name = "подборШкафаToolStripMenuItem";
-            this.подборШкафаToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.подборШкафаToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.подборШкафаToolStripMenuItem.Text = "Подбор шкафа";
             // 
             // menuStrip2
@@ -155,8 +155,8 @@
             this.выходToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(1076, 28);
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip2.Size = new System.Drawing.Size(807, 24);
             this.menuStrip2.TabIndex = 15;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -166,34 +166,34 @@
             this.печатьToolStripMenuItem,
             this.сохранитьВExcelToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.сохранитьToolStripMenuItem.Text = "Печать";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // печатьToolStripMenuItem
             // 
             this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.печатьToolStripMenuItem.Text = "Печать";
             this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
             // 
             // сохранитьВExcelToolStripMenuItem
             // 
             this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить в Excel";
             this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
             // 
             // экспортВExcelToolStripMenuItem
             // 
             this.экспортВExcelToolStripMenuItem.Name = "экспортВExcelToolStripMenuItem";
-            this.экспортВExcelToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.экспортВExcelToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.экспортВExcelToolStripMenuItem.Text = "Экспорт в Excel";
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -201,9 +201,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(12, 48);
+            this.label6.Location = new System.Drawing.Point(9, 39);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(189, 23);
+            this.label6.Size = new System.Drawing.Size(148, 19);
             this.label6.TabIndex = 16;
             this.label6.Text = "Месторождение:";
             // 
@@ -211,15 +212,16 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(536, 48);
+            this.label7.Location = new System.Drawing.Point(402, 39);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 23);
+            this.label7.Size = new System.Drawing.Size(56, 19);
             this.label7.TabIndex = 17;
             this.label7.Text = "№ КП:";
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -251,8 +253,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 134);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(11, 109);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -261,7 +263,7 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1047, 193);
+            this.dataGridView1.Size = new System.Drawing.Size(785, 157);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -365,16 +367,15 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(404, 95);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(303, 77);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(589, 23);
+            this.label8.Size = new System.Drawing.Size(463, 21);
             this.label8.TabIndex = 19;
             this.label8.Text = "Требуемая информацинная ёмкость с учётом резерва:";
             // 
             // dataGridView2
             // 
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -402,8 +403,8 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.Location = new System.Drawing.Point(17, 383);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView2.Location = new System.Drawing.Point(13, 311);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
@@ -412,7 +413,7 @@
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(1044, 172);
+            this.dataGridView2.Size = new System.Drawing.Size(577, 186);
             this.dataGridView2.TabIndex = 23;
             // 
             // dgType
@@ -475,18 +476,17 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(16, 343);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(12, 279);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(330, 23);
+            this.label12.Size = new System.Drawing.Size(260, 21);
             this.label12.TabIndex = 24;
             this.label12.Text = "Рекомендуемые типы шкафов:";
             // 
             // CalculationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1076, 644);
+            this.ClientSize = new System.Drawing.Size(807, 523);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label8);
@@ -500,7 +500,7 @@
             this.Controls.Add(this.comboBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip2;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CalculationForm";
             this.Text = "Рассчёт";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalculationForm_FormClosing);

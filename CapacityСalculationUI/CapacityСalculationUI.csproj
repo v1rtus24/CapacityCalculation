@@ -7,7 +7,7 @@
     <ProjectGuid>{5E727322-3FF0-4362-A010-AECC615DCA2E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>CapacityСalculationUI</RootNamespace>
-    <AssemblyName>butto</AssemblyName>
+    <AssemblyName>CapacityСalculationUI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -65,6 +68,12 @@
     <Compile Include="AddEditPhysChar.Designer.cs">
       <DependentUpon>AddEditPhysChar.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddEditPLC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditPLC.Designer.cs">
+      <DependentUpon>AddEditPLC.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEditWell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,11 +105,35 @@
       <DependentUpon>ChoiceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DGVPrinter.cs" />
+    <Compile Include="ipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ipForm.Designer.cs">
+      <DependentUpon>ipForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KlimatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KlimatForm.Designer.cs">
+      <DependentUpon>KlimatForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainSpecCabForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainSpecCabForm.Designer.cs">
+      <DependentUpon>MainSpecCabForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="plcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="plcForm.Designer.cs">
+      <DependentUpon>plcForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
@@ -120,6 +153,9 @@
     <EmbeddedResource Include="AddEditPhysChar.resx">
       <DependentUpon>AddEditPhysChar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEditPLC.resx">
+      <DependentUpon>AddEditPLC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEditWell.resx">
       <DependentUpon>AddEditWell.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,8 +172,20 @@
     <EmbeddedResource Include="ChoiceForm.resx">
       <DependentUpon>ChoiceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ipForm.resx">
+      <DependentUpon>ipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KlimatForm.resx">
+      <DependentUpon>KlimatForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainSpecCabForm.resx">
+      <DependentUpon>MainSpecCabForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="plcForm.resx">
+      <DependentUpon>plcForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileForm.resx">
       <DependentUpon>ProfileForm.cs</DependentUpon>
@@ -175,10 +223,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="ACTIVEXLib">
+      <Guid>{012F24C1-35B0-11D0-BF2D-0000E8D0D146}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Access.Dao">
+      <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
+      <VersionMajor>12</VersionMajor>
+      <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
@@ -193,12 +259,39 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+    <COMReference Include="Office2013CustomActionsLib">
+      <Guid>{AB4D3FA3-21B9-443C-886E-FC4A417D3E4D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="OfficeCSPLib">
+      <Guid>{82038836-85BB-49D5-BAE6-F406733DCF40}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="VBIDE">
       <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>5</VersionMajor>
       <VersionMinor>3</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VSTOEE100">
+      <Guid>{AAB9C2AA-6036-4AE1-A41C-A40AB7F39520}</Guid>
+      <VersionMajor>10</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
@@ -214,6 +307,15 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Снимок экрана 2022-12-05 112854.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ip.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

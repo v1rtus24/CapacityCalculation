@@ -30,11 +30,71 @@ namespace CapacityCalculation
             sqlDataAdapter.Fill(ds);
             return ds.Tables[0];
         }
+        public DataTable DataTable(string query)
+        {
+            SqlCommand command = new SqlCommand(query, sqlConnection);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            DataSet ds = new DataSet();
+            sqlDataAdapter.Fill(ds);
+            return ds.Tables[0];
+        }
+        public void AddPLC(string mark, string model, string ip, string other)
+        {
+            SqlCommand command = new SqlCommand("INSERT INTO [PLC] (brand,model,ip,other)" +
+                "VALUES(@brand,@model,@ip,@other)", sqlConnection);
+            command.Parameters.AddWithValue("brand", mark);
+            command.Parameters.AddWithValue("model", model);
+            command.Parameters.AddWithValue("ip", ip);
+            command.Parameters.AddWithValue("other", other);
+            command.ExecuteNonQuery();
+        }
+        public void UpdatePLC(int id,string mark, string model, string ip, string other)
+        {
+            SqlCommand command = new SqlCommand("UPDATE [PLC] SET brand = @brand, model = @model,ip = @ip,other = @other" +
+                " WHERE Id=@Id", sqlConnection);
+            command.Parameters.AddWithValue("Id", id);
+            command.Parameters.AddWithValue("brand", mark);
+            command.Parameters.AddWithValue("model", model);
+            command.Parameters.AddWithValue("ip", ip);
+            command.Parameters.AddWithValue("other", other);
+            command.ExecuteNonQuery();
+        }
+        public void DeletePLC(int id)
+        {
+            SqlCommand command = new SqlCommand("DELETE FROM [PLC] WHERE [Id] = @Id", sqlConnection);
+            command.Parameters.AddWithValue("Id", id);
+            command.ExecuteNonQuery();
+        }
 
+        //Добавление тех хар-ик шкафа. Добавляется только айди, остальные значение нулл.
+        public void AddMainCabSpec(int id)
+        {
+            SqlCommand command = new SqlCommand("INSERT INTO [MainCabSpec] (Id)" +
+                "VALUES(@Id)", sqlConnection);
+
+            command.Parameters.AddWithValue("Id", id);
+            command.ExecuteNonQuery();
+        }
+        public void UpdateMainCabSpec(int id, int Plc_id,string ip,string mission,string size,string placing,string massa)
+        {
+            SqlCommand command = new SqlCommand("UPDATE [MainCabSpec] SET PLC_id=@PLC_id," +
+                "ip=@ip,mission=@mission,size=@size,placing=@placing,massa=@massa " +
+                "WHERE Id=@Id", sqlConnection);
+
+            command.Parameters.AddWithValue("Id", id);
+            command.Parameters.AddWithValue("PLC_id", Plc_id);
+            command.Parameters.AddWithValue("ip", ip);
+            command.Parameters.AddWithValue("mission", mission);
+            command.Parameters.AddWithValue("size", size);
+            command.Parameters.AddWithValue("placing", placing);
+            command.Parameters.AddWithValue("massa", massa);
+            command.ExecuteNonQuery();
+        }
         public void AddCabinet(Cabinet cabinet)
         {
             SqlCommand command = new SqlCommand("INSERT INTO [TOS] (Name,AI,AO,DI,DO,RS485PLK,RS485SHL)" +
                 "VALUES(@Name,@AI,@AO,@DI,@DO,@RS485PLK,@RS485SHL)", sqlConnection);
+
             command.Parameters.AddWithValue("Name", cabinet.Name);
             command.Parameters.AddWithValue("AI", cabinet.SignalAI);
             command.Parameters.AddWithValue("AO", cabinet.SignalAO);
