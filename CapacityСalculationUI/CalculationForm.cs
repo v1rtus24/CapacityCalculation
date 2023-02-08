@@ -17,31 +17,31 @@ namespace CapacityСalculationUI
     public partial class CalculationForm : Form
     {
         //private DataBase data;
-        private List<string[]> dataField = new List<string[]>();
+        private List<string[]> DataField = new List<string[]>();
         private List<string[]> dataWellPad = new List<string[]>();
-        public CabinetForm _cabinetForm { get; set; }
-        public LoginForm loginForm { get; set; }
+        public CabinetForm CabinetForm { get; set; }
+        public LoginForm LoginForm { get; set; }
         private int idField { get; set; }
         private int idWellPad { get; set; }
         public CalculationForm(CabinetForm cabinetForm)
         {
-            _cabinetForm = cabinetForm;
+            CabinetForm = cabinetForm;
             InitializeComponent();
-            //data = new DataBase();
-            //data.sqlConnection.Open();
             string query = "SELECT * FROM Field";
-            SqlCommand sqlCommand = new SqlCommand(query, _cabinetForm._loginForm.dataBase.sqlConnection);
-            SqlDataReader dataReader = sqlCommand.ExecuteReader();
-            while (dataReader.Read())
+            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
             {
-                dataField.Add(new string[2]);
-                dataField[dataField.Count - 1][0] = dataReader[0].ToString();
-                dataField[dataField.Count - 1][1] = dataReader[1].ToString();
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    DataField.Add(new string[2]);
+                    DataField[DataField.Count - 1][0] = dataReader[0].ToString();
+                    DataField[DataField.Count - 1][1] = dataReader[1].ToString();
+                }
+                dataReader.Close();
             }
-            dataReader.Close();
-            for (int i = 0; i < dataField.Count; i++)
+            for (int i = 0; i < DataField.Count; i++)
             {
-                comboBox1.Items.Add(dataField[i][1]);
+                comboBox1.Items.Add(DataField[i][1]);
             }
         }
 
@@ -49,17 +49,19 @@ namespace CapacityСalculationUI
         {
             comboBox2.Items.Clear();
             dataWellPad.Clear();
-            idField = Convert.ToInt32(dataField[comboBox1.SelectedIndex][0]);
+            idField = Convert.ToInt32(DataField[comboBox1.SelectedIndex][0]);
             string query = "SELECT * FROM WellPad WHERE Field_id =" + idField + "";
-            SqlCommand sqlCommand = new SqlCommand(query, _cabinetForm._loginForm.dataBase.sqlConnection);
-            SqlDataReader dataReader = sqlCommand.ExecuteReader();
-            while (dataReader.Read())
+            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
             {
-                dataWellPad.Add(new string[2]);
-                dataWellPad[dataWellPad.Count - 1][0] = dataReader[0].ToString();
-                dataWellPad[dataWellPad.Count - 1][1] = dataReader[1].ToString();
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    dataWellPad.Add(new string[2]);
+                    dataWellPad[dataWellPad.Count - 1][0] = dataReader[0].ToString();
+                    dataWellPad[dataWellPad.Count - 1][1] = dataReader[1].ToString();
+                }
+                dataReader.Close();
             }
-            dataReader.Close();
             for (int i = 0; i < dataWellPad.Count; i++)
             {
                 comboBox2.Items.Add(dataWellPad[i][1]);
@@ -73,31 +75,30 @@ namespace CapacityСalculationUI
 
         private int gridCount { get; set; } = 0;
 
-
-        private void button2_Click(object sender, EventArgs e)
+        private void CalcButton_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text != "" && comboBox2.Text != "")
             {
                 dataGridView1.Rows.Add();
-                double AIrez = Math.Ceiling(_cabinetForm._loginForm.dataBase.CalculationSignal("AI", idWellPad) + _cabinetForm._loginForm.dataBase.CalculationSignal("AI", idWellPad) * 0.2);
-                double AOrez = Math.Ceiling(_cabinetForm._loginForm.dataBase.CalculationSignal("AO", idWellPad) + _cabinetForm._loginForm.dataBase.CalculationSignal("AO", idWellPad) * 0.2);
-                double DIrez = Math.Ceiling(_cabinetForm._loginForm.dataBase.CalculationSignal("DI", idWellPad) + _cabinetForm._loginForm.dataBase.CalculationSignal("DI", idWellPad) * 0.3);
-                double DOrez = Math.Ceiling(_cabinetForm._loginForm.dataBase.CalculationSignal("DO", idWellPad) + _cabinetForm._loginForm.dataBase.CalculationSignal("DO", idWellPad) * 0.3);
-                int RS485PLK = _cabinetForm._loginForm.dataBase.CalculationSignal("RS485(ПЛК)", idWellPad);
-                int RS485SHL= _cabinetForm._loginForm.dataBase.CalculationSignal("RS485(Шлюз)", idWellPad);
+                double AIrez = Math.Ceiling(CabinetForm.LoginForm.dataBase.CalculationSignal("AI", idWellPad) + CabinetForm.LoginForm.dataBase.CalculationSignal("AI", idWellPad) * 0.2);
+                double AOrez = Math.Ceiling(CabinetForm.LoginForm.dataBase.CalculationSignal("AO", idWellPad) + CabinetForm.LoginForm.dataBase.CalculationSignal("AO", idWellPad) * 0.2);
+                double DIrez = Math.Ceiling(CabinetForm.LoginForm.dataBase.CalculationSignal("DI", idWellPad) + CabinetForm.LoginForm.dataBase.CalculationSignal("DI", idWellPad) * 0.3);
+                double DOrez = Math.Ceiling(CabinetForm.LoginForm.dataBase.CalculationSignal("DO", idWellPad) + CabinetForm.LoginForm.dataBase.CalculationSignal("DO", idWellPad) * 0.3);
+                int RS485PLK = CabinetForm.LoginForm.dataBase.CalculationSignal("RS485(ПЛК)", idWellPad);
+                int RS485SHL= CabinetForm.LoginForm.dataBase.CalculationSignal("RS485(Шлюз)", idWellPad);
                 dataGridView1["Column1", gridCount].Value = comboBox1.SelectedItem;
                 dataGridView1["Column2", gridCount].Value = comboBox2.SelectedItem;
-                dataGridView1["Column3", gridCount].Value = _cabinetForm._loginForm.dataBase.CalculationWell("Добывающая", idWellPad).ToString();
-                dataGridView1["Column4", gridCount].Value = _cabinetForm._loginForm.dataBase.CalculationWell("Нагнетательная", idWellPad).ToString();
+                dataGridView1["Column3", gridCount].Value = CabinetForm.LoginForm.dataBase.CalculationWell("Добывающая", idWellPad).ToString();
+                dataGridView1["Column4", gridCount].Value = CabinetForm.LoginForm.dataBase.CalculationWell("Нагнетательная", idWellPad).ToString();
                 dataGridView1["AI", gridCount].Value = AIrez;
                 dataGridView1["AO", gridCount].Value = AOrez;
                 dataGridView1["DI", gridCount].Value = DIrez;
                 dataGridView1["DO", gridCount].Value = DOrez;
                 dataGridView1["RS485PLK", gridCount].Value = RS485PLK;
                 dataGridView1["RS485SHL", gridCount].Value = RS485SHL;
-                List<string[]> typeCab = _cabinetForm._loginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
+                List<string[]> typeCab = CabinetForm.LoginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
                 string types ="";
-               for(int i = 0; i < typeCab.Count; i++)
+                for(int i = 0; i < typeCab.Count; i++)
                 {
                     if (i == typeCab.Count - 1)
                     {
@@ -106,16 +107,16 @@ namespace CapacityСalculationUI
                     }
                    types += typeCab[i][0] + ", ";
                 }
+                dataGridView2.Rows.Clear();
+                if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
+                {
+                    foreach (string[] s in typeCab)
+                    {
+                        dataGridView2.Rows.Add(s);
+                    }
+                }
                 dataGridView1["Type", gridCount].Value = types;
                 gridCount++;
-                //double AIrez = Math.Ceiling(data.CalculationSignal("AI", idWellPad) + data.CalculationSignal("AI", idWellPad) * 0.2);
-                //double AOrez = Math.Ceiling(data.CalculationSignal("AO", idWellPad) +data.CalculationSignal("AO", idWellPad) * 0.2);
-                //double DIrez = Math.Ceiling(data.CalculationSignal("DI", idWellPad) + data.CalculationSignal("DI", idWellPad) * 0.3);
-                //double DOrez = Math.Ceiling(data.CalculationSignal("DO", idWellPad) + data.CalculationSignal("DO", idWellPad) * 0.3);
-                //label1.Text = AIrez.ToString();
-                //label2.Text = DIrez.ToString();
-                //label3.Text = AOrez.ToString();
-                //label4.Text = DOrez.ToString();
                 comboBox1.Text = "";
                 comboBox2.Text = "";
                 dataGridView1.CurrentCell = dataGridView1[0, dataGridView1.Rows.Count - 2];
@@ -135,7 +136,7 @@ namespace CapacityСalculationUI
             {
                 int ind = -1;
                 ind = dataGridView1.SelectedRows[0].Index;
-                int AI, AO, DI, DO, RS485PLK, RS485SHL = 0;
+                int AI, AO, DI, DO, RS485PLK, RS485SHL;
                 AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
                 AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
                 DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
@@ -146,11 +147,7 @@ namespace CapacityСalculationUI
                 double AOrez = (double)dataGridView1["AO", ind].Value;
                 double DIrez = (double)dataGridView1["DI", ind].Value;
                 double DOrez = (double)dataGridView1["DO", ind].Value;
-                //label1.Text = AIrez.ToString();
-                //label2.Text = DIrez.ToString();
-                //label3.Text = AOrez.ToString();
-                //label4.Text = DOrez.ToString();
-                List<string[]> typeCab = _cabinetForm._loginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
+                List<string[]> typeCab = CabinetForm.LoginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
                 dataGridView2.Rows.Clear();
                 if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
                 {
@@ -164,54 +161,54 @@ namespace CapacityСalculationUI
         private void профилиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _cabinetForm.profileForm.StartPosition = FormStartPosition.Manual;
-            _cabinetForm.profileForm.Location = this.Location;
-            _cabinetForm.profileForm.Show();
+            CabinetForm.ProfileForm.StartPosition = FormStartPosition.Manual;
+            CabinetForm.ProfileForm.Location = this.Location;
+            CabinetForm.ProfileForm.Show();
         }
 
         private void типыШкафовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Hide();
-            _cabinetForm.StartPosition = FormStartPosition.Manual;
-            _cabinetForm.Location = this.Location;
-            _cabinetForm.Show();
+            CabinetForm.StartPosition = FormStartPosition.Manual;
+            CabinetForm.Location = this.Location;
+            CabinetForm.Show();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_cabinetForm._loginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
             {
-                _cabinetForm._loginForm.dataBase.sqlConnection.Close();
+                CabinetForm.LoginForm.dataBase.sqlConnection.Close();
             }
             Application.Exit();
         }
 
         private void CalculationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_cabinetForm._loginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
             {
-                _cabinetForm._loginForm.dataBase.sqlConnection.Close();
+                CabinetForm.LoginForm.dataBase.sqlConnection.Close();
             }
             Application.Exit();
         }
 
         private void обновитьБдToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dataField.Clear();
+            DataField.Clear();
             comboBox1.Items.Clear();
             string query = "SELECT * FROM Field";
-            SqlCommand sqlCommand = new SqlCommand(query, _cabinetForm._loginForm.dataBase.sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection);
             SqlDataReader dataReader = sqlCommand.ExecuteReader();
             while (dataReader.Read())
             {
-                dataField.Add(new string[2]);
-                dataField[dataField.Count - 1][0] = dataReader[0].ToString();
-                dataField[dataField.Count - 1][1] = dataReader[1].ToString();
+                DataField.Add(new string[2]);
+                DataField[DataField.Count - 1][0] = dataReader[0].ToString();
+                DataField[DataField.Count - 1][1] = dataReader[1].ToString();
             }
             dataReader.Close();
-            for (int i = 0; i < dataField.Count; i++)
+            for (int i = 0; i < DataField.Count; i++)
             {
-                comboBox1.Items.Add(dataField[i][1]);
+                comboBox1.Items.Add(DataField[i][1]);
             }
         }
 
@@ -223,21 +220,23 @@ namespace CapacityСalculationUI
         // обновление бд при изменении visible
         private void CalculationForm_VisibleChanged(object sender, EventArgs e)
         {
-            dataField.Clear();
+            DataField.Clear();
             comboBox1.Items.Clear();
             string query = "SELECT * FROM Field";
-            SqlCommand sqlCommand = new SqlCommand(query, _cabinetForm._loginForm.dataBase.sqlConnection);
-            SqlDataReader dataReader = sqlCommand.ExecuteReader();
-            while (dataReader.Read())
+            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
             {
-                dataField.Add(new string[2]);
-                dataField[dataField.Count - 1][0] = dataReader[0].ToString();
-                dataField[dataField.Count - 1][1] = dataReader[1].ToString();
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    DataField.Add(new string[2]);
+                    DataField[DataField.Count - 1][0] = dataReader[0].ToString();
+                    DataField[DataField.Count - 1][1] = dataReader[1].ToString();
+                }
+                dataReader.Close();
             }
-            dataReader.Close();
-            for (int i = 0; i < dataField.Count; i++)
+            for (int i = 0; i < DataField.Count; i++)
             {
-                comboBox1.Items.Add(dataField[i][1]);
+                comboBox1.Items.Add(DataField[i][1]);
             }
         }
 

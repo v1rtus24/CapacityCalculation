@@ -20,14 +20,12 @@ namespace CapacityСalculationUI
         public int idPhysChar { get; set; }
         public int indexDataGrid { get; set; } = 1;
 
-        public CabinetForm _cabinetForm { get; set; }
+        public CabinetForm CabinetForm { get; set; }
 
         public ProfileForm(CabinetForm cabinetForm)
         {
-            _cabinetForm = cabinetForm;
+            CabinetForm = cabinetForm;
             InitializeComponent();
-            //data = new DataBase();
-            //data.sqlConnection.Open();
         }
 
         private void ProfileForm_Load(object sender, EventArgs e)
@@ -40,11 +38,10 @@ namespace CapacityСalculationUI
         /// </summary>
         private void UpdateFieldTable()
         {
-            FieldDataGridView.DataSource = _cabinetForm._loginForm.dataBase.ShowData("SELECT * FROM FIELD");
+            FieldDataGridView.DataSource = CabinetForm.LoginForm.dataBase.ShowData("SELECT * FROM FIELD");
             FieldDataGridView.Columns[0].Visible = false;
             FieldDataGridView.Columns[1].Width = 180;
             FieldDataGridView.ClearSelection();
-
         }
 
         /// <summary>
@@ -54,7 +51,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                WellPadDataGridView.DataSource = _cabinetForm._loginForm.dataBase.ShowData("SELECT * FROM WellPad WHERE Field_id =" + idField.ToString() + "");
+                WellPadDataGridView.DataSource = CabinetForm.LoginForm.dataBase.ShowData("SELECT * FROM WellPad WHERE Field_id =" + idField.ToString() + "");
                 WellPadDataGridView.Columns[0].Visible = false;
                 WellPadDataGridView.Columns[2].Visible = false;
                 WellPadDataGridView.Columns[1].Width = 140;
@@ -70,7 +67,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                WellDataGridView.DataSource = _cabinetForm._loginForm.dataBase.ShowData("SELECT * FROM Well WHERE WellPad_id =" + idWellPad.ToString() + "");
+                WellDataGridView.DataSource = CabinetForm.LoginForm.dataBase.ShowData("SELECT * FROM Well WHERE WellPad_id =" + idWellPad.ToString() + "");
                 WellDataGridView.Columns[0].Visible = false;
                 WellDataGridView.Columns[3].Visible = false;
                 WellDataGridView.Columns[1].Width = 45;
@@ -89,7 +86,7 @@ namespace CapacityСalculationUI
         {
             try
             {
-                PhysCharDataGridView.DataSource = _cabinetForm._loginForm.dataBase.ShowData("SELECT * FROM PhysChar WHERE Well_id =" + idWell.ToString() + "");
+                PhysCharDataGridView.DataSource = CabinetForm.LoginForm.dataBase.ShowData("SELECT * FROM PhysChar WHERE Well_id =" + idWell.ToString() + "");
                 PhysCharDataGridView.Columns[0].Visible = false;
                 PhysCharDataGridView.Columns[3].Visible = false;
                 PhysCharDataGridView.Columns[1].Width = 180;
@@ -154,33 +151,30 @@ namespace CapacityСalculationUI
             }
         }
 
-
         private void типыШкафовToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _cabinetForm.StartPosition = FormStartPosition.Manual;
-            _cabinetForm.Location = this.Location;
-            _cabinetForm.Show();
+            CabinetForm.StartPosition = FormStartPosition.Manual;
+            CabinetForm.Location = this.Location;
+            CabinetForm.Show();
         }
 
         private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _cabinetForm.calculationForm.StartPosition = FormStartPosition.Manual;
-            _cabinetForm.calculationForm.Location = this.Location;
-            _cabinetForm.calculationForm.Show();
-        }
-
-      
+            CabinetForm.CalculationForm.StartPosition = FormStartPosition.Manual;
+            CabinetForm.CalculationForm.Location = this.Location;
+            CabinetForm.CalculationForm.Show();
+        }    
      
-            private void ProfileForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void ProfileForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
             {
-                if (_cabinetForm._loginForm.dataBase.sqlConnection.State == ConnectionState.Open)
-                {
-                _cabinetForm._loginForm.dataBase.sqlConnection.Close();
-                }
-                Application.Exit();
+                CabinetForm.LoginForm.dataBase.sqlConnection.Close();
             }
+            Application.Exit();
+        }
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -195,7 +189,7 @@ namespace CapacityСalculationUI
             AddEditField form = new AddEditField();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _cabinetForm._loginForm.dataBase.AddField(form.FieldName);
+                CabinetForm.LoginForm.dataBase.AddField(form.FieldName);
                 UpdateFieldTable();
                 FieldDataGridView.Rows[FieldDataGridView.Rows.Count - 2].Selected = true;
 
@@ -211,7 +205,7 @@ namespace CapacityСalculationUI
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.AddWellPad(idField, form.WellPadNum);
+                        CabinetForm.LoginForm.dataBase.AddWellPad(idField, form.WellPadNum);
                         UpdateWellPadTable(idField);
                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
                     }
@@ -232,7 +226,7 @@ namespace CapacityСalculationUI
                 {
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.AddWell(idWellPad, form.NumWell, form.TypeWell);
+                        CabinetForm.LoginForm.dataBase.AddWell(idWellPad, form.NumWell, form.TypeWell);
                         UpdateWellTable(idWellPad);
                         WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
 
@@ -255,7 +249,7 @@ namespace CapacityСalculationUI
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
-                        _cabinetForm._loginForm.dataBase.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
+                        CabinetForm.LoginForm.dataBase.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
                         UpdatePhysCharTable(idWell);
                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
 
@@ -278,7 +272,7 @@ namespace CapacityСalculationUI
                     AddEditField form = new AddEditField();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.UpdateField(form.FieldName, idField);
+                        CabinetForm.LoginForm.dataBase.UpdateField(form.FieldName, idField);
                         UpdateFieldTable();
                         FieldDataGridView.Rows[indexDataGrid].Selected = true;
                     }
@@ -301,7 +295,7 @@ namespace CapacityСalculationUI
                     AddEditWellPad form = new AddEditWellPad();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.UpdateWellPad(form.WellPadNum, idWellPad);
+                        CabinetForm.LoginForm.dataBase.UpdateWellPad(form.WellPadNum, idWellPad);
                         UpdateWellPadTable(idField);
                         WellPadDataGridView.Rows[indexDataGrid].Selected = true;
 
@@ -325,7 +319,7 @@ namespace CapacityСalculationUI
                     AddEditWell form = new AddEditWell();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.UpdateWell(form.NumWell, form.TypeWell, idWell);
+                        CabinetForm.LoginForm.dataBase.UpdateWell(form.NumWell, form.TypeWell, idWell);
                         UpdateWellTable(idWellPad);
                         WellDataGridView.Rows[indexDataGrid].Selected = true;
 
@@ -349,7 +343,7 @@ namespace CapacityСalculationUI
                     AddEditPhysChar form = new AddEditPhysChar();
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        _cabinetForm._loginForm.dataBase.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
+                        CabinetForm.LoginForm.dataBase.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
                         UpdatePhysCharTable(idWell);
                         PhysCharDataGridView.Rows[indexDataGrid].Selected = true;
 
@@ -369,7 +363,7 @@ namespace CapacityСalculationUI
                 if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idField = (int)FieldDataGridView.SelectedRows[0].Cells[0].Value;
-                    _cabinetForm._loginForm.dataBase.DeleteField(idField);
+                    CabinetForm.LoginForm.dataBase.DeleteField(idField);
                     UpdateFieldTable();
                 }
             }
@@ -386,7 +380,7 @@ namespace CapacityСalculationUI
                 if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
-                    _cabinetForm._loginForm.dataBase.DeleteWellPad(idWellPad);
+                    CabinetForm.LoginForm.dataBase.DeleteWellPad(idWellPad);
                     UpdateWellPadTable(idField);
                     WellDataGridView.DataSource = null;
                     PhysCharDataGridView.DataSource = null;
@@ -405,7 +399,7 @@ namespace CapacityСalculationUI
                 if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
-                    _cabinetForm._loginForm.dataBase.DeleteWell(idWell);
+                    CabinetForm.LoginForm.dataBase.DeleteWell(idWell);
                     UpdateWellTable(idWellPad);
                     PhysCharDataGridView.DataSource = null;
                 }
@@ -423,7 +417,7 @@ namespace CapacityСalculationUI
                 if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
                 {
                     idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
-                    _cabinetForm._loginForm.dataBase.DeletePhysChar(idPhysChar);
+                    CabinetForm.LoginForm.dataBase.DeletePhysChar(idPhysChar);
                     UpdatePhysCharTable(idWell);
                 }
             }
@@ -454,5 +448,5 @@ namespace CapacityСalculationUI
 
         }
     }
-    }
+}
 

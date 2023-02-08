@@ -20,34 +20,29 @@ namespace CapacityСalculationUI
     {
         public MainSpecCabForm mainSpecCabForm { get; set; }
         //создаем объект типа кабинет, который содержит в себе количество сигналов
-        public Cabinet cabinet { get; set; } = new Cabinet();
+        public Cabinet CabinetTM { get; set; } = new Cabinet();
         // объкеты других форм
-        public CalculationForm calculationForm { get; set; } 
-        public ProfileForm profileForm { get; set; }
-        public LoginForm _loginForm { get; set; }
-        public int idCab { get; set; } 
-        public int idTable { get; set; }
+        public CalculationForm CalculationForm { get; set; } 
+        public ProfileForm ProfileForm { get; set; }
+        public LoginForm LoginForm { get; set; }
+        public int CabID { get; set; } 
+        public int TableID { get; set; }
 
         //тут используется агрегация. В конструктор CabinetForm передается ссылка на уже имеющийся объект LoginForm.
         // а также объявляются объкеты других форм
         public CabinetForm(LoginForm loginForm)
         {
-            _loginForm = loginForm;
+            LoginForm = loginForm;
             InitializeComponent();
             
-            calculationForm = new CalculationForm(this)
+            CalculationForm = new CalculationForm(this)
             {
                 Visible = false
             };
-            profileForm = new ProfileForm(this)
+            ProfileForm = new ProfileForm(this)
             {
                 Visible = false
             };
-            //mainSpecCabForm = new MainSpecCabForm(this)
-            //{
-            //    Visible = false
-            //};
-
             UpdateCabinetTable();          
         }
     
@@ -55,10 +50,10 @@ namespace CapacityСalculationUI
         /// Обновление данных в таблице шкафов
         /// </summary>
         private void UpdateCabinetTable()
-        {
-            dataGridView1.DataSource = _loginForm.dataBase.ShowData("SELECT * FROM TOS");            
+        {          
+            dataGridView1.DataSource = LoginForm.dataBase.ShowData("SELECT * FROM TOS");            
             dataGridView1.Columns[1].HeaderText = "Тип";
-            dataGridView1.Columns[0].Width = 40;
+            dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[2].Width = 80;
             dataGridView1.Columns[3].Width = 50;
             dataGridView1.Columns[4].Width = 50;
@@ -70,46 +65,45 @@ namespace CapacityСalculationUI
         private void UpdateButton_Click(object sender, EventArgs e)
         {
             UpdateCabinetTable();
-
         }
         private void AddCabinet()
         {
             AddEditCabinet form = new AddEditCabinet();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _loginForm.dataBase.AddCabinet(form.cabinet);
+                LoginForm.dataBase.AddCabinet(form.CabinetTM);
                 UpdateCabinetTable();
                 dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
                 if (MessageBox.Show("Добавить состав шкафа?", "Оборудование шкафа", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    _loginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                    LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
                 }
                 else 
                 {
-                    _loginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                    LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
                 }
             }
         }
+
         private void UpdateCabinet()
         {
             AddEditCabinet form = new AddEditCabinet();
             if (dataGridView1.SelectedRows[0].Cells[1].Value != null)
             {
-                cabinet.Name = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                cabinet.SignalAI = (int)dataGridView1.SelectedRows[0].Cells[2].Value;
-                cabinet.SignalAO = (int)dataGridView1.SelectedRows[0].Cells[3].Value;
-                cabinet.SignalDI = (int)dataGridView1.SelectedRows[0].Cells[4].Value;
-                cabinet.SignalDO = (int)dataGridView1.SelectedRows[0].Cells[5].Value;
-                cabinet.SignalRS485PLK = (int)dataGridView1.SelectedRows[0].Cells[6].Value;
-                cabinet.SignalRS485SHL = (int)dataGridView1.SelectedRows[0].Cells[7].Value;
-                form.cabinet = cabinet;
+                CabinetTM.Name = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                CabinetTM.SignalAI = (int)dataGridView1.SelectedRows[0].Cells[2].Value;
+                CabinetTM.SignalAO = (int)dataGridView1.SelectedRows[0].Cells[3].Value;
+                CabinetTM.SignalDI = (int)dataGridView1.SelectedRows[0].Cells[4].Value;
+                CabinetTM.SignalDO = (int)dataGridView1.SelectedRows[0].Cells[5].Value;
+                CabinetTM.SignalRS485PLK = (int)dataGridView1.SelectedRows[0].Cells[6].Value;
+                CabinetTM.SignalRS485SHL = (int)dataGridView1.SelectedRows[0].Cells[7].Value;
+                form.CabinetTM = CabinetTM;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     int id = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-                    _loginForm.dataBase.UpdateCabinet(id, form.cabinet);
+                    LoginForm.dataBase.UpdateCabinet(id, form.CabinetTM);
                     UpdateCabinetTable();
-                    dataGridView1.Rows[idTable].Selected = true;
-
+                    dataGridView1.Rows[TableID].Selected = true;
                 }
             }
             else
@@ -117,17 +111,21 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите шкаф");
             }
         }
+
         private void DeleteCabinet()
         {
             try
             {
                 if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
                 {
-                    _loginForm.dataBase.DeleteCabinet(idCab);
+                    LoginForm.dataBase.DeleteCabinet(CabID);
                     UpdateCabinetTable();
                     dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
                 }
-                else { return; }
+                else 
+                { 
+                    return; 
+                }
             }
             catch(Exception ex)
             {
@@ -142,7 +140,6 @@ namespace CapacityСalculationUI
         {
             UpdateCabinet();
         }
-
 
         private void DeleteCabinetButton_Click_1(object sender, EventArgs e)
         {
@@ -166,18 +163,18 @@ namespace CapacityСalculationUI
 
         private void CabinetForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(_loginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if(LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
             {
-                _loginForm.dataBase.sqlConnection.Close();
+                LoginForm.dataBase.sqlConnection.Close();
             }
             System.Windows.Forms.Application.Exit();
         }
 
         private void выходToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (_loginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
             {
-                _loginForm.dataBase.sqlConnection.Close();
+                LoginForm.dataBase.sqlConnection.Close();
             }
             System.Windows.Forms.Application.Exit();
         }
@@ -185,16 +182,16 @@ namespace CapacityСalculationUI
         private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            calculationForm.StartPosition = FormStartPosition.Manual;
-            calculationForm.Location = this.Location;
-            calculationForm.Show();
+            CalculationForm.StartPosition = FormStartPosition.Manual;
+            CalculationForm.Location = this.Location;
+            CalculationForm.Show();
         }
         private void профилиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            profileForm.StartPosition = FormStartPosition.Manual;
-            profileForm.Location = this.Location;
-            profileForm.Show();
+            ProfileForm.StartPosition = FormStartPosition.Manual;
+            ProfileForm.Location = this.Location;
+            ProfileForm.Show();
         }
 
         private void pdfToolStripMenuItem_Click(object sender, EventArgs e)
@@ -215,6 +212,7 @@ namespace CapacityСalculationUI
                 var workbook = ExcelApp.Application.Workbooks.Add();
                 ExcelApp.Columns[7].ColumnWidth = 15;
                 ExcelApp.Columns[8].ColumnWidth = 15;
+                ExcelApp.Columns.HorizontalAlignment = HorizontalAlignment.Center;
                 ExcelApp.Cells[1, 1] = "Id";
                 ExcelApp.Cells[1, 2] = "Тип";
                 ExcelApp.Cells[1, 3] = "AI";
@@ -230,6 +228,8 @@ namespace CapacityСalculationUI
                     {
                         if (dataGridView1[i, j].Value != null)
                             ExcelApp.Cells[j + 2, i + 1] = (dataGridView1[i, j].Value).ToString();
+                        else
+                            break;
                     }
                 }
                 ExcelApp.AlertBeforeOverwriting = true;
@@ -252,7 +252,6 @@ namespace CapacityСalculationUI
             mainSpecCabForm.ShowDialog();
         }
 
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //
@@ -260,8 +259,8 @@ namespace CapacityСalculationUI
             {
                 if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
                 {
-                    idCab = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-                    idTable = (int)dataGridView1.SelectedRows[0].Index;
+                    CabID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                    TableID = (int)dataGridView1.SelectedRows[0].Index;
                 }
                 else 
                     return;
@@ -276,8 +275,8 @@ namespace CapacityСalculationUI
         {
             if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
             {
-                idCab = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-                idTable = (int)dataGridView1.SelectedRows[0].Index;
+                CabID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                TableID = (int)dataGridView1.SelectedRows[0].Index;
             }
         }
     }

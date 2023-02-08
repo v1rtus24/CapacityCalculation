@@ -26,7 +26,7 @@ namespace CapacityСalculationUI
         void UpdateTable()
         {
             string querry = "SELECT * FROM PLC";
-            dataGridView1.DataSource = _mainSpecCabForm._cabinetForm._loginForm.dataBase.ShowData(querry);
+            dataGridView1.DataSource = _mainSpecCabForm._cabinetForm.LoginForm.dataBase.ShowData(querry);
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[1].HeaderText = "Производитель";
             dataGridView1.Columns[2].HeaderText = "Модель";
@@ -47,7 +47,7 @@ namespace CapacityСalculationUI
                 {
                     if (editPLC.ShowDialog() == DialogResult.OK)
                     {
-                        _mainSpecCabForm._cabinetForm._loginForm.dataBase.AddPLC(editPLC.Model, editPLC.Model, editPLC.Ip, editPLC.Other);
+                        _mainSpecCabForm._cabinetForm.LoginForm.dataBase.AddPLC(editPLC.Model, editPLC.Model, editPLC.Ip, editPLC.Other);
                         UpdateTable();
                         dataGridView1.Rows[dataGridView1.Rows.Count - 2].Selected = true;
 
@@ -75,7 +75,7 @@ namespace CapacityСalculationUI
                     editPLC.Other = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
                     if (editPLC.ShowDialog() == DialogResult.OK)
                     {
-                       _mainSpecCabForm._cabinetForm._loginForm.dataBase.UpdatePLC(idPLC,editPLC.Brand, editPLC.Model, editPLC.Ip, editPLC.Other);
+                       _mainSpecCabForm._cabinetForm.LoginForm.dataBase.UpdatePLC(idPLC,editPLC.Brand, editPLC.Model, editPLC.Ip, editPLC.Other);
                         UpdateTable();
                         dataGridView1.Rows[IndexDataG].Selected = true;
                     }
@@ -96,7 +96,7 @@ namespace CapacityСalculationUI
                     idPLC = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
                      if (MessageBox.Show("Удалить ПЛК из списка","Внимание!",MessageBoxButtons.OKCancel) == DialogResult.OK)
                      {
-                    _mainSpecCabForm._cabinetForm._loginForm.dataBase.DeletePLC(idPLC);
+                    _mainSpecCabForm._cabinetForm.LoginForm.dataBase.DeletePLC(idPLC);
                        UpdateTable();
                         dataGridView1.Rows[dataGridView1.Rows.Count - 2].Selected = true;
 

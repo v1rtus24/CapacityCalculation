@@ -69,7 +69,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 461);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(529, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -97,8 +97,8 @@
             // 
             this.AddCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.AddCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddCabinetButton.Location = new System.Drawing.Point(312, 434);
-            this.AddCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddCabinetButton.Location = new System.Drawing.Point(289, 434);
+            this.AddCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.AddCabinetButton.Name = "AddCabinetButton";
             this.AddCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.AddCabinetButton.TabIndex = 6;
@@ -133,7 +133,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(10, 26);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -141,7 +141,7 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(532, 404);
+            this.dataGridView1.Size = new System.Drawing.Size(509, 404);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -149,8 +149,8 @@
             // 
             this.UpdateCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.UpdateCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpdateCabinetButton.Location = new System.Drawing.Point(390, 434);
-            this.UpdateCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UpdateCabinetButton.Location = new System.Drawing.Point(367, 434);
+            this.UpdateCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.UpdateCabinetButton.Name = "UpdateCabinetButton";
             this.UpdateCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.UpdateCabinetButton.TabIndex = 8;
@@ -162,8 +162,8 @@
             // 
             this.DeleteCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DeleteCabinetButton.Location = new System.Drawing.Point(468, 434);
-            this.DeleteCabinetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DeleteCabinetButton.Location = new System.Drawing.Point(445, 434);
+            this.DeleteCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteCabinetButton.Name = "DeleteCabinetButton";
             this.DeleteCabinetButton.Size = new System.Drawing.Size(74, 25);
             this.DeleteCabinetButton.TabIndex = 7;
@@ -182,7 +182,7 @@
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip2.Size = new System.Drawing.Size(552, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(529, 24);
             this.menuStrip2.TabIndex = 9;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -228,8 +228,8 @@
             this.pdfToolStripMenuItem,
             this.excelToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
-            this.saveToolStripMenuItem.Text = "Экспорт в Excel";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.saveToolStripMenuItem.Text = "Файл";
             // 
             // pdfToolStripMenuItem
             // 
@@ -262,7 +262,7 @@
             this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.UpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UpdateButton.Location = new System.Drawing.Point(10, 436);
-            this.UpdateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UpdateButton.Margin = new System.Windows.Forms.Padding(2);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(74, 25);
             this.UpdateButton.TabIndex = 10;
@@ -274,8 +274,8 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(102, 436);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(88, 436);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 25);
             this.button1.TabIndex = 11;
@@ -287,7 +287,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 485);
+            this.ClientSize = new System.Drawing.Size(529, 485);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.UpdateButton);
             this.Controls.Add(this.AddCabinetButton);
@@ -298,7 +298,7 @@
             this.Controls.Add(this.menuStrip2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CabinetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Типы шкафов";

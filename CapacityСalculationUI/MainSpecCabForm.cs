@@ -39,7 +39,7 @@ namespace CapacityСalculationUI
         public void UpdatePLClist()
         {
             string query1 = "SELECT PLC.Id, PLC.brand,PLC.model FROM PLC  ";
-            SqlCommand sqlCommand = new SqlCommand(query1, _cabinetForm._loginForm.dataBase.sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(query1, _cabinetForm.LoginForm.dataBase.sqlConnection);
             SqlDataReader dataReader = sqlCommand.ExecuteReader();
             while (dataReader.Read())
             {
@@ -53,14 +53,14 @@ namespace CapacityСalculationUI
             {
                 comboBox1.Items.Add(plcs[i][1] + " " + plcs[i][2]);
             }
-            idCab = _cabinetForm.idCab;
+            idCab = _cabinetForm.CabID;
             string querry = "SELECT MainCabSpec.ip,MainCabSpec.mission,MainCabSpec.size,MainCabSpec.placing, PLC.brand,PLC.model, MainCabSpec.massa " +
             "FROM MainCabSpec " +
             "JOIN PLC ON PLC.Id = MainCabSpec.PLC_id " +
             "WHERE MainCabSpec.Id = " + idCab + "";
             // dataGridView1.DataSource = _cabinetForm._loginForm.dataBase.ShowData(querry);
             DataTable dataTable = new DataTable();
-            dataTable = _cabinetForm._loginForm.dataBase.DataTable(querry);
+            dataTable = _cabinetForm.LoginForm.dataBase.DataTable(querry);
             try
             {
                 if (dataTable.Rows[0][0] != null)
@@ -117,7 +117,7 @@ namespace CapacityСalculationUI
             try
             {
                 int idPLC = Convert.ToInt32(plcs[comboBox1.SelectedIndex][0]);
-                _cabinetForm._loginForm.dataBase.UpdateMainCabSpec(idCab, idPLC,
+                _cabinetForm.LoginForm.dataBase.UpdateMainCabSpec(idCab, idPLC,
                     comboBox2.Text, textBox2.Text, textBox3.Text, textBox4.Text, MasTextBox.Text);
                 MessageBox.Show("Изменения сохранены!", "Состав шкафа управления", MessageBoxButtons.OK);
                 checkBox1.Checked = false;
