@@ -42,9 +42,9 @@
             this.подборШкафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -70,10 +70,23 @@
             this.dgRS485SHL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label12 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.AIRadioButton = new System.Windows.Forms.RadioButton();
+            this.DIRadioButton = new System.Windows.Forms.RadioButton();
+            this.AORadioButton = new System.Windows.Forms.RadioButton();
+            this.RS485PLKRadioButton = new System.Windows.Forms.RadioButton();
+            this.DORadioButton = new System.Windows.Forms.RadioButton();
+            this.RS485SHLRadioButton = new System.Windows.Forms.RadioButton();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ALLRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pDFПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -101,7 +114,7 @@
             // CalcButton
             // 
             this.CalcButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CalcButton.Location = new System.Drawing.Point(594, 464);
+            this.CalcButton.Location = new System.Drawing.Point(594, 481);
             this.CalcButton.Margin = new System.Windows.Forms.Padding(2);
             this.CalcButton.Name = "CalcButton";
             this.CalcButton.Size = new System.Drawing.Size(202, 33);
@@ -118,7 +131,7 @@
             this.типыШкафовToolStripMenuItem,
             this.профилиToolStripMenuItem,
             this.подборШкафаToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 499);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 516);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(807, 24);
@@ -161,26 +174,11 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.печатьToolStripMenuItem,
-            this.сохранитьВExcelToolStripMenuItem});
+            this.excelToolStripMenuItem,
+            this.pDFПечатьToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.сохранитьToolStripMenuItem.Text = "Печать";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
-            // 
-            // печатьToolStripMenuItem
-            // 
-            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.печатьToolStripMenuItem.Text = "Печать";
-            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
-            // 
-            // сохранитьВExcelToolStripMenuItem
-            // 
-            this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
-            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.сохранитьВExcelToolStripMenuItem.Text = "Сохранить в Excel";
-            this.сохранитьВExcelToolStripMenuItem.Click += new System.EventHandler(this.сохранитьВExcelToolStripMenuItem_Click);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить в";
             // 
             // выходToolStripMenuItem
             // 
@@ -188,7 +186,8 @@
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
-            // 
+           
+          
             // label6
             // 
             this.label6.AutoSize = true;
@@ -409,7 +408,7 @@
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(577, 186);
+            this.dataGridView2.Size = new System.Drawing.Size(577, 203);
             this.dataGridView2.TabIndex = 23;
             // 
             // dgType
@@ -478,11 +477,137 @@
             this.label12.TabIndex = 24;
             this.label12.Text = "Рекомендуемые типы шкафов:";
             // 
+            // AIRadioButton
+            // 
+            this.AIRadioButton.AutoSize = true;
+            this.AIRadioButton.Location = new System.Drawing.Point(6, 27);
+            this.AIRadioButton.Name = "AIRadioButton";
+            this.AIRadioButton.Size = new System.Drawing.Size(78, 17);
+            this.AIRadioButton.TabIndex = 25;
+            this.AIRadioButton.TabStop = true;
+            this.AIRadioButton.Text = "Фильтр AI";
+            this.AIRadioButton.UseVisualStyleBackColor = true;
+            this.AIRadioButton.CheckedChanged += new System.EventHandler(this.AIRadioButton_CheckedChanged);
+            // 
+            // DIRadioButton
+            // 
+            this.DIRadioButton.AutoSize = true;
+            this.DIRadioButton.Location = new System.Drawing.Point(6, 50);
+            this.DIRadioButton.Name = "DIRadioButton";
+            this.DIRadioButton.Size = new System.Drawing.Size(79, 17);
+            this.DIRadioButton.TabIndex = 26;
+            this.DIRadioButton.TabStop = true;
+            this.DIRadioButton.Text = "Фильтр DI";
+            this.DIRadioButton.UseVisualStyleBackColor = true;
+            this.DIRadioButton.CheckedChanged += new System.EventHandler(this.DIRadioButton_CheckedChanged);
+            // 
+            // AORadioButton
+            // 
+            this.AORadioButton.AutoSize = true;
+            this.AORadioButton.Location = new System.Drawing.Point(6, 73);
+            this.AORadioButton.Name = "AORadioButton";
+            this.AORadioButton.Size = new System.Drawing.Size(83, 17);
+            this.AORadioButton.TabIndex = 27;
+            this.AORadioButton.TabStop = true;
+            this.AORadioButton.Text = "Фильтр AO";
+            this.AORadioButton.UseVisualStyleBackColor = true;
+            this.AORadioButton.CheckedChanged += new System.EventHandler(this.AORadioButton_CheckedChanged);
+            // 
+            // RS485PLKRadioButton
+            // 
+            this.RS485PLKRadioButton.AutoSize = true;
+            this.RS485PLKRadioButton.Location = new System.Drawing.Point(6, 119);
+            this.RS485PLKRadioButton.Name = "RS485PLKRadioButton";
+            this.RS485PLKRadioButton.Size = new System.Drawing.Size(130, 17);
+            this.RS485PLKRadioButton.TabIndex = 28;
+            this.RS485PLKRadioButton.TabStop = true;
+            this.RS485PLKRadioButton.Text = "Фильтр RS485(ПЛК)";
+            this.RS485PLKRadioButton.UseVisualStyleBackColor = true;
+            this.RS485PLKRadioButton.CheckedChanged += new System.EventHandler(this.RS485PLKRadioButton_CheckedChanged);
+            // 
+            // DORadioButton
+            // 
+            this.DORadioButton.AutoSize = true;
+            this.DORadioButton.Location = new System.Drawing.Point(6, 96);
+            this.DORadioButton.Name = "DORadioButton";
+            this.DORadioButton.Size = new System.Drawing.Size(84, 17);
+            this.DORadioButton.TabIndex = 29;
+            this.DORadioButton.TabStop = true;
+            this.DORadioButton.Text = "Фильтр DO";
+            this.DORadioButton.UseVisualStyleBackColor = true;
+            this.DORadioButton.CheckedChanged += new System.EventHandler(this.DORadioButton_CheckedChanged);
+            // 
+            // RS485SHLRadioButton
+            // 
+            this.RS485SHLRadioButton.AutoSize = true;
+            this.RS485SHLRadioButton.Location = new System.Drawing.Point(6, 142);
+            this.RS485SHLRadioButton.Name = "RS485SHLRadioButton";
+            this.RS485SHLRadioButton.Size = new System.Drawing.Size(140, 17);
+            this.RS485SHLRadioButton.TabIndex = 30;
+            this.RS485SHLRadioButton.TabStop = true;
+            this.RS485SHLRadioButton.Text = "Фильтр RS485(ШЛЮЗ)";
+            this.RS485SHLRadioButton.UseVisualStyleBackColor = true;
+            this.RS485SHLRadioButton.CheckedChanged += new System.EventHandler(this.RS485SHLRadioButton_CheckedChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(602, 271);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(115, 17);
+            this.checkBox1.TabIndex = 31;
+            this.checkBox1.Text = "Включить фильтр";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // ALLRadioButton
+            // 
+            this.ALLRadioButton.AutoSize = true;
+            this.ALLRadioButton.Location = new System.Drawing.Point(6, 4);
+            this.ALLRadioButton.Name = "ALLRadioButton";
+            this.ALLRadioButton.Size = new System.Drawing.Size(148, 17);
+            this.ALLRadioButton.TabIndex = 32;
+            this.ALLRadioButton.TabStop = true;
+            this.ALLRadioButton.Text = "Все подходящие шкафы";
+            this.ALLRadioButton.UseVisualStyleBackColor = true;
+            this.ALLRadioButton.CheckedChanged += new System.EventHandler(this.ALLRadioButton_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ALLRadioButton);
+            this.groupBox1.Controls.Add(this.AIRadioButton);
+            this.groupBox1.Controls.Add(this.DIRadioButton);
+            this.groupBox1.Controls.Add(this.RS485SHLRadioButton);
+            this.groupBox1.Controls.Add(this.AORadioButton);
+            this.groupBox1.Controls.Add(this.DORadioButton);
+            this.groupBox1.Controls.Add(this.RS485PLKRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(596, 294);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 167);
+            this.groupBox1.TabIndex = 33;
+            this.groupBox1.TabStop = false;
+            // 
+            // excelToolStripMenuItem
+            // 
+            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excelToolStripMenuItem.Text = "Excel";
+            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            // 
+            // pDFПечатьToolStripMenuItem
+            // 
+            this.pDFПечатьToolStripMenuItem.Name = "pDFПечатьToolStripMenuItem";
+            this.pDFПечатьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pDFПечатьToolStripMenuItem.Text = "PDF(Печать)";
+            this.pDFПечатьToolStripMenuItem.Click += new System.EventHandler(this.pDFПечатьToolStripMenuItem_Click);
+            // 
             // CalculationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 523);
+            this.ClientSize = new System.Drawing.Size(807, 540);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label8);
@@ -507,6 +632,8 @@
             this.menuStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -550,5 +677,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RS485PLK;
         private System.Windows.Forms.DataGridViewTextBoxColumn RS485SHL;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.RadioButton AIRadioButton;
+        private System.Windows.Forms.RadioButton DIRadioButton;
+        private System.Windows.Forms.RadioButton AORadioButton;
+        private System.Windows.Forms.RadioButton RS485PLKRadioButton;
+        private System.Windows.Forms.RadioButton DORadioButton;
+        private System.Windows.Forms.RadioButton RS485SHLRadioButton;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.RadioButton ALLRadioButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pDFПечатьToolStripMenuItem;
     }
 }

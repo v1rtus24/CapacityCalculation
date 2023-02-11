@@ -259,15 +259,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-    <COMReference Include="Office2013CustomActionsLib">
-      <Guid>{AB4D3FA3-21B9-443C-886E-FC4A417D3E4D}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="OfficeCSPLib">
       <Guid>{82038836-85BB-49D5-BAE6-F406733DCF40}</Guid>
       <VersionMajor>1</VersionMajor>

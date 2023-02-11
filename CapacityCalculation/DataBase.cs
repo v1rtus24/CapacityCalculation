@@ -250,26 +250,26 @@ namespace CapacityCalculation
             dataReader.Close();
             return dob;
         }
-        public List<string[]> CalculationCabinet(int AIrez, int DIrez,int AOrez,int DOrez, int RS485PLKrez,int RS485SHLrez)
+        public List<Cabinet> CalculationCabinet(int AIrez, int DIrez,int AOrez,int DOrez, int RS485PLKrez,int RS485SHLrez)
         {
             string query3 = "SELECT * FROM TOS";
             SqlCommand sqlCommand3 = new SqlCommand(query3, sqlConnection);
             SqlDataReader reader = sqlCommand3.ExecuteReader();
-            List<string[]> data = new List<string[]>();
+            List<Cabinet> data = new List<Cabinet>();
             while (reader.Read())
             {
                 if ((int)reader[2] > AIrez && (int)reader[3] > AOrez &&
                     (int)reader[4] > DIrez && (int)reader[5] > DOrez &&
                     (int)reader[6] > RS485PLKrez && (int)reader[7] > RS485SHLrez)
                 {
-                    data.Add(new string[7]);
-                    data[data.Count - 1][0] = reader[1].ToString();
-                    data[data.Count - 1][1] = reader[2].ToString();
-                    data[data.Count - 1][2] = reader[3].ToString();
-                    data[data.Count - 1][3] = reader[4].ToString();
-                    data[data.Count - 1][4] = reader[5].ToString();
-                    data[data.Count - 1][5] = reader[6].ToString();
-                    data[data.Count - 1][6] = reader[7].ToString();
+                    data.Add(new Cabinet());
+                    data[data.Count - 1].Name = reader[1].ToString();
+                    data[data.Count - 1].SignalAI = (int)reader[2];
+                    data[data.Count - 1].SignalAO = (int)reader[3];
+                    data[data.Count - 1].SignalDI = (int)reader[4];
+                    data[data.Count - 1].SignalDO = (int)reader[5];
+                    data[data.Count - 1].SignalRS485PLK = (int)reader[6];
+                    data[data.Count - 1].SignalRS485SHL = (int)reader[7];
                 }
             }
             reader.Close();
