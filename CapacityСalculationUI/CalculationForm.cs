@@ -23,8 +23,8 @@ namespace CapacityСalculationUI
         List<Cabinet> TypeCabs { get; set; }
         public CabinetForm CabinetForm { get; set; }
         public LoginForm LoginForm { get; set; }
-        private int idField { get; set; }
-        private int idWellPad { get; set; }
+        private int FieldID { get; set; }
+        private int WellPadID { get; set; }
         public CalculationForm(CabinetForm cabinetForm)
         {
             CabinetForm = cabinetForm;
@@ -55,8 +55,8 @@ namespace CapacityСalculationUI
         {
             comboBox2.Items.Clear();
             dataWellPad.Clear();
-            idField = Convert.ToInt32(DataField[comboBox1.SelectedIndex][0]);
-            string query = "SELECT * FROM WellPad WHERE Field_id =" + idField + "";
+            FieldID = Convert.ToInt32(DataField[comboBox1.SelectedIndex][0]);
+            string query = "SELECT * FROM WellPad WHERE Field_id =" + FieldID + "";
             using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
             {
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
@@ -76,51 +76,26 @@ namespace CapacityСalculationUI
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            idWellPad = Convert.ToInt32(dataWellPad[comboBox2.SelectedIndex][0]);
+            WellPadID = Convert.ToInt32(dataWellPad[comboBox2.SelectedIndex][0]);
         }
 
         private int gridCount { get; set; } = 0;
 
-        //первый - список всех подходящих шкафов, второй - "абстрактный" шкаф на основе всех сигналов с учетом резерва на площадке
-        // фильтрация по сигналу
-
-        private Cabinet FilterAllSignal(List<Cabinet> typeCabs, Cabinet curCab)
-        {
-            List<int> razTypeCabs = new List<int>();
-            Cabinet cab;
-            foreach (var a in typeCabs)
-            {
-                razTypeCabs.Add(Cabinet.RazSig(a, curCab));
-            }
-            int minRaz = razTypeCabs[0];
-            int ind = 0;
-            // находим минимальную разницу всех сиганлов и соблюдаем условие 
-            for (int i = 0; i < typeCabs.Count; i++)
-            {
-                if (minRaz > razTypeCabs[i] && Cabinet.MoreSignal(typeCabs[i], curCab))
-                {
-                    minRaz = razTypeCabs[i];
-                    ind = i;
-                }
-            }
-            cab = typeCabs[ind];
-            return cab;
-        }
         private void CalcButton_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text != "" && comboBox2.Text != "")
             {
                 dataGridView1.Rows.Add();
-                double AIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AI", idWellPad) + LoginForm.dataBase.CalculationSignal("AI", idWellPad) * 0.2);
-                double AOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AO", idWellPad) + LoginForm.dataBase.CalculationSignal("AO", idWellPad) * 0.2);
-                double DIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DI", idWellPad) + LoginForm.dataBase.CalculationSignal("DI", idWellPad) * 0.3);
-                double DOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DO", idWellPad) + LoginForm.dataBase.CalculationSignal("DO", idWellPad) * 0.3);
-                int RS485PLK = LoginForm.dataBase.CalculationSignal("RS485(ПЛК)", idWellPad);
-                int RS485SHL= LoginForm.dataBase.CalculationSignal("RS485(Шлюз)", idWellPad);
+                double AIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AI", WellPadID) + LoginForm.dataBase.CalculationSignal("AI", WellPadID) * 0.2);
+                double AOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AO", WellPadID) + LoginForm.dataBase.CalculationSignal("AO", WellPadID) * 0.2);
+                double DIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DI", WellPadID) + LoginForm.dataBase.CalculationSignal("DI", WellPadID) * 0.3);
+                double DOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DO", WellPadID) + LoginForm.dataBase.CalculationSignal("DO", WellPadID) * 0.3);
+                int RS485PLK = LoginForm.dataBase.CalculationSignal("RS485(ПЛК)", WellPadID);
+                int RS485SHL= LoginForm.dataBase.CalculationSignal("RS485(Шлюз)", WellPadID);
                 dataGridView1["Column1", gridCount].Value = comboBox1.SelectedItem;
                 dataGridView1["Column2", gridCount].Value = comboBox2.SelectedItem;
-                dataGridView1["Column3", gridCount].Value = LoginForm.dataBase.CalculationWell("Добывающая", idWellPad).ToString();
-                dataGridView1["Column4", gridCount].Value = LoginForm.dataBase.CalculationWell("Нагнетательная", idWellPad).ToString();
+                dataGridView1["Column3", gridCount].Value = LoginForm.dataBase.CalculationWell("Добывающая", WellPadID).ToString();
+                dataGridView1["Column4", gridCount].Value = LoginForm.dataBase.CalculationWell("Нагнетательная", WellPadID).ToString();
                 dataGridView1["AI", gridCount].Value = AIrez;
                 dataGridView1["AO", gridCount].Value = AOrez;
                 dataGridView1["DI", gridCount].Value = DIrez;
@@ -128,10 +103,9 @@ namespace CapacityСalculationUI
                 dataGridView1["RS485PLK", gridCount].Value = RS485PLK;
                 dataGridView1["RS485SHL", gridCount].Value = RS485SHL;
                 TypeCabs = LoginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
-                 // string types ="";
                 CurrentCab = new Cabinet("name", (int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
                 dataGridView2.Rows.Clear();
-                Cabinet PodCab = FilterAllSignal(TypeCabs, CurrentCab);
+                Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
                 string[] cab = new string[7];
                 cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
                 cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
@@ -196,7 +170,7 @@ namespace CapacityСalculationUI
                 RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
                 CurrentCab = new Cabinet("name", AI, DI, AO, DO, RS485PLK, RS485SHL);
                 TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);               
-                Cabinet PodCab = FilterAllSignal(TypeCabs, CurrentCab);
+                Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
                 string[] cab = new string[7];
                 cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
                 cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
@@ -209,31 +183,6 @@ namespace CapacityСalculationUI
                         control.Checked = false;
                     }
                 }
-                //if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
-                //{
-
-                //    string[] cabs = new string[7];
-                //    for (int i = 0; i < typeCab.Count; i++)
-                //    {
-                //        cabs[0] = typeCab[i].Name; cabs[1] = typeCab[i].SignalAI.ToString(); cabs[2] = typeCab[i].SignalDI.ToString();
-                //        cabs[3] = typeCab[i].SignalAO.ToString(); cabs[4] = typeCab[i].SignalDO.ToString(); cabs[5] = typeCab[i].SignalRS485PLK.ToString();
-                //        cabs[6] = typeCab[i].SignalRS485SHL.ToString();
-                //        dataGridView2.Rows.Add(cabs);
-                //    }
-                //}
-
-                //if (typeCab != null && dataGridView1.SelectedCells[0].Value != null)
-                //{
-                //    string[] cabs = new string[7];
-                //    for (int i = 0; i < SortCabs.Count; i++)
-                //    {
-                //        cabs[0] = SortCabs[i].Name; cabs[1] = SortCabs[i].SignalAI.ToString(); cabs[2] = SortCabs[i].SignalDI.ToString();
-                //        cabs[3] = SortCabs[i].SignalAO.ToString(); cabs[4] = SortCabs[i].SignalDO.ToString(); cabs[5] = SortCabs[i].SignalRS485PLK.ToString();
-                //        cabs[6] = SortCabs[i].SignalRS485SHL.ToString();
-                //        dataGridView2.Rows.Add(cabs);
-                //    }
-                //}
-
             }
         }
         private void профилиToolStripMenuItem_Click(object sender, EventArgs e)

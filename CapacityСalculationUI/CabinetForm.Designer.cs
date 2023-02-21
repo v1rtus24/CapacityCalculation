@@ -96,12 +96,12 @@
             // AddCabinetButton
             // 
             this.AddCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddCabinetButton.Font = new System.Drawing.Font("Century Gothic", 9F);
             this.AddCabinetButton.Location = new System.Drawing.Point(289, 434);
             this.AddCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.AddCabinetButton.Name = "AddCabinetButton";
             this.AddCabinetButton.Size = new System.Drawing.Size(74, 25);
-            this.AddCabinetButton.TabIndex = 6;
+            this.AddCabinetButton.TabIndex = 1;
             this.AddCabinetButton.Text = "Добавить";
             this.AddCabinetButton.UseVisualStyleBackColor = true;
             this.AddCabinetButton.Click += new System.EventHandler(this.AddCabinetButton_Click_1);
@@ -113,7 +113,7 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -148,12 +148,12 @@
             // UpdateCabinetButton
             // 
             this.UpdateCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpdateCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UpdateCabinetButton.Font = new System.Drawing.Font("Century Gothic", 9F);
             this.UpdateCabinetButton.Location = new System.Drawing.Point(367, 434);
             this.UpdateCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.UpdateCabinetButton.Name = "UpdateCabinetButton";
             this.UpdateCabinetButton.Size = new System.Drawing.Size(74, 25);
-            this.UpdateCabinetButton.TabIndex = 8;
+            this.UpdateCabinetButton.TabIndex = 2;
             this.UpdateCabinetButton.Text = "Изменить";
             this.UpdateCabinetButton.UseVisualStyleBackColor = true;
             this.UpdateCabinetButton.Click += new System.EventHandler(this.UpdateCabinetButton_Click_1);
@@ -161,12 +161,12 @@
             // DeleteCabinetButton
             // 
             this.DeleteCabinetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeleteCabinetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DeleteCabinetButton.Font = new System.Drawing.Font("Century Gothic", 9F);
             this.DeleteCabinetButton.Location = new System.Drawing.Point(445, 434);
             this.DeleteCabinetButton.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteCabinetButton.Name = "DeleteCabinetButton";
             this.DeleteCabinetButton.Size = new System.Drawing.Size(74, 25);
-            this.DeleteCabinetButton.TabIndex = 7;
+            this.DeleteCabinetButton.TabIndex = 3;
             this.DeleteCabinetButton.Text = "Удалить";
             this.DeleteCabinetButton.UseVisualStyleBackColor = true;
             this.DeleteCabinetButton.Click += new System.EventHandler(this.DeleteCabinetButton_Click_1);
@@ -260,7 +260,7 @@
             // UpdateButton
             // 
             this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.UpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UpdateButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UpdateButton.Location = new System.Drawing.Point(10, 436);
             this.UpdateButton.Margin = new System.Windows.Forms.Padding(2);
             this.UpdateButton.Name = "UpdateButton";
@@ -273,7 +273,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 9F);
             this.button1.Location = new System.Drawing.Point(88, 436);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
@@ -299,6 +299,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "CabinetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Типы шкафов";

@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(plcForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.AddPLC = new System.Windows.Forms.Button();
             this.UpdatePLC = new System.Windows.Forms.Button();
@@ -44,7 +45,7 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -72,18 +73,19 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(402, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(402, 219);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // AddPLC
             // 
             this.AddPLC.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.AddPLC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddPLC.Location = new System.Drawing.Point(11, 241);
+            this.AddPLC.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddPLC.Location = new System.Drawing.Point(11, 239);
             this.AddPLC.Margin = new System.Windows.Forms.Padding(2);
             this.AddPLC.Name = "AddPLC";
-            this.AddPLC.Size = new System.Drawing.Size(80, 25);
+            this.AddPLC.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.AddPLC.Size = new System.Drawing.Size(80, 30);
             this.AddPLC.TabIndex = 20;
             this.AddPLC.Text = "Добавить";
             this.AddPLC.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -92,10 +94,11 @@
             // 
             // UpdatePLC
             // 
-            this.UpdatePLC.Location = new System.Drawing.Point(95, 241);
+            this.UpdatePLC.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UpdatePLC.Location = new System.Drawing.Point(95, 239);
             this.UpdatePLC.Margin = new System.Windows.Forms.Padding(2);
             this.UpdatePLC.Name = "UpdatePLC";
-            this.UpdatePLC.Size = new System.Drawing.Size(80, 25);
+            this.UpdatePLC.Size = new System.Drawing.Size(80, 30);
             this.UpdatePLC.TabIndex = 21;
             this.UpdatePLC.Text = "Изменить";
             this.UpdatePLC.UseVisualStyleBackColor = true;
@@ -103,10 +106,11 @@
             // 
             // DelPLC
             // 
-            this.DelPLC.Location = new System.Drawing.Point(179, 242);
+            this.DelPLC.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DelPLC.Location = new System.Drawing.Point(179, 239);
             this.DelPLC.Margin = new System.Windows.Forms.Padding(2);
             this.DelPLC.Name = "DelPLC";
-            this.DelPLC.Size = new System.Drawing.Size(80, 25);
+            this.DelPLC.Size = new System.Drawing.Size(80, 30);
             this.DelPLC.TabIndex = 22;
             this.DelPLC.Text = "Удалить";
             this.DelPLC.UseVisualStyleBackColor = true;
@@ -116,12 +120,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 272);
+            this.ClientSize = new System.Drawing.Size(424, 277);
             this.Controls.Add(this.DelPLC);
             this.Controls.Add(this.UpdatePLC);
             this.Controls.Add(this.AddPLC);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "plcForm";

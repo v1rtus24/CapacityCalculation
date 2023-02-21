@@ -152,6 +152,28 @@ namespace CapacityCalculation
             }
             return cabs;
         }
+        public static Cabinet FilterAllSignal(List<Cabinet> typeCabs, Cabinet curCab)
+        {
+            List<int> razTypeCabs = new List<int>();
+            Cabinet cab;
+            foreach (var a in typeCabs)
+            {
+                razTypeCabs.Add(Cabinet.RazSig(a, curCab));
+            }
+            int minRaz = razTypeCabs[0];
+            int ind = 0;
+            // находим минимальную разницу всех сиганлов и соблюдаем условие 
+            for (int i = 0; i < typeCabs.Count; i++)
+            {
+                if (minRaz > razTypeCabs[i] && Cabinet.MoreSignal(typeCabs[i], curCab))
+                {
+                    minRaz = razTypeCabs[i];
+                    ind = i;
+                }
+            }
+            cab = typeCabs[ind];
+            return cab;
+        }
 
     }
 }

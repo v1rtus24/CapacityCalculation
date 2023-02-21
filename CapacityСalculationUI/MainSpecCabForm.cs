@@ -54,7 +54,7 @@ namespace CapacityСalculationUI
                 comboBox1.Items.Add(plcs[i][1] + " " + plcs[i][2]);
             }
             idCab = _cabinetForm.CabID;
-            string querry = "SELECT MainCabSpec.ip,MainCabSpec.mission,MainCabSpec.size,MainCabSpec.placing, PLC.brand,PLC.model, MainCabSpec.massa " +
+            string querry = "SELECT MainCabSpec.ip,MainCabSpec.mission,MainCabSpec.height,MainCabSpec.width,MainCabSpec.depth,MainCabSpec.placing, PLC.brand,PLC.model, MainCabSpec.massa " +
             "FROM MainCabSpec " +
             "JOIN PLC ON PLC.Id = MainCabSpec.PLC_id " +
             "WHERE MainCabSpec.Id = " + idCab + "";
@@ -67,15 +67,17 @@ namespace CapacityСalculationUI
                 {
                     comboBox2.Text = dataTable.Rows[0][0].ToString();
                     textBox2.Text = dataTable.Rows[0][1].ToString();
-                    textBox3.Text = dataTable.Rows[0][2].ToString();
-                    textBox4.Text = dataTable.Rows[0][3].ToString();
-                    comboBox1.Text = dataTable.Rows[0][4].ToString() + " " + dataTable.Rows[0][5].ToString();
-                    MasTextBox.Text = dataTable.Rows[0][6].ToString();
+                    HeightTextBox.Text = dataTable.Rows[0][2].ToString();
+                    WidthTextBox.Text = dataTable.Rows[0][3].ToString();
+                    DepthTextBox.Text = dataTable.Rows[0][4].ToString();
+                    textBox4.Text = dataTable.Rows[0][5].ToString();
+                    comboBox1.Text = dataTable.Rows[0][6].ToString() + " " + dataTable.Rows[0][7].ToString();
+                    MasTextBox.Text = dataTable.Rows[0][8].ToString();
                 }
                 else
                 {
-                    comboBox2.Text = "";textBox2.Text = ""; textBox3.Text = "";
-                    textBox4.Text = ""; comboBox1.Text = ""; MasTextBox.Text = "";
+                    comboBox2.Text = "";textBox2.Text = ""; HeightTextBox.Text = ""; WidthTextBox.Text = "";
+                    DepthTextBox.Text = ""; textBox4.Text = ""; comboBox1.Text = ""; MasTextBox.Text = "";
                 }
             }
             catch
@@ -87,7 +89,7 @@ namespace CapacityСalculationUI
         private void MainSpecCabForm_Load(object sender, EventArgs e)
         {
             checkBox1.Checked = false; comboBox2.Enabled = false; textBox2.Enabled = false; 
-            textBox3.Enabled = false;textBox4.Enabled = false;comboBox1.Enabled = false;
+            HeightTextBox.Enabled = false; WidthTextBox.Enabled = false; DepthTextBox.Enabled = false; textBox4.Enabled = false;comboBox1.Enabled = false;
             MasTextBox.Enabled = false;
             UpdatePLClist();
         }
@@ -102,13 +104,13 @@ namespace CapacityСalculationUI
         {
             if (checkBox1.Checked)
             {
-                comboBox2.Enabled = true; textBox2.Enabled = true; textBox3.Enabled = true;
-                textBox4.Enabled = true; comboBox1.Enabled = true; MasTextBox.Enabled = true;
+                comboBox2.Enabled = true; textBox2.Enabled = true; HeightTextBox.Enabled = true; WidthTextBox.Enabled = true;
+                DepthTextBox.Enabled = true; textBox4.Enabled = true; comboBox1.Enabled = true; MasTextBox.Enabled = true;
             }
             else
             {
-                comboBox2.Enabled = false; textBox2.Enabled = false; textBox3.Enabled = false;
-                textBox4.Enabled = false; comboBox1.Enabled = false; MasTextBox.Enabled = false;
+                comboBox2.Enabled = false; textBox2.Enabled = false; HeightTextBox.Enabled = false; WidthTextBox.Enabled = false;
+                DepthTextBox.Enabled = false; textBox4.Enabled = false; comboBox1.Enabled = false; MasTextBox.Enabled = false;
             }
         }
 
@@ -118,7 +120,8 @@ namespace CapacityСalculationUI
             {
                 int idPLC = Convert.ToInt32(plcs[comboBox1.SelectedIndex][0]);
                 _cabinetForm.LoginForm.dataBase.UpdateMainCabSpec(idCab, idPLC,
-                    comboBox2.Text, textBox2.Text, textBox3.Text, textBox4.Text, MasTextBox.Text);
+                    comboBox2.Text, textBox2.Text, Convert.ToDouble(HeightTextBox.Text), Convert.ToDouble(WidthTextBox.Text), Convert.ToDouble(DepthTextBox.Text),
+                    textBox4.Text, Convert.ToDouble(MasTextBox.Text));
                 MessageBox.Show("Изменения сохранены!", "Состав шкафа управления", MessageBoxButtons.OK);
                 checkBox1.Checked = false;
             }
@@ -131,10 +134,6 @@ namespace CapacityСalculationUI
         private void MainSpecCabForm_Leave(object sender, EventArgs e)
         {
             this.Dispose();
-        }
-
-        private void MainSpecCabForm_VisibleChanged(object sender, EventArgs e)
-        {
         }
 
         private void MainSpecCabForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -163,6 +162,11 @@ namespace CapacityСalculationUI
         private void label1_MouseMove(object sender, MouseEventArgs e)
         {
             t.SetToolTip(label1, "Нажмите для подсказки");
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

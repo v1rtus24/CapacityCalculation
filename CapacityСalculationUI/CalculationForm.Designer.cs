@@ -42,6 +42,8 @@
             this.подборШкафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pDFПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,8 +82,6 @@
             this.ALLRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pDFПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -180,14 +180,37 @@
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.сохранитьToolStripMenuItem.Text = "Сохранить в";
             // 
+            // excelToolStripMenuItem
+            // 
+            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.excelToolStripMenuItem.Text = "Excel";
+            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            // 
+            // pDFПечатьToolStripMenuItem
+            // 
+            this.pDFПечатьToolStripMenuItem.Name = "pDFПечатьToolStripMenuItem";
+            this.pDFПечатьToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.pDFПечатьToolStripMenuItem.Text = "PDF(Печать)";
+            this.pDFПечатьToolStripMenuItem.Click += new System.EventHandler(this.pDFПечатьToolStripMenuItem_Click);
+            // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
-           
-          
+            // 
+            // печатьToolStripMenuItem
+            // 
+            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // сохранитьВExcelToolStripMenuItem
+            // 
+            this.сохранитьВExcelToolStripMenuItem.Name = "сохранитьВExcelToolStripMenuItem";
+            this.сохранитьВExcelToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -482,7 +505,7 @@
             this.AIRadioButton.AutoSize = true;
             this.AIRadioButton.Location = new System.Drawing.Point(6, 27);
             this.AIRadioButton.Name = "AIRadioButton";
-            this.AIRadioButton.Size = new System.Drawing.Size(78, 17);
+            this.AIRadioButton.Size = new System.Drawing.Size(83, 21);
             this.AIRadioButton.TabIndex = 25;
             this.AIRadioButton.TabStop = true;
             this.AIRadioButton.Text = "Фильтр AI";
@@ -494,7 +517,7 @@
             this.DIRadioButton.AutoSize = true;
             this.DIRadioButton.Location = new System.Drawing.Point(6, 50);
             this.DIRadioButton.Name = "DIRadioButton";
-            this.DIRadioButton.Size = new System.Drawing.Size(79, 17);
+            this.DIRadioButton.Size = new System.Drawing.Size(83, 21);
             this.DIRadioButton.TabIndex = 26;
             this.DIRadioButton.TabStop = true;
             this.DIRadioButton.Text = "Фильтр DI";
@@ -506,7 +529,7 @@
             this.AORadioButton.AutoSize = true;
             this.AORadioButton.Location = new System.Drawing.Point(6, 73);
             this.AORadioButton.Name = "AORadioButton";
-            this.AORadioButton.Size = new System.Drawing.Size(83, 17);
+            this.AORadioButton.Size = new System.Drawing.Size(90, 21);
             this.AORadioButton.TabIndex = 27;
             this.AORadioButton.TabStop = true;
             this.AORadioButton.Text = "Фильтр AO";
@@ -518,7 +541,7 @@
             this.RS485PLKRadioButton.AutoSize = true;
             this.RS485PLKRadioButton.Location = new System.Drawing.Point(6, 119);
             this.RS485PLKRadioButton.Name = "RS485PLKRadioButton";
-            this.RS485PLKRadioButton.Size = new System.Drawing.Size(130, 17);
+            this.RS485PLKRadioButton.Size = new System.Drawing.Size(139, 21);
             this.RS485PLKRadioButton.TabIndex = 28;
             this.RS485PLKRadioButton.TabStop = true;
             this.RS485PLKRadioButton.Text = "Фильтр RS485(ПЛК)";
@@ -530,7 +553,7 @@
             this.DORadioButton.AutoSize = true;
             this.DORadioButton.Location = new System.Drawing.Point(6, 96);
             this.DORadioButton.Name = "DORadioButton";
-            this.DORadioButton.Size = new System.Drawing.Size(84, 17);
+            this.DORadioButton.Size = new System.Drawing.Size(90, 21);
             this.DORadioButton.TabIndex = 29;
             this.DORadioButton.TabStop = true;
             this.DORadioButton.Text = "Фильтр DO";
@@ -540,9 +563,9 @@
             // RS485SHLRadioButton
             // 
             this.RS485SHLRadioButton.AutoSize = true;
-            this.RS485SHLRadioButton.Location = new System.Drawing.Point(6, 142);
+            this.RS485SHLRadioButton.Location = new System.Drawing.Point(6, 146);
             this.RS485SHLRadioButton.Name = "RS485SHLRadioButton";
-            this.RS485SHLRadioButton.Size = new System.Drawing.Size(140, 17);
+            this.RS485SHLRadioButton.Size = new System.Drawing.Size(156, 21);
             this.RS485SHLRadioButton.TabIndex = 30;
             this.RS485SHLRadioButton.TabStop = true;
             this.RS485SHLRadioButton.Text = "Фильтр RS485(ШЛЮЗ)";
@@ -552,9 +575,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(602, 271);
+            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1.Location = new System.Drawing.Point(606, 282);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(115, 17);
+            this.checkBox1.Size = new System.Drawing.Size(128, 21);
             this.checkBox1.TabIndex = 31;
             this.checkBox1.Text = "Включить фильтр";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -565,7 +589,7 @@
             this.ALLRadioButton.AutoSize = true;
             this.ALLRadioButton.Location = new System.Drawing.Point(6, 4);
             this.ALLRadioButton.Name = "ALLRadioButton";
-            this.ALLRadioButton.Size = new System.Drawing.Size(148, 17);
+            this.ALLRadioButton.Size = new System.Drawing.Size(177, 21);
             this.ALLRadioButton.TabIndex = 32;
             this.ALLRadioButton.TabStop = true;
             this.ALLRadioButton.Text = "Все подходящие шкафы";
@@ -581,30 +605,18 @@
             this.groupBox1.Controls.Add(this.AORadioButton);
             this.groupBox1.Controls.Add(this.DORadioButton);
             this.groupBox1.Controls.Add(this.RS485PLKRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(596, 294);
+            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox1.Location = new System.Drawing.Point(600, 302);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 167);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             // 
-            // excelToolStripMenuItem
-            // 
-            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.excelToolStripMenuItem.Text = "Excel";
-            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
-            // 
-            // pDFПечатьToolStripMenuItem
-            // 
-            this.pDFПечатьToolStripMenuItem.Name = "pDFПечатьToolStripMenuItem";
-            this.pDFПечатьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pDFПечатьToolStripMenuItem.Text = "PDF(Печать)";
-            this.pDFПечатьToolStripMenuItem.Click += new System.EventHandler(this.pDFПечатьToolStripMenuItem_Click);
-            // 
             // CalculationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(807, 540);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox1);
@@ -622,6 +634,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip2;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "CalculationForm";
             this.Text = "Рассчёт";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalculationForm_FormClosing);

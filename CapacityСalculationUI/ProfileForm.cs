@@ -71,7 +71,7 @@ namespace CapacityСalculationUI
                 WellDataGridView.Columns[0].Visible = false;
                 WellDataGridView.Columns[3].Visible = false;
                 WellDataGridView.Columns[1].Width = 45;
-                WellDataGridView.Columns[2].Width = 130;
+                WellDataGridView.Columns[2].Width = 160;
                 WellDataGridView.ClearSelection();
 
             }
@@ -90,7 +90,7 @@ namespace CapacityСalculationUI
                 PhysCharDataGridView.Columns[0].Visible = false;
                 PhysCharDataGridView.Columns[3].Visible = false;
                 PhysCharDataGridView.Columns[1].Width = 180;
-                PhysCharDataGridView.Columns[2].Width = 50;
+                PhysCharDataGridView.Columns[2].Width = 70;
                 PhysCharDataGridView.ClearSelection();
 
             }
@@ -186,6 +186,11 @@ namespace CapacityСalculationUI
 
         private void AddFieldToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AddField();
+        }
+
+        private void AddField()
+        {
             AddEditField form = new AddEditField();
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -195,9 +200,9 @@ namespace CapacityСalculationUI
 
             }
         }
-
-        private void WellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddWellPad()
         {
+
             AddEditWellPad form = new AddEditWellPad();
             try
             {
@@ -207,7 +212,7 @@ namespace CapacityСalculationUI
                     {
                         CabinetForm.LoginForm.dataBase.AddWellPad(idField, form.WellPadNum);
                         UpdateWellPadTable(idField);
-                       WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
+                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
                     }
                 }
             }
@@ -216,8 +221,11 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите месторождение");
             }
         }
-
-        private void AddWellToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddWellPad();
+        }
+        private void AddWell()
         {
             var form = new AddEditWell();
             try
@@ -238,8 +246,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите КП");
             }
         }
+        private void AddWellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddWell();
+        }
 
-        private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddPhysChar()
         {
             var form = new AddEditPhysChar();
             try
@@ -251,7 +263,7 @@ namespace CapacityСalculationUI
                         idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
                         CabinetForm.LoginForm.dataBase.AddPhysChar(idWell, form.NamePhysChar, form.Signal);
                         UpdatePhysCharTable(idWell);
-                       PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
+                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
 
                     }
                 }
@@ -261,8 +273,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите скважину");
             }
         }
+        private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddPhysChar();
+        }
 
-        private void UpdateFieldToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateField()
         {
             try
             {
@@ -283,8 +299,11 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите месторождение");
             }
         }
-
-        private void UpdateWellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateFieldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateField();
+        }
+        private void UpdateWellPad()
         {
             try
             {
@@ -307,8 +326,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите КП");
             }
         }
+        private void UpdateWellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateWellPad();
+        }
 
-        private void UpdateWellToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateWell()
         {
             try
             {
@@ -331,8 +354,11 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите скважину!");
             }
         }
-
-        private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        private void UpdateWellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateWell();
+        }
+        private void UpdatePhysChar()
         {
             try
             {
@@ -355,8 +381,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите подключение!");
             }
         }
+        private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdatePhysChar();
+        }
 
-        private void DeleteFieldToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteField()
         {
             try
             {
@@ -372,8 +402,11 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите месторождение");
             }
         }
-
-        private void DeleteWellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteFieldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteField();
+        }
+        private void DeleteWellPad()
         {
             try
             {
@@ -391,8 +424,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите КП");
             }
         }
+        private void DeleteWellPadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteWellPad();
+        }
 
-        private void DeleteWellToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteWell()
         {
             try
             {
@@ -409,8 +446,12 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите скважину");
             }
         }
+        private void DeleteWellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteWell();
+        }
 
-        private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeletePhysChar()
         {
             try
             {
@@ -426,6 +467,10 @@ namespace CapacityСalculationUI
                 MessageBox.Show("Выберите подключение");
             }
         }
+        private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeletePhysChar();
+        }
 
         private void WellDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -440,6 +485,7 @@ namespace CapacityСalculationUI
         private void FieldDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             indexDataGrid = FieldDataGridView.SelectedRows[0].Index;
+            
         }
 
         private void WellPadDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -447,6 +493,101 @@ namespace CapacityСalculationUI
             indexDataGrid = WellPadDataGridView.SelectedRows[0].Index;
 
         }
+
+        string Pozition { get; set; }
+        private void FieldDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button== MouseButtons.Right) 
+            {
+                contextMenuStrip1.Show(MousePosition);
+                Pozition = "Field";
+            }
+        }
+        private void WellPadDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(MousePosition);
+                Pozition = "WellPad";
+            }
+        }
+        private void WellDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(MousePosition);
+                Pozition = "Well";
+            }
+        }
+        private void PhysCharDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(MousePosition);
+                Pozition = "PhysChar";
+            }
+        }
+        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Pozition == "Field")
+            {
+                AddField();
+            }
+            if (Pozition == "WellPad")
+            {
+                AddWellPad();
+            }
+            if (Pozition == "Well")
+            {
+                AddWell();
+            }
+            if (Pozition == "PhysChar")
+            {
+                AddPhysChar();
+            }
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Pozition == "Field")
+            {
+                UpdateField();
+            }
+            if (Pozition == "WellPad")
+            {
+                UpdateWellPad();
+            }
+            if (Pozition == "Well")
+            {
+                UpdateWell();
+            }
+            if (Pozition == "PhysChar")
+            {
+                UpdatePhysChar();
+            }
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Pozition == "Field")
+            {
+                DeleteField();
+            }
+            if (Pozition == "WellPad")
+            {
+                DeleteWellPad();
+            }
+            if (Pozition == "Well")
+            {
+                DeleteWell();
+            }
+            if (Pozition == "PhysChar")
+            {
+                DeletePhysChar();
+            }
+        }
+
+        
     }
 }
 

@@ -75,17 +75,19 @@ namespace CapacityCalculation
             command.Parameters.AddWithValue("Id", id);
             command.ExecuteNonQuery();
         }
-        public void UpdateMainCabSpec(int id, int Plc_id,string ip,string mission,string size,string placing,string massa)
+        public void UpdateMainCabSpec(int id, int Plc_id,string ip,string mission, double height,double width,double depth,string placing,double massa)
         {
             SqlCommand command = new SqlCommand("UPDATE [MainCabSpec] SET PLC_id=@PLC_id," +
-                "ip=@ip,mission=@mission,size=@size,placing=@placing,massa=@massa " +
+                "ip=@ip,mission=@mission,height=@height,width=@width,depth=@depth,placing=@placing,massa=@massa " +
                 "WHERE Id=@Id", sqlConnection);
 
             command.Parameters.AddWithValue("Id", id);
             command.Parameters.AddWithValue("PLC_id", Plc_id);
             command.Parameters.AddWithValue("ip", ip);
             command.Parameters.AddWithValue("mission", mission);
-            command.Parameters.AddWithValue("size", size);
+            command.Parameters.AddWithValue("height", height);
+            command.Parameters.AddWithValue("width", width);
+            command.Parameters.AddWithValue("depth", depth);
             command.Parameters.AddWithValue("placing", placing);
             command.Parameters.AddWithValue("massa", massa);
             command.ExecuteNonQuery();

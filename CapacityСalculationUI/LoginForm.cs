@@ -64,5 +64,6 @@ namespace CapacityСalculationUI
             Application.Exit();
 
         }
+
     }
 }
