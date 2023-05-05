@@ -14,6 +14,7 @@ namespace CapacityСalculationUI
 {
     public partial class LoginForm : Form
     {
+        public bool localLogin { get; set; } = false;
         public string nameServer { get; set; }
         public string port { get; set; }
         //создаем объект кабформ
@@ -65,5 +66,12 @@ namespace CapacityСalculationUI
 
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            localLogin = true;
+            cabinetForm = new CabinetForm(this);
+            cabinetForm.Show();
+            this.Hide();
+        }
     }
 }

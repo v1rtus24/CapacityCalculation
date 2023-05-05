@@ -30,21 +30,28 @@ namespace CapacityСalculationUI
             CabinetForm = cabinetForm;
             LoginForm = cabinetForm.LoginForm;
             InitializeComponent();
-            string query = "SELECT * FROM Field";
-            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
+            if (LoginForm.localLogin)
             {
-                SqlDataReader dataReader = sqlCommand.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    DataField.Add(new string[2]);
-                    DataField[DataField.Count - 1][0] = dataReader[0].ToString();
-                    DataField[DataField.Count - 1][1] = dataReader[1].ToString();
-                }
-                dataReader.Close();
+
             }
-            for (int i = 0; i < DataField.Count; i++)
+            else
             {
-                comboBox1.Items.Add(DataField[i][1]);
+                string query = "SELECT * FROM Field";
+                using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
+                {
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        DataField.Add(new string[2]);
+                        DataField[DataField.Count - 1][0] = dataReader[0].ToString();
+                        DataField[DataField.Count - 1][1] = dataReader[1].ToString();
+                    }
+                    dataReader.Close();
+                }
+                for (int i = 0; i < DataField.Count; i++)
+                {
+                    comboBox1.Items.Add(DataField[i][1]);
+                }
             }
             ALLRadioButton.Enabled = false; AIRadioButton.Enabled = false; DIRadioButton.Enabled = false;
             AORadioButton.Enabled = false; DORadioButton.Enabled = false; RS485PLKRadioButton.Enabled = false;

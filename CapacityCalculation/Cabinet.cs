@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace CapacityCalculation
         public int SignalDO { get; set; }
         public int SignalRS485PLK { get; set; }
         public int SignalRS485SHL { get; set; }
+        public string Other { get; set; }
         public Cabinet() { }
         public Cabinet(string name, int signalAI, int signalDI, int signalAO, int signalDO, int signalRS485PLK, int signalRS485SHL)
         {
@@ -174,6 +177,5 @@ namespace CapacityCalculation
             cab = typeCabs[ind];
             return cab;
         }
-
     }
 }

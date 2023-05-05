@@ -11,7 +11,8 @@ using CapacityCalculation;
 using System.Reflection;
 using Microsoft.Office.Interop.Excel;
 using System.Threading;
-using DGVPrinterHelper; 
+using DGVPrinterHelper;
+using System.Data.SqlClient;
 
 namespace CapacityСalculationUI
 {
@@ -27,109 +28,192 @@ namespace CapacityСalculationUI
         public LoginForm LoginForm { get; set; }
         public int CabID { get; set; } 
         public int TableID { get; set; }
+        public List<Cabinet> constCabs { get; set; }
+        ToolTip t = new ToolTip();
 
         //тут используется агрегация. В конструктор CabinetForm передается ссылка на уже имеющийся объект LoginForm.
         // а также объявляются объкеты других форм
         public CabinetForm(LoginForm loginForm)
         {
+            constCabs = new List<Cabinet>(){new Cabinet("Тип 1",32,38,0,0,2,3), new Cabinet("Тип 2", 48, 59, 0, 0, 2, 5),
+                new Cabinet("Тип 3", 63, 76, 0, 0, 2, 6), new Cabinet("Тип 4", 4, 24, 0, 0, 4, 3),
+                new Cabinet("Тип 5", 4, 39, 0, 0, 7, 5), new Cabinet("Тип 6", 4, 52, 0, 0, 9, 6) };
+            
             LoginForm = loginForm;
             InitializeComponent();
-            
-            CalculationForm = new CalculationForm(this)
+            if (!loginForm.localLogin)
             {
-                Visible = false
-            };
-            ProfileForm = new ProfileForm(this)
+                CalculationForm = new CalculationForm(this)
+                {
+                    Visible = false
+                };
+                ProfileForm = new ProfileForm(this)
+                {
+                    Visible = false
+                };
+                UpdateCabinetTableOnline();
+            }
+            else
             {
-                Visible = false
-            };
-            UpdateCabinetTable();          
+                UpdateCabinetTableLocal();
+                ProfileForm = new ProfileForm(this)
+                {
+                    Visible = false
+                };
+            }
         }
     
         /// <summary>
-        /// Обновление данных в таблице шкафов
+        /// Обновление данных в таблице шкафов c подключением к БД
         /// </summary>
-        private void UpdateCabinetTable()
+        private void UpdateCabinetTableOnline()
         {          
-            dataGridView1.DataSource = LoginForm.dataBase.ShowData("SELECT * FROM TOS");            
-            dataGridView1.Columns[1].HeaderText = "Тип";
-            dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[2].Width = 80;
-            dataGridView1.Columns[3].Width = 50;
-            dataGridView1.Columns[4].Width = 50;
-            dataGridView1.Columns[5].Width = 50;
-            dataGridView1.Columns[6].Width = 80;
-            dataGridView1.Columns[7].Width = 80;
+            //dataGridView1.DataSource = LoginForm.dataBase.ShowData("SELECT * FROM TOS");            
+            //dataGridView1.Columns[1].HeaderText = "Тип";
+            //dataGridView1.Columns[0].Visible = false;
+            //dataGridView1.Columns[2].Width = 80;
+            //dataGridView1.Columns[3].Width = 50;
+            //dataGridView1.Columns[4].Width = 50;
+            //dataGridView1.Columns[5].Width = 50;
+            //dataGridView1.Columns[6].Width = 80;
+            //dataGridView1.Columns[7].Width = 80;
+            dataGridView1.Rows.Clear();
+            SqlCommand command = new SqlCommand("SELECT * FROM TOS",LoginForm.dataBase.sqlConnection);
+            SqlDataReader reader = command.ExecuteReader();
+            int ind = 0;
+            while (reader.Read())
+            {
+                dataGridView1.Rows.Add();
+                dataGridView1[0, ind].Value = reader[0].ToString();
+                dataGridView1[1, ind].Value = reader[1].ToString();
+                dataGridView1[2, ind].Value = reader[2].ToString();
+                dataGridView1[3, ind].Value = reader[3].ToString();
+                dataGridView1[4, ind].Value = reader[4].ToString();
+                dataGridView1[5, ind].Value = reader[5].ToString();
+                dataGridView1[6, ind].Value = reader[6].ToString();
+                dataGridView1[7, ind].Value = reader[7].ToString();
+                ind++;
+            }
+            reader.Close();
+        }
+
+        private void UpdateCabinetTableLocal()
+        {
+            int ind = 0;
+            foreach (var cab in constCabs)
+            {
+                dataGridView1.Rows.Add();
+                dataGridView1[1, ind].Value = cab.Name;
+                dataGridView1[2, ind].Value = cab.SignalAI;
+                dataGridView1[3, ind].Value = cab.SignalAO;
+                dataGridView1[4, ind].Value = cab.SignalDI;
+                dataGridView1[5, ind].Value = cab.SignalDO;
+                dataGridView1[6, ind].Value = cab.SignalRS485PLK;
+                dataGridView1[7, ind].Value = cab.SignalRS485SHL;
+                ind++;
+            }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            UpdateCabinetTable();
+            if (!LoginForm.localLogin)
+            {
+                UpdateCabinetTableOnline();
+            }
+            else
+            {
+                MessageBox.Show("Для обновления списка типов необходимо подключение к БД!","Используется локальная версия",
+                    MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
         }
         private void AddCabinet()
         {
-            AddEditCabinet form = new AddEditCabinet();
-            if (form.ShowDialog() == DialogResult.OK)
+            if (!LoginForm.localLogin)
             {
-                LoginForm.dataBase.AddCabinet(form.CabinetTM);
-                UpdateCabinetTable();
-                dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
-                if (MessageBox.Show("Добавить состав шкафа?", "Оборудование шкафа", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                AddEditCabinet form = new AddEditCabinet();
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                    LoginForm.dataBase.AddCabinet(form.CabinetTM);
+                    UpdateCabinetTableOnline();
+                    dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
+                    if (MessageBox.Show("Добавить состав шкафа?", "Оборудование шкафа", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                    }
+                    else
+                    {
+                        LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                    }
                 }
-                else 
-                {
-                    LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Для добавления новых типов шкафов необходимо подключение к БД!", "Используется локальная версия",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void UpdateCabinet()
         {
-            AddEditCabinet form = new AddEditCabinet();
-            if (dataGridView1.SelectedRows[0].Cells[1].Value != null)
+            if (!LoginForm.localLogin)
             {
-                CabinetTM.Name = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                CabinetTM.SignalAI = (int)dataGridView1.SelectedRows[0].Cells[2].Value;
-                CabinetTM.SignalAO = (int)dataGridView1.SelectedRows[0].Cells[3].Value;
-                CabinetTM.SignalDI = (int)dataGridView1.SelectedRows[0].Cells[4].Value;
-                CabinetTM.SignalDO = (int)dataGridView1.SelectedRows[0].Cells[5].Value;
-                CabinetTM.SignalRS485PLK = (int)dataGridView1.SelectedRows[0].Cells[6].Value;
-                CabinetTM.SignalRS485SHL = (int)dataGridView1.SelectedRows[0].Cells[7].Value;
-                form.CabinetTM = CabinetTM;
-                if (form.ShowDialog() == DialogResult.OK)
+                AddEditCabinet form = new AddEditCabinet();
+                if (dataGridView1.SelectedRows[0].Cells[1].Value != null)
                 {
-                    int id = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-                    LoginForm.dataBase.UpdateCabinet(id, form.CabinetTM);
-                    UpdateCabinetTable();
-                    dataGridView1.Rows[TableID].Selected = true;
+                    CabinetTM.Name = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+                    CabinetTM.SignalAI = (int)dataGridView1.SelectedRows[0].Cells[2].Value;
+                    CabinetTM.SignalAO = (int)dataGridView1.SelectedRows[0].Cells[3].Value;
+                    CabinetTM.SignalDI = (int)dataGridView1.SelectedRows[0].Cells[4].Value;
+                    CabinetTM.SignalDO = (int)dataGridView1.SelectedRows[0].Cells[5].Value;
+                    CabinetTM.SignalRS485PLK = (int)dataGridView1.SelectedRows[0].Cells[6].Value;
+                    CabinetTM.SignalRS485SHL = (int)dataGridView1.SelectedRows[0].Cells[7].Value;
+                    form.CabinetTM = CabinetTM;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        int id = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                        LoginForm.dataBase.UpdateCabinet(id, form.CabinetTM);
+                        UpdateCabinetTableOnline();
+                        dataGridView1.Rows[TableID].Selected = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите шкаф");
                 }
             }
             else
             {
-                MessageBox.Show("Выберите шкаф");
+                MessageBox.Show("Для добавления новых типов шкафов необходимо подключение к БД!", "Используется локальная версия",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void DeleteCabinet()
         {
-            try
+            if (!LoginForm.localLogin)
             {
-                if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
+                try
                 {
-                    LoginForm.dataBase.DeleteCabinet(CabID);
-                    UpdateCabinetTable();
-                    dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
+                    if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        LoginForm.dataBase.DeleteCabinet(CabID);
+                        UpdateCabinetTableOnline();
+                        dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                else 
-                { 
-                    return; 
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch(Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Для добавления новых типов шкафов необходимо подключение к БД!", "Используется локальная версия",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void AddCabinetButton_Click_1(object sender, EventArgs e)
@@ -163,20 +247,30 @@ namespace CapacityСalculationUI
 
         private void CabinetForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (!LoginForm.localLogin)
             {
-                LoginForm.dataBase.sqlConnection.Close();
+                if (LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+                {
+                    LoginForm.dataBase.sqlConnection.Close();
+                }
+                System.Windows.Forms.Application.Exit();
             }
-            System.Windows.Forms.Application.Exit();
+            else
+                System.Windows.Forms.Application.Exit();
         }
 
         private void выходToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (!LoginForm.localLogin)
             {
-                LoginForm.dataBase.sqlConnection.Close();
+                if (LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+                {
+                    LoginForm.dataBase.sqlConnection.Close();
+                }
+                System.Windows.Forms.Application.Exit();
             }
-            System.Windows.Forms.Application.Exit();
+            else
+                System.Windows.Forms.Application.Exit();
         }
 
         private void подборШкафаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,10 +340,58 @@ namespace CapacityСalculationUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var mainSpecCabForm = new MainSpecCabForm(this); 
-            mainSpecCabForm.StartPosition = FormStartPosition.Manual;
-            mainSpecCabForm.Location = this.Location;
-            mainSpecCabForm.ShowDialog();
+            if (!LoginForm.localLogin)
+            {
+                var mainSpecCabForm = new MainSpecCabForm(this);
+                mainSpecCabForm.StartPosition = FormStartPosition.Manual;
+                mainSpecCabForm.Location = this.Location;
+                mainSpecCabForm.ShowDialog();
+            }
+            else
+            {
+                if (dataGridView1.SelectedRows[0].Index == 0)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 3-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 2-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (dataGridView1.SelectedRows[0].Index == 1)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 5-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 2-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (dataGridView1.SelectedRows[0].Index == 2)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 6-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 2-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (dataGridView1.SelectedRows[0].Index == 3)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 3-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 4-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (dataGridView1.SelectedRows[0].Index == 4)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 5-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 7-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (dataGridView1.SelectedRows[0].Index == 5)
+                {
+                    MessageBox.Show("- Шкаф ТМ должен обеспечивать возможность приема и передачи данных по интерфейсу RS-485 через шлюз сбора" +
+                        " данных не менее чем по 6-м портам (подключение ЭЦН, ЛСУ ИУ).\n- ПЛК шкафа ТМ должен " +
+                        "обеспечивать возможность приема (передачи) данных по интерфейсу RS-485 по 9-м портам.\n" +
+                        "- Оборудования шкафа ТМ должно быть совместимо с системой телеметрии «Телескоп+»", "Прочие требование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -259,25 +401,33 @@ namespace CapacityСalculationUI
             {
                 if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
                 {
-                    CabID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                    CabID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
                     TableID = (int)dataGridView1.SelectedRows[0].Index;
                 }
                 else 
                     return;
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Что-то произошло");
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void CabinetForm_Load(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
+            try
             {
-                CabID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
-                TableID = (int)dataGridView1.SelectedRows[0].Index;
+                if (dataGridView1.SelectedRows[0].Cells[0].Value != null)
+                {
+                    CabID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
+                    TableID = (int)dataGridView1.SelectedRows[0].Index;
+                }
+            }
+            catch
+            {
+                return;
             }
         }
+
     }
 }
