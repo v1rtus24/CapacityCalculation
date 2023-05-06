@@ -14,13 +14,13 @@ namespace CapacityCalculation
         /// Возвращает и задает путь по умолчанию к файлу>. 
         /// </summary>
         public static string FilePath { get; set; } = Environment.GetFolderPath(
-            Environment.SpecialFolder.Personal) + @"\CapacityCalc\";
+            Environment.SpecialFolder.Personal) + @"\CapacityCalc\profiles.json";
 
         /// <summary>
         /// Метод сохранения данных в файл
         /// </summary>
         /// <param name="files"></param>
-        public static void SaveToFile<T>(T files, string filePath) where T: List<Cabinet>
+        public static void SaveToFile<T>(T files, string filePath)
         {
             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
             {

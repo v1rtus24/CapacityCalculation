@@ -135,7 +135,7 @@ namespace CapacityСalculationUI
                     MessageBox.Show(ex.Message);
                     return;
                 }
-            }  
+            }
         }
 
         // обновление данных в таблице без подключения
@@ -150,7 +150,6 @@ namespace CapacityСalculationUI
                 WellDataGridView[1, ind].Value = well.TypeWell;
                 ind++;
             }
-            WellDataGridView.ClearSelection();
 
         }
 
@@ -182,7 +181,7 @@ namespace CapacityСalculationUI
             {
                 PhysCharDataGridView.Rows.Add();
                 PhysCharDataGridView[0, ind].Value = sig.NameSignal;
-                PhysCharDataGridView[1, ind].Value = sig.Type;
+                PhysCharDataGridView[1, ind].Value = sig.TypeSignal;
                 ind++;
             }
         }
@@ -248,10 +247,15 @@ namespace CapacityСalculationUI
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    idField = FieldDataGridView.SelectedRows[0].Index;
-                    Fields[idField].WellPads.Add(new WellPad(form.WellPadNum));
-                    UpdateWellPadTableLocal(idField);
-                    WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
+                    if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = FieldDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads.Add(new WellPad(form.WellPadNum));
+                        UpdateWellPadTableLocal(idField);
+                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    else
+                        return;
                 }
             }
         }
@@ -286,10 +290,15 @@ namespace CapacityСalculationUI
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
-                    Fields[idField].WellPads[idWellPad].Wells.Add(new Well(form.NumWell,form.TypeWell));
-                    UpdateWellTableLocal(idWellPad);
-                    WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
+                    if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads[idWellPad].Wells.Add(new Well(form.NumWell, form.TypeWell));
+                        UpdateWellTableLocal(idWellPad);
+                        WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    else
+                        return;
                 }
             }
         }
@@ -326,10 +335,15 @@ namespace CapacityСalculationUI
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    idWell = WellDataGridView.SelectedRows[0].Index;
-                    Fields[idField].WellPads[idWellPad].Wells[idWell].Signals.Add(new Signal(form.NamePhysChar,form.Signal));
-                    UpdatePhysCharTableLocal(idWell);
-                    PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
+                    if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idWell = WellDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals.Add(new Signal(form.NamePhysChar, form.Signal));
+                        UpdatePhysCharTableLocal(idWell);
+                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    else
+                        return;
                 }
             }
         }
@@ -340,6 +354,8 @@ namespace CapacityСalculationUI
 
         private void UpdateField()
         {
+            AddEditField form = new AddEditField();
+
             if (!cabinetForm.LoginForm.localLogin)
             {
                 try
@@ -347,7 +363,6 @@ namespace CapacityСalculationUI
                     if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
                     {
                         idField = (int)FieldDataGridView.SelectedRows[0].Cells[0].Value;
-                        AddEditField form = new AddEditField();
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             cabinetForm.LoginForm.dataBase.UpdateField(form.FieldName, idField);
@@ -363,7 +378,18 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = FieldDataGridView.SelectedRows[0].Index;
+                        Fields[idField].Name = form.FieldName;
+                        UpdateFieldTableLocal();
+                        FieldDataGridView.Rows[indexDataGrid].Selected = true;
+                    }
+                    else
+                        return;
+                }
             }
         }
         private void UpdateFieldToolStripMenuItem_Click(object sender, EventArgs e)
@@ -372,6 +398,8 @@ namespace CapacityСalculationUI
         }
         private void UpdateWellPad()
         {
+            AddEditWellPad form = new AddEditWellPad();
+
             if (!cabinetForm.LoginForm.localLogin)
             {
                 try
@@ -379,8 +407,6 @@ namespace CapacityСalculationUI
                     if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
                     {
                         idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
-
-                        AddEditWellPad form = new AddEditWellPad();
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             cabinetForm.LoginForm.dataBase.UpdateWellPad(form.WellPadNum, idWellPad);
@@ -397,7 +423,19 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = FieldDataGridView.SelectedRows[0].Index;
+                        idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads[idWellPad].Num = form.WellPadNum;
+                        UpdateWellPadTableLocal(idField);
+                        WellPadDataGridView.Rows[indexDataGrid].Selected = true;
+                    }
+                    else
+                        return;
+                }
             }
         }
         private void UpdateWellPadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -407,6 +445,7 @@ namespace CapacityСalculationUI
 
         private void UpdateWell()
         {
+            AddEditWell form = new AddEditWell();
             if (!cabinetForm.LoginForm.localLogin)
             {
                 try
@@ -414,8 +453,6 @@ namespace CapacityСalculationUI
                     if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
                     {
                         idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
-
-                        AddEditWell form = new AddEditWell();
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             cabinetForm.LoginForm.dataBase.UpdateWell(form.NumWell, form.TypeWell, idWell);
@@ -432,7 +469,23 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = FieldDataGridView.SelectedRows[0].Index;
+                        idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                        idWell = WellDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads[idWellPad].Wells[idWell].Num = form.NumWell;
+                        Fields[idField].WellPads[idWellPad].Wells[idWell].TypeWell = form.TypeWell;
+                        UpdateWellTableLocal(idWellPad);
+                        WellDataGridView.Rows[indexDataGrid].Selected = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
             }
         }
         private void UpdateWellToolStripMenuItem_Click(object sender, EventArgs e)
@@ -441,6 +494,7 @@ namespace CapacityСalculationUI
         }
         private void UpdatePhysChar()
         {
+            AddEditPhysChar form = new AddEditPhysChar();
             if (!cabinetForm.LoginForm.localLogin)
             {
                 try
@@ -448,8 +502,6 @@ namespace CapacityСalculationUI
                     if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
                     {
                         idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
-
-                        AddEditPhysChar form = new AddEditPhysChar();
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             cabinetForm.LoginForm.dataBase.UpdatePhysChar(form.NamePhysChar, form.Signal, idPhysChar);
@@ -467,6 +519,22 @@ namespace CapacityСalculationUI
             else
             {
 
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = FieldDataGridView.SelectedRows[0].Index;
+                        idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                        idWell = WellDataGridView.SelectedRows[0].Index;
+                        idPhysChar = PhysCharDataGridView.SelectedRows[0].Index;
+                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals[idPhysChar].NameSignal = form.NamePhysChar;
+                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals[idPhysChar].TypeSignal = form.Signal;
+                        UpdatePhysCharTableLocal(idWell);
+                        PhysCharDataGridView.Rows[indexDataGrid].Selected = true;
+                    }
+                    else
+                        return;
+                }
             }
         }
         private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
@@ -485,6 +553,7 @@ namespace CapacityСalculationUI
                         idField = (int)FieldDataGridView.SelectedRows[0].Cells[0].Value;
                         cabinetForm.LoginForm.dataBase.DeleteField(idField);
                         UpdateFieldTableOnline();
+                        FieldDataGridView.Rows[FieldDataGridView.Rows.Count - 2].Selected = true;
                     }
                 }
                 catch
@@ -494,6 +563,22 @@ namespace CapacityСalculationUI
             }
             else
             {
+                if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idField = FieldDataGridView.SelectedRows[0].Index;
+                    Fields.RemoveAt(idField);
+                    UpdateFieldTableLocal();
+                    try
+                    {
+                        FieldDataGridView.Rows[FieldDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+                else
+                    return;
 
             }
         }
@@ -512,6 +597,8 @@ namespace CapacityСalculationUI
                         idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
                         cabinetForm.LoginForm.dataBase.DeleteWellPad(idWellPad);
                         UpdateWellPadTableOnline(idField);
+                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
+
                         WellDataGridView.DataSource = null;
                         PhysCharDataGridView.DataSource = null;
                     }
@@ -523,7 +610,23 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idField = FieldDataGridView.SelectedRows[0].Index;
+                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                    Fields[idField].WellPads.RemoveAt(idWellPad);
+                    UpdateWellPadTableLocal(idField);
+                    try
+                    {
+                        WellPadDataGridView.Rows[WellPadDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+                else
+                    return;
             }
         }
         private void DeleteWellPadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -542,6 +645,8 @@ namespace CapacityСalculationUI
                         idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
                         cabinetForm.LoginForm.dataBase.DeleteWell(idWell);
                         UpdateWellTableOnline(idWellPad);
+                        WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
+
                         PhysCharDataGridView.DataSource = null;
                     }
                 }
@@ -552,7 +657,24 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idField = FieldDataGridView.SelectedRows[0].Index;
+                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                    idWell = WellDataGridView.SelectedRows[0].Index;
+                    Fields[idField].WellPads[idWellPad].Wells.RemoveAt(idWell);
+                    UpdateWellTableLocal(idWellPad);
+                    try
+                    {
+                        WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+                else
+                    return;
             }
         }
         private void DeleteWellToolStripMenuItem_Click(object sender, EventArgs e)
@@ -570,7 +692,7 @@ namespace CapacityСalculationUI
                     {
                         idPhysChar = (int)PhysCharDataGridView.SelectedRows[0].Cells[0].Value;
                         cabinetForm.LoginForm.dataBase.DeletePhysChar(idPhysChar);
-                        UpdatePhysCharTableOnline(idWell);
+                        UpdatePhysCharTableOnline(idWellPad);
                     }
                 }
                 catch
@@ -580,7 +702,25 @@ namespace CapacityСalculationUI
             }
             else
             {
-
+                if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                {
+                    idField = FieldDataGridView.SelectedRows[0].Index;
+                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                    idWell = WellDataGridView.SelectedRows[0].Index;
+                    idPhysChar = PhysCharDataGridView.SelectedRows[0].Index;
+                    Fields[idField].WellPads[idWellPad].Wells[idWell].Signals.RemoveAt(idPhysChar);
+                    UpdatePhysCharTableLocal(idWell);
+                    try
+                    {
+                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
+                    }
+                    catch
+                    {
+                        return;
+                    }
+                }
+                else
+                    return;
             }
         }
         private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
@@ -611,7 +751,7 @@ namespace CapacityСalculationUI
                 try
                 {
                     idWell = WellDataGridView.SelectedRows[0].Index;
-                    UpdatePhysCharTableLocal(idWellPad);
+                    UpdatePhysCharTableLocal(idWell);
                 }
                 catch
                 {
@@ -687,7 +827,7 @@ namespace CapacityСalculationUI
                 {
                     idWellPad = WellPadDataGridView.SelectedRows[0].Index;
                     UpdateWellTableLocal(idWellPad);
-                    PhysCharDataGridView.DataSource = null;
+                    PhysCharDataGridView.Rows.Clear();
                 }
                 catch
                 {
@@ -819,6 +959,105 @@ namespace CapacityСalculationUI
             Application.Exit();
         }
 
+        private void FieldDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!cabinetForm.LoginForm.localLogin)
+            {
+                try
+                {
+                    if (FieldDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idField = (int)FieldDataGridView.SelectedRows[0].Cells[0].Value;
+                        UpdateWellPadTableOnline(idField);
+                        WellDataGridView.DataSource = null;
+                        PhysCharDataGridView.DataSource = null;
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    idField = FieldDataGridView.SelectedRows[0].Index;
+                    UpdateWellPadTableLocal(idField);
+                    WellDataGridView.Rows.Clear();
+                    PhysCharDataGridView.Rows.Clear();
+                }
+                catch
+                {
+                    return;
+                }
+            }
+        }
+
+        private void WellPadDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!cabinetForm.LoginForm.localLogin)
+            {
+                try
+                {
+                    if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idWellPad = (int)WellPadDataGridView.SelectedRows[0].Cells[0].Value;
+                        UpdateWellTableOnline(idWellPad);
+                        PhysCharDataGridView.DataSource = null;
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
+                    UpdateWellTableLocal(idWellPad);
+                    PhysCharDataGridView.Rows.Clear();
+                }
+                catch
+                {
+                    return;
+                }
+
+            }
+        }
+
+        private void WellDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!cabinetForm.LoginForm.localLogin)
+            {
+                try
+                {
+                    if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
+                    {
+                        idWell = (int)WellDataGridView.SelectedRows[0].Cells[0].Value;
+                        UpdatePhysCharTableOnline(idWell);
+                    }
+                }
+                catch
+                {
+                    return;
+                }
+            }
+            else
+            {
+                try
+                {
+                    idWell = WellDataGridView.SelectedRows[0].Index;
+                    UpdatePhysCharTableLocal(idWell);
+                }
+                catch
+                {
+                    return;
+                }
+            }
+        }
     }
 }
 

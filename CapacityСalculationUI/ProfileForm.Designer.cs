@@ -160,6 +160,7 @@
             this.WellDataGridView.Size = new System.Drawing.Size(215, 269);
             this.WellDataGridView.TabIndex = 10;
             this.WellDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WellDataGridView_CellClick);
+            this.WellDataGridView.SelectionChanged += new System.EventHandler(this.WellDataGridView_SelectionChanged);
             this.WellDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.WellDataGridView_MouseClick);
             // 
             // groupBox2
@@ -220,6 +221,7 @@
             this.WellPadDataGridView.Size = new System.Drawing.Size(178, 267);
             this.WellPadDataGridView.TabIndex = 9;
             this.WellPadDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WellPadDataGridView_CellClick);
+            this.WellPadDataGridView.SelectionChanged += new System.EventHandler(this.WellPadDataGridView_SelectionChanged);
             this.WellPadDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.WellPadDataGridView_MouseClick);
             // 
             // groupBox1
@@ -280,6 +282,7 @@
             this.FieldDataGridView.Size = new System.Drawing.Size(210, 269);
             this.FieldDataGridView.TabIndex = 5;
             this.FieldDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FieldDataGridView_CellClick);
+            this.FieldDataGridView.SelectionChanged += new System.EventHandler(this.FieldDataGridView_SelectionChanged);
             this.FieldDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FieldDataGridView_MouseClick_1);
             // 
             // menuStrip1
