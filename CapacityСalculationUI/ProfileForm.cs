@@ -27,6 +27,7 @@ namespace CapacityСalculationUI
         {
             this.cabinetForm = cabinetForm;
             InitializeComponent();
+            openFileDialog1.Title = "Выберите файл с профилями.";
         }
 
         private void ProfileForm_Load(object sender, EventArgs e)
@@ -34,6 +35,9 @@ namespace CapacityСalculationUI
             if (!cabinetForm.LoginForm.localLogin)
             {
                 UpdateFieldTableOnline();
+                сохранитьToolStripMenuItem.Enabled = false;
+                загрузитьToolStripMenuItem.Enabled = false;
+
             }
             else
             {
@@ -51,6 +55,29 @@ namespace CapacityСalculationUI
                 PhysCharDataGridView.Columns.Add("Col2", "Name2");
                 PhysCharDataGridView.Columns[0].Width = 180;
                 PhysCharDataGridView.Columns[1].Width = 70;
+                Fields = SaveLoad.LoadFromFile(SaveLoad.FilePath);
+                if (Fields.Count < 1)
+                {
+                    DialogResult dg = MessageBox.Show("Профили на этом ПК не найдены.\n" +
+                        "Загрузить профили?","Профили",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
+                    if(dg == DialogResult.OK)
+                    {
+                        if (openFileDialog1.ShowDialog() == DialogResult.OK && openFileDialog1.FileName.Length > 0)
+                        {
+                            try
+                            {
+                                Fields.Clear();
+                                Fields = SaveLoad.LoadFromFile(openFileDialog1.FileName);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+                }
+                UpdateFieldTableLocal();
+                this.Show();
             }
         }
 
@@ -77,6 +104,9 @@ namespace CapacityСalculationUI
                 ind++;
             }
             FieldDataGridView.ClearSelection();
+            WellPadDataGridView.Rows.Clear();
+            WellDataGridView.Rows.Clear();
+            PhysCharDataGridView.Rows.Clear();
 
         }
 
@@ -188,10 +218,17 @@ namespace CapacityСalculationUI
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UpdateFieldTableOnline();
-            WellDataGridView.DataSource = null;
-            WellPadDataGridView.DataSource = null;
-            PhysCharDataGridView.DataSource = null;
+            if (!cabinetForm.LoginForm.localLogin)
+            {
+                UpdateFieldTableOnline();
+                WellDataGridView.DataSource = null;
+                WellPadDataGridView.DataSource = null;
+                PhysCharDataGridView.DataSource = null;
+            }
+            else
+            {
+                UpdateFieldTableLocal();
+            }
         }
 
         private void AddFieldToolStripMenuItem_Click(object sender, EventArgs e)
@@ -956,6 +993,19 @@ namespace CapacityСalculationUI
                     cabinetForm.LoginForm.dataBase.sqlConnection.Close();
                 }
             }
+            else
+            {
+                try
+                {
+                    SaveLoad.SaveToFile<List<Field>>(Fields, SaveLoad.FilePath);
+                    MessageBox.Show("Файл с сохранёнными профилями расположен по следующему пути:\nДокументы\\CapacityCalc\\profiles.json",
+                        "Файл успешно сохранился!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
             Application.Exit();
         }
 
@@ -1055,6 +1105,60 @@ namespace CapacityСalculationUI
                 catch
                 {
                     return;
+                }
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK && openFileDialog1.FileName.Length > 0)
+            {
+                try
+                {
+                    Fields.Clear();
+                    Fields = SaveLoad.LoadFromFile(openFileDialog1.FileName);
+                    UpdateFieldTableLocal();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void поУмолчаниюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveLoad.SaveToFile<List<Field>>(Fields, SaveLoad.FilePath);
+                MessageBox.Show("Файл с сохранёнными профилями расположен по следующему пути:\nДокументы\\CapacityCalc\\profiles.json",
+                    "Файл успешно сохранился!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void выбратьПутьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.FileName = "profiles.json";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
+            {
+                try
+                {
+                    SaveLoad.SaveToFile<List<Field>>(Fields, saveFileDialog1.FileName);
+                    MessageBox.Show($"Файл с сохранёнными профилями расположен по следующему пути:{saveFileDialog1.FileName}",
+                        "Файл успешно сохранился!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

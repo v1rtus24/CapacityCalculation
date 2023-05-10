@@ -53,6 +53,7 @@
             this.ClientSize = new System.Drawing.Size(814, 458);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ipForm";
             this.Text = "Степень защиты оболочки";

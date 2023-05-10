@@ -40,27 +40,27 @@ namespace CapacityCalculation
         /// Метод загрузки данных из файла
         /// </summary>
         /// <returns></returns>
-        //public static Project LoadFromFile(string filePath)
-        //{
-        //    if (!File.Exists(filePath))
-        //    {
-        //        return new Project();
-        //    }
-        //    try
-        //    {
-        //        JsonSerializer serializer = new JsonSerializer();
-        //        //Открываем поток для чтения из файла с указанием пути
-        //        using (StreamReader sr = new StreamReader(filePath))
-        //        using (JsonReader reader = new JsonTextReader(sr))
-        //        {
-        //            //Вызываем десериализацию и явно преобразуем результат в целевой тип данных
-        //            return (Project)serializer.Deserialize<Project>(reader);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        return new Project();
-        //    }
-        //}
+        public static List<Field> LoadFromFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return new List<Field>();
+            }
+            try
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                //Открываем поток для чтения из файла с указанием пути
+                using (StreamReader sr = new StreamReader(filePath))
+                using (JsonReader reader = new JsonTextReader(sr))
+                {
+                    //Вызываем десериализацию и явно преобразуем результат в целевой тип данных
+                    return serializer.Deserialize<List<Field>>(reader);
+                }
+            }
+            catch
+            {
+                return new List<Field>();
+            }
+        }
     }
 }

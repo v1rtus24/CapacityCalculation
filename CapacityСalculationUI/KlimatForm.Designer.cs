@@ -52,6 +52,7 @@
             this.ClientSize = new System.Drawing.Size(695, 503);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KlimatForm";
             this.Text = "Климатическое исполнения";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
