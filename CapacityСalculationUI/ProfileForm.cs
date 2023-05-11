@@ -28,10 +28,6 @@ namespace CapacityСalculationUI
             this.cabinetForm = cabinetForm;
             InitializeComponent();
             openFileDialog1.Title = "Выберите файл с профилями.";
-        }
-
-        private void ProfileForm_Load(object sender, EventArgs e)
-        {
             if (!cabinetForm.LoginForm.localLogin)
             {
                 UpdateFieldTableOnline();
@@ -59,8 +55,8 @@ namespace CapacityСalculationUI
                 if (Fields.Count < 1)
                 {
                     DialogResult dg = MessageBox.Show("Профили на этом ПК не найдены.\n" +
-                        "Загрузить профили?","Профили",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
-                    if(dg == DialogResult.OK)
+                        "Загрузить профили?", "Профили", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if (dg == DialogResult.OK)
                     {
                         if (openFileDialog1.ShowDialog() == DialogResult.OK && openFileDialog1.FileName.Length > 0)
                         {
@@ -79,6 +75,10 @@ namespace CapacityСalculationUI
                 UpdateFieldTableLocal();
                 this.Show();
             }
+        }
+
+        private void ProfileForm_Load(object sender, EventArgs e)
+        {
         }
 
         /// <summary>
@@ -173,11 +173,11 @@ namespace CapacityСalculationUI
         {
             WellDataGridView.Rows.Clear();
             int ind = 0;
-            foreach (var well in Fields[idField].WellPads[idWellPad].Wells)
+            foreach (var well in Fields[idField].WellPads[idWellPad].tecObjects)
             {
                 WellDataGridView.Rows.Add();
-                WellDataGridView[0, ind].Value = well.Num;
-                WellDataGridView[1, ind].Value = well.TypeWell;
+                WellDataGridView[1, ind].Value = well.Name;
+                //WellDataGridView[1, ind].Value = well.TypeWell;
                 ind++;
             }
 
@@ -207,13 +207,15 @@ namespace CapacityСalculationUI
         {
             PhysCharDataGridView.Rows.Clear();
             int ind = 0;
-            foreach (var sig in Fields[idField].WellPads[idWellPad].Wells[idWell].Signals)
-            {
-                PhysCharDataGridView.Rows.Add();
-                PhysCharDataGridView[0, ind].Value = sig.NameSignal;
-                PhysCharDataGridView[1, ind].Value = sig.TypeSignal;
-                ind++;
-            }
+            //foreach (var sig in Fields[idField].WellPads[idWellPad].Wells[idWell].Signals)
+            //{
+            //    PhysCharDataGridView.Rows.Add();
+            //    PhysCharDataGridView[0, ind].Value = sig.NameSignal;
+            //    PhysCharDataGridView[1, ind].Value = sig.TypeSignal;
+            //    ind++;
+            //}
+            PhysCharDataGridView.Rows.Add();
+            PhysCharDataGridView[1, ind].Value = Fields[idField].WellPads[idWellPad].tecObjects[idWell].Info;
         }
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -330,7 +332,7 @@ namespace CapacityСalculationUI
                     if (WellPadDataGridView.SelectedRows[0].Cells[0].Value != null)
                     {
                         idWellPad = WellPadDataGridView.SelectedRows[0].Index;
-                        Fields[idField].WellPads[idWellPad].Wells.Add(new Well(form.NumWell, form.TypeWell));
+                        Fields[idField].WellPads[idWellPad].tecObjects.Add(new TecObject(form.Type));
                         UpdateWellTableLocal(idWellPad);
                         WellDataGridView.Rows[WellDataGridView.Rows.Count - 2].Selected = true;
                     }
@@ -344,7 +346,7 @@ namespace CapacityСalculationUI
             AddWell();
         }
 
-        private void AddPhysChar()
+        /* private void AddPhysChar()
         {
             var form = new AddEditPhysChar();
             if (!cabinetForm.LoginForm.localLogin)
@@ -383,11 +385,11 @@ namespace CapacityСalculationUI
                         return;
                 }
             }
-        }
-        private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddPhysChar();
-        }
+        }*/
+        //private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    AddPhysChar();
+        //}
 
         private void UpdateField()
         {
@@ -513,8 +515,7 @@ namespace CapacityСalculationUI
                         idField = FieldDataGridView.SelectedRows[0].Index;
                         idWellPad = WellPadDataGridView.SelectedRows[0].Index;
                         idWell = WellDataGridView.SelectedRows[0].Index;
-                        Fields[idField].WellPads[idWellPad].Wells[idWell].Num = form.NumWell;
-                        Fields[idField].WellPads[idWellPad].Wells[idWell].TypeWell = form.TypeWell;
+                        Fields[idField].WellPads[idWellPad].tecObjects[idWell] = new TecObject(form.Type);
                         UpdateWellTableLocal(idWellPad);
                         WellDataGridView.Rows[indexDataGrid].Selected = true;
                     }
@@ -529,7 +530,7 @@ namespace CapacityСalculationUI
         {
             UpdateWell();
         }
-        private void UpdatePhysChar()
+       /* private void UpdatePhysChar()
         {
             AddEditPhysChar form = new AddEditPhysChar();
             if (!cabinetForm.LoginForm.localLogin)
@@ -573,11 +574,11 @@ namespace CapacityСalculationUI
                         return;
                 }
             }
-        }
-        private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UpdatePhysChar();
-        }
+        } */
+        //private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    UpdatePhysChar();
+        //}
 
         private void DeleteField()
         {
@@ -699,7 +700,7 @@ namespace CapacityСalculationUI
                     idField = FieldDataGridView.SelectedRows[0].Index;
                     idWellPad = WellPadDataGridView.SelectedRows[0].Index;
                     idWell = WellDataGridView.SelectedRows[0].Index;
-                    Fields[idField].WellPads[idWellPad].Wells.RemoveAt(idWell);
+                    Fields[idField].WellPads[idWellPad].tecObjects.RemoveAt(idWell);
                     UpdateWellTableLocal(idWellPad);
                     try
                     {
@@ -719,7 +720,7 @@ namespace CapacityСalculationUI
             DeleteWell();
         }
 
-        private void DeletePhysChar()
+        /*private void DeletePhysChar()
         {
             if (!cabinetForm.LoginForm.localLogin)
             {
@@ -759,11 +760,11 @@ namespace CapacityСalculationUI
                 else
                     return;
             }
-        }
-        private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DeletePhysChar();
-        }
+        }*/
+        //private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    DeletePhysChar();
+        //}
 
         private void WellDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -923,10 +924,10 @@ namespace CapacityСalculationUI
             {
                 AddWell();
             }
-            if (Pozition == "PhysChar")
-            {
-                AddPhysChar();
-            }
+            //if (Pozition == "PhysChar")
+            //{
+            //    AddPhysChar();
+            //}
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -943,10 +944,10 @@ namespace CapacityСalculationUI
             {
                 UpdateWell();
             }
-            if (Pozition == "PhysChar")
-            {
-                UpdatePhysChar();
-            }
+            //if (Pozition == "PhysChar")
+            //{
+            //    UpdatePhysChar();
+            //}
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -965,8 +966,9 @@ namespace CapacityСalculationUI
             }
             if (Pozition == "PhysChar")
             {
-                DeletePhysChar();
+               // DeletePhysChar();
             }
+            
         }
         private void типыШкафовToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -998,8 +1000,6 @@ namespace CapacityСalculationUI
                 try
                 {
                     SaveLoad.SaveToFile<List<Field>>(Fields, SaveLoad.FilePath);
-                    MessageBox.Show("Файл с сохранёнными профилями расположен по следующему пути:\nДокументы\\CapacityCalc\\profiles.json",
-                        "Файл успешно сохранился!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

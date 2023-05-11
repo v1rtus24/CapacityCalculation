@@ -50,7 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoad.cs" />
     <Compile Include="Signal.cs" />
+    <Compile Include="TecObject.cs" />
     <Compile Include="TypeSignal.cs" />
+    <Compile Include="TypeTecObj.cs" />
     <Compile Include="Well.cs" />
     <Compile Include="WellPad.cs" />
   </ItemGroup>

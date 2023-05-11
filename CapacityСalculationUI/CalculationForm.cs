@@ -30,11 +30,7 @@ namespace CapacityСalculationUI
             CabinetForm = cabinetForm;
             LoginForm = cabinetForm.LoginForm;
             InitializeComponent();
-            if (LoginForm.localLogin)
-            {
-
-            }
-            else
+            if (!LoginForm.localLogin)
             {
                 string query = "SELECT * FROM Field";
                 using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
@@ -52,142 +48,176 @@ namespace CapacityСalculationUI
                 {
                     comboBox1.Items.Add(DataField[i][1]);
                 }
+                ALLRadioButton.Enabled = false; AIRadioButton.Enabled = false; DIRadioButton.Enabled = false;
+                AORadioButton.Enabled = false; DORadioButton.Enabled = false; RS485PLKRadioButton.Enabled = false;
+                RS485SHLRadioButton.Enabled = false;
             }
-            ALLRadioButton.Enabled = false; AIRadioButton.Enabled = false; DIRadioButton.Enabled = false;
-            AORadioButton.Enabled = false; DORadioButton.Enabled = false; RS485PLKRadioButton.Enabled = false;
-            RS485SHLRadioButton.Enabled = false;
+            else
+            {
+                comboBox1.Items.Clear();
+                foreach (var fil in CabinetForm.ProfileForm.Fields)
+                {
+                    comboBox1.Items.Add(fil.Name);
+                }
+            }
         }
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox2.Items.Clear();
-            dataWellPad.Clear();
-            FieldID = Convert.ToInt32(DataField[comboBox1.SelectedIndex][0]);
-            string query = "SELECT * FROM WellPad WHERE Field_id =" + FieldID + "";
-            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
+            if (!LoginForm.localLogin)
             {
-                SqlDataReader dataReader = sqlCommand.ExecuteReader();
-                while (dataReader.Read())
+                comboBox2.Items.Clear();
+                dataWellPad.Clear();
+                FieldID = Convert.ToInt32(DataField[comboBox1.SelectedIndex][0]);
+                string query = "SELECT * FROM WellPad WHERE Field_id =" + FieldID + "";
+                using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
                 {
-                    dataWellPad.Add(new string[2]);
-                    dataWellPad[dataWellPad.Count - 1][0] = dataReader[0].ToString();
-                    dataWellPad[dataWellPad.Count - 1][1] = dataReader[1].ToString();
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        dataWellPad.Add(new string[2]);
+                        dataWellPad[dataWellPad.Count - 1][0] = dataReader[0].ToString();
+                        dataWellPad[dataWellPad.Count - 1][1] = dataReader[1].ToString();
+                    }
+                    dataReader.Close();
                 }
-                dataReader.Close();
+                for (int i = 0; i < dataWellPad.Count; i++)
+                {
+                    comboBox2.Items.Add(dataWellPad[i][1]);
+                }
             }
-            for (int i = 0; i < dataWellPad.Count; i++)
+            else
             {
-                comboBox2.Items.Add(dataWellPad[i][1]);
+                FieldID = Convert.ToInt32(comboBox1.SelectedIndex);
+                comboBox2.Items.Clear();
+                foreach (var wellpad in CabinetForm.ProfileForm.Fields[FieldID].WellPads)
+                {
+                    comboBox2.Items.Add(wellpad.Num);
+                }
             }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WellPadID = Convert.ToInt32(dataWellPad[comboBox2.SelectedIndex][0]);
+            if (!LoginForm.localLogin)
+            {
+                WellPadID = Convert.ToInt32(dataWellPad[comboBox2.SelectedIndex][0]);
+            }
+            else
+            {
+
+            }
         }
 
         private int gridCount { get; set; } = 0;
 
         private void CalcButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text != "" && comboBox2.Text != "")
+            if (!LoginForm.localLogin)
             {
-                dataGridView1.Rows.Add();
-                double AIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AI", WellPadID) + LoginForm.dataBase.CalculationSignal("AI", WellPadID) * 0.2);
-                double AOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AO", WellPadID) + LoginForm.dataBase.CalculationSignal("AO", WellPadID) * 0.2);
-                double DIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DI", WellPadID) + LoginForm.dataBase.CalculationSignal("DI", WellPadID) * 0.3);
-                double DOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DO", WellPadID) + LoginForm.dataBase.CalculationSignal("DO", WellPadID) * 0.3);
-                int RS485PLK = LoginForm.dataBase.CalculationSignal("RS485(ПЛК)", WellPadID);
-                int RS485SHL= LoginForm.dataBase.CalculationSignal("RS485(Шлюз)", WellPadID);
-                dataGridView1["Column1", gridCount].Value = comboBox1.SelectedItem;
-                dataGridView1["Column2", gridCount].Value = comboBox2.SelectedItem;
-                dataGridView1["Column3", gridCount].Value = LoginForm.dataBase.CalculationWell("Добывающая", WellPadID).ToString();
-                dataGridView1["Column4", gridCount].Value = LoginForm.dataBase.CalculationWell("Нагнетательная", WellPadID).ToString();
-                dataGridView1["AI", gridCount].Value = AIrez;
-                dataGridView1["AO", gridCount].Value = AOrez;
-                dataGridView1["DI", gridCount].Value = DIrez;
-                dataGridView1["DO", gridCount].Value = DOrez;
-                dataGridView1["RS485PLK", gridCount].Value = RS485PLK;
-                dataGridView1["RS485SHL", gridCount].Value = RS485SHL;
-                TypeCabs = LoginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
-                CurrentCab = new Cabinet("name", (int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
-                dataGridView2.Rows.Clear();
-                Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
-                string[] cab = new string[7];
-                cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
-                cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
-                cab[6] = PodCab.SignalRS485SHL.ToString();
-                dataGridView2.Rows.Add(cab);
-                
-                //if (typeCabs != null && dataGridView1.SelectedCells[0].Value != null)
-                //{
-                //    string[] cabs = new string[7];
-                //    for(int i = 0; i < typeCabs.Count; i++)
-                //    {
-                //        cabs[0] = typeCabs[i].Name; cabs[1] = typeCabs[i].SignalAI.ToString(); cabs[2] = typeCabs[i].SignalDI.ToString();
-                //        cabs[3] = typeCabs[i].SignalAO.ToString(); cabs[4] = typeCabs[i].SignalDO.ToString(); cabs[5] = typeCabs[i].SignalRS485PLK.ToString();
-                //        cabs[6] = typeCabs[i].SignalRS485SHL.ToString();
-                //        dataGridView2.Rows.Add(cabs);
-                //    }
-                //}
-                //for (int i = 0; i < typeCabs.Count; i++)
-                //{
-                //    if (i == typeCabs.Count - 1)
-                //    {
-                //        types += typeCabs[i].Name;
-                //        break;
-                //    }
-                //    types += typeCabs[i].Name + ", ";
-                //}
-                dataGridView1["Type", gridCount].Value = PodCab.Name;
-                gridCount++;
-                comboBox1.Text = "";
-                comboBox2.Text = "";
-                dataGridView1.CurrentCell = dataGridView1[0, dataGridView1.Rows.Count - 2];
-                comboBox2.Items.Clear();
-                foreach (RadioButton control in groupBox1.Controls)
+                if (comboBox1.Text != "" && comboBox2.Text != "")
                 {
-                    if (control.GetType() == typeof(System.Windows.Forms.RadioButton))
-                    {
-                        control.Checked = false;
-                    }
-                }
+                    dataGridView1.Rows.Add();
+                    double AIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AI", WellPadID) + LoginForm.dataBase.CalculationSignal("AI", WellPadID) * 0.2);
+                    double AOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("AO", WellPadID) + LoginForm.dataBase.CalculationSignal("AO", WellPadID) * 0.2);
+                    double DIrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DI", WellPadID) + LoginForm.dataBase.CalculationSignal("DI", WellPadID) * 0.3);
+                    double DOrez = Math.Ceiling(LoginForm.dataBase.CalculationSignal("DO", WellPadID) + LoginForm.dataBase.CalculationSignal("DO", WellPadID) * 0.3);
+                    int RS485PLK = LoginForm.dataBase.CalculationSignal("RS485(ПЛК)", WellPadID);
+                    int RS485SHL = LoginForm.dataBase.CalculationSignal("RS485(Шлюз)", WellPadID);
+                    dataGridView1["Column1", gridCount].Value = comboBox1.SelectedItem;
+                    dataGridView1["Column2", gridCount].Value = comboBox2.SelectedItem;
+                    dataGridView1["Column3", gridCount].Value = LoginForm.dataBase.CalculationWell("Добывающая", WellPadID).ToString();
+                    dataGridView1["Column4", gridCount].Value = LoginForm.dataBase.CalculationWell("Нагнетательная", WellPadID).ToString();
+                    dataGridView1["AI", gridCount].Value = AIrez;
+                    dataGridView1["AO", gridCount].Value = AOrez;
+                    dataGridView1["DI", gridCount].Value = DIrez;
+                    dataGridView1["DO", gridCount].Value = DOrez;
+                    dataGridView1["RS485PLK", gridCount].Value = RS485PLK;
+                    dataGridView1["RS485SHL", gridCount].Value = RS485SHL;
+                    TypeCabs = LoginForm.dataBase.CalculationCabinet((int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
+                    CurrentCab = new Cabinet("name", (int)AIrez, (int)DIrez, (int)AOrez, (int)DOrez, RS485PLK, RS485SHL);
+                    dataGridView2.Rows.Clear();
+                    Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
+                    string[] cab = new string[7];
+                    cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
+                    cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
+                    cab[6] = PodCab.SignalRS485SHL.ToString();
+                    dataGridView2.Rows.Add(cab);
 
-            }
-            else
-            {
-                MessageBox.Show("Выберите месторожение и КП!");
+                    /* if (typeCabs != null && dataGridView1.SelectedCells[0].Value != null)
+                     {
+                         string[] cabs = new string[7];
+                         for (int i = 0; i < typeCabs.Count; i++)
+                         {
+                             cabs[0] = typeCabs[i].Name; cabs[1] = typeCabs[i].SignalAI.ToString(); cabs[2] = typeCabs[i].SignalDI.ToString();
+                             cabs[3] = typeCabs[i].SignalAO.ToString(); cabs[4] = typeCabs[i].SignalDO.ToString(); cabs[5] = typeCabs[i].SignalRS485PLK.ToString();
+                             cabs[6] = typeCabs[i].SignalRS485SHL.ToString();
+                             dataGridView2.Rows.Add(cabs);
+                         }
+                     }
+                     for (int i = 0; i < typeCabs.Count; i++)
+                     {
+                         if (i == typeCabs.Count - 1)
+                         {
+                             types += typeCabs[i].Name;
+                             break;
+                         }
+                         types += typeCabs[i].Name + ", ";
+                     }*/
+                    dataGridView1["Type", gridCount].Value = PodCab.Name;
+                    gridCount++;
+                    comboBox1.Text = "";
+                    comboBox2.Text = "";
+                    dataGridView1.CurrentCell = dataGridView1[0, dataGridView1.Rows.Count - 2];
+                    comboBox2.Items.Clear();
+                    foreach (RadioButton control in groupBox1.Controls)
+                    {
+                        if (control.GetType() == typeof(System.Windows.Forms.RadioButton))
+                        {
+                            control.Checked = false;
+                        }
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Выберите месторожение и КП!");
+                }
             }
         }
 
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.SelectedCells[0].Value != null)
+            if (!LoginForm.localLogin)
             {
-                dataGridView2.Rows.Clear();
-                int ind = -1;
-                ind = dataGridView1.SelectedRows[0].Index;
-                int AI, AO, DI, DO, RS485PLK, RS485SHL;
-                AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
-                AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
-                DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
-                DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
-                RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
-                RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
-                CurrentCab = new Cabinet("name", AI, DI, AO, DO, RS485PLK, RS485SHL);
-                TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);               
-                Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
-                string[] cab = new string[7];
-                cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
-                cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
-                cab[6] = PodCab.SignalRS485SHL.ToString();
-                dataGridView2.Rows.Add(cab);
-                foreach (RadioButton control in groupBox1.Controls)
+                if (dataGridView1.SelectedCells[0].Value != null)
                 {
-                    if (control.GetType() == typeof(System.Windows.Forms.RadioButton))
+                    dataGridView2.Rows.Clear();
+                    int ind = -1;
+                    ind = dataGridView1.SelectedRows[0].Index;
+                    int AI, AO, DI, DO, RS485PLK, RS485SHL;
+                    AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
+                    AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
+                    DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
+                    DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
+                    RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
+                    RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
+                    CurrentCab = new Cabinet("name", AI, DI, AO, DO, RS485PLK, RS485SHL);
+                    TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);
+                    Cabinet PodCab = Cabinet.FilterAllSignal(TypeCabs, CurrentCab);
+                    string[] cab = new string[7];
+                    cab[0] = PodCab.Name; cab[1] = PodCab.SignalAI.ToString(); cab[2] = PodCab.SignalDI.ToString();
+                    cab[3] = PodCab.SignalAO.ToString(); cab[4] = PodCab.SignalDO.ToString(); cab[5] = PodCab.SignalRS485PLK.ToString();
+                    cab[6] = PodCab.SignalRS485SHL.ToString();
+                    dataGridView2.Rows.Add(cab);
+                    foreach (RadioButton control in groupBox1.Controls)
                     {
-                        control.Checked = false;
+                        if (control.GetType() == typeof(System.Windows.Forms.RadioButton))
+                        {
+                            control.Checked = false;
+                        }
                     }
                 }
             }
@@ -210,50 +240,46 @@ namespace CapacityСalculationUI
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (!LoginForm.localLogin)
             {
-                CabinetForm.LoginForm.dataBase.sqlConnection.Close();
+                if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+                {
+                    CabinetForm.LoginForm.dataBase.sqlConnection.Close();
+                }
+            }
+            else
+            {
+
             }
             Application.Exit();
+
         }
 
         private void CalculationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+            if (!LoginForm.localLogin)
             {
-                CabinetForm.LoginForm.dataBase.sqlConnection.Close();
+                if (CabinetForm.LoginForm.dataBase.sqlConnection.State == ConnectionState.Open)
+                {
+                    CabinetForm.LoginForm.dataBase.sqlConnection.Close();
+                }
+                
+            }
+            else
+            {
+
             }
             Application.Exit();
         }
 
         private void обновитьБдToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DataField.Clear();
-            comboBox1.Items.Clear();
-            string query = "SELECT * FROM Field";
-            SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection);
-            SqlDataReader dataReader = sqlCommand.ExecuteReader();
-            while (dataReader.Read())
+            if (!LoginForm.localLogin)
             {
-                DataField.Add(new string[2]);
-                DataField[DataField.Count - 1][0] = dataReader[0].ToString();
-                DataField[DataField.Count - 1][1] = dataReader[1].ToString();
-            }
-            dataReader.Close();
-            for (int i = 0; i < DataField.Count; i++)
-            {
-                comboBox1.Items.Add(DataField[i][1]);
-            }
-        }
-
-        // обновление бд при изменении visible
-        private void CalculationForm_VisibleChanged(object sender, EventArgs e)
-        {
-            DataField.Clear();
-            comboBox1.Items.Clear();
-            string query = "SELECT * FROM Field";
-            using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
-            {
+                DataField.Clear();
+                comboBox1.Items.Clear();
+                string query = "SELECT * FROM Field";
+                SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection);
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -262,10 +288,50 @@ namespace CapacityСalculationUI
                     DataField[DataField.Count - 1][1] = dataReader[1].ToString();
                 }
                 dataReader.Close();
+                for (int i = 0; i < DataField.Count; i++)
+                {
+                    comboBox1.Items.Add(DataField[i][1]);
+                }
             }
-            for (int i = 0; i < DataField.Count; i++)
+            else
             {
-                comboBox1.Items.Add(DataField[i][1]);
+
+            }
+        }
+
+        // обновление бд при изменении visible
+        private void CalculationForm_VisibleChanged(object sender, EventArgs e)
+        {
+            comboBox1.Text = "";
+            comboBox2.Text = "";
+            if (!LoginForm.localLogin)
+            {
+                DataField.Clear();
+                comboBox1.Items.Clear();
+                string query = "SELECT * FROM Field";
+                using (SqlCommand sqlCommand = new SqlCommand(query, CabinetForm.LoginForm.dataBase.sqlConnection))
+                {
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        DataField.Add(new string[2]);
+                        DataField[DataField.Count - 1][0] = dataReader[0].ToString();
+                        DataField[DataField.Count - 1][1] = dataReader[1].ToString();
+                    }
+                    dataReader.Close();
+                }
+                for (int i = 0; i < DataField.Count; i++)
+                {
+                    comboBox1.Items.Add(DataField[i][1]);
+                }
+            }
+            else
+            {
+                comboBox1.Items.Clear();
+                foreach (var fil in CabinetForm.ProfileForm.Fields)
+                {
+                    comboBox1.Items.Add(fil.Name);
+                }
             }
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -295,59 +361,71 @@ namespace CapacityСalculationUI
         //заполнение второй дг всеми подходящими шкафами
         public void InsertCabsInDG()
         {
-            int ind = -1;
-            ind = dataGridView1.SelectedRows[0].Index;
-            int AI, AO, DI, DO, RS485PLK, RS485SHL;
-            AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
-            AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
-            DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
-            DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
-            RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
-            RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
-            TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);
-            dataGridView2.Rows.Clear();
-            if (TypeCabs != null && dataGridView1.SelectedCells[0].Value != null)
+            if (!LoginForm.localLogin)
             {
-                string[] cabs = new string[7];
-                for (int i = 0; i < TypeCabs.Count; i++)
+                int ind = -1;
+                ind = dataGridView1.SelectedRows[0].Index;
+                int AI, AO, DI, DO, RS485PLK, RS485SHL;
+                AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
+                AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
+                DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
+                DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
+                RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
+                RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
+                TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);
+                dataGridView2.Rows.Clear();
+                if (TypeCabs != null && dataGridView1.SelectedCells[0].Value != null)
                 {
-                    cabs[0] = TypeCabs[i].Name; cabs[1] = TypeCabs[i].SignalAI.ToString(); cabs[2] = TypeCabs[i].SignalDI.ToString();
-                    cabs[3] = TypeCabs[i].SignalAO.ToString(); cabs[4] = TypeCabs[i].SignalDO.ToString(); cabs[5] = TypeCabs[i].SignalRS485PLK.ToString();
-                    cabs[6] = TypeCabs[i].SignalRS485SHL.ToString();
-                    dataGridView2.Rows.Add(cabs);
+                    string[] cabs = new string[7];
+                    for (int i = 0; i < TypeCabs.Count; i++)
+                    {
+                        cabs[0] = TypeCabs[i].Name; cabs[1] = TypeCabs[i].SignalAI.ToString(); cabs[2] = TypeCabs[i].SignalDI.ToString();
+                        cabs[3] = TypeCabs[i].SignalAO.ToString(); cabs[4] = TypeCabs[i].SignalDO.ToString(); cabs[5] = TypeCabs[i].SignalRS485PLK.ToString();
+                        cabs[6] = TypeCabs[i].SignalRS485SHL.ToString();
+                        dataGridView2.Rows.Add(cabs);
+                    }
                 }
+                else { return; }
             }
             else
-                return;
+            {
+
+            }
         }
         public void InsertCabsInDG(TypeSignal typeSignal)
         {
-            dataGridView2.Rows.Clear();
-            int ind = -1;
-            ind = dataGridView1.SelectedRows[0].Index;
-            int AI, AO, DI, DO, RS485PLK, RS485SHL;
-            AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
-            AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
-            DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
-            DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
-            RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
-            RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
-            CurrentCab = new Cabinet("name", AI, DI, AO, DO, RS485PLK, RS485SHL);
-            TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);
-            List<Cabinet> SortCabs = Cabinet.FilterSignal(TypeCabs, CurrentCab, typeSignal);
-            if (TypeCabs != null && dataGridView1.SelectedCells[0].Value != null)
+            if (!LoginForm.localLogin)
             {
-                string[] cabs = new string[7];
-                for (int i = 0; i < SortCabs.Count; i++)
+                dataGridView2.Rows.Clear();
+                int ind = -1;
+                ind = dataGridView1.SelectedRows[0].Index;
+                int AI, AO, DI, DO, RS485PLK, RS485SHL;
+                AI = Convert.ToInt32(dataGridView1["AI", ind].Value);
+                AO = Convert.ToInt32(dataGridView1["AO", ind].Value);
+                DI = Convert.ToInt32(dataGridView1["DI", ind].Value);
+                DO = Convert.ToInt32(dataGridView1["DO", ind].Value);
+                RS485PLK = Convert.ToInt32(dataGridView1["RS485PLK", ind].Value);
+                RS485SHL = Convert.ToInt32(dataGridView1["RS485SHL", ind].Value);
+                CurrentCab = new Cabinet("name", AI, DI, AO, DO, RS485PLK, RS485SHL);
+                TypeCabs = CabinetForm.LoginForm.dataBase.CalculationCabinet(AI, DI, AO, DO, RS485PLK, RS485SHL);
+                List<Cabinet> SortCabs = Cabinet.FilterSignal(TypeCabs, CurrentCab, typeSignal);
+                if (TypeCabs != null && dataGridView1.SelectedCells[0].Value != null)
                 {
-                    cabs[0] = SortCabs[i].Name; cabs[1] = SortCabs[i].SignalAI.ToString(); cabs[2] = SortCabs[i].SignalDI.ToString();
-                    cabs[3] = SortCabs[i].SignalAO.ToString(); cabs[4] = SortCabs[i].SignalDO.ToString(); cabs[5] = SortCabs[i].SignalRS485PLK.ToString();
-                    cabs[6] = SortCabs[i].SignalRS485SHL.ToString();
-                    dataGridView2.Rows.Add(cabs);
+                    string[] cabs = new string[7];
+                    for (int i = 0; i < SortCabs.Count; i++)
+                    {
+                        cabs[0] = SortCabs[i].Name; cabs[1] = SortCabs[i].SignalAI.ToString(); cabs[2] = SortCabs[i].SignalDI.ToString();
+                        cabs[3] = SortCabs[i].SignalAO.ToString(); cabs[4] = SortCabs[i].SignalDO.ToString(); cabs[5] = SortCabs[i].SignalRS485PLK.ToString();
+                        cabs[6] = SortCabs[i].SignalRS485SHL.ToString();
+                        dataGridView2.Rows.Add(cabs);
+                    }
                 }
+                else { return; }
             }
             else
-                return;
+            {
+
+            }
         }
 
         private void ALLRadioButton_CheckedChanged(object sender, EventArgs e)

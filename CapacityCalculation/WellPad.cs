@@ -9,11 +9,11 @@ namespace CapacityCalculation
     public class WellPad
     {
         public int Num { get; set; }
-        public List<Well> Wells { get; set; }
+        public List<TecObject> tecObjects { get; set; }
         public WellPad(int num) 
         { 
             Num = num;
-            Wells= new List<Well>();
+            tecObjects = new List<TecObject>();
         }    
     }
 }

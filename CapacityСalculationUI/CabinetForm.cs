@@ -60,6 +60,10 @@ namespace CapacityСalculationUI
                 {
                     Visible = false
                 };
+                CalculationForm = new CalculationForm(this)
+                {
+                    Visible = false
+                };
             }
         }
     

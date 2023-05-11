@@ -56,9 +56,9 @@
             this.label1.Location = new System.Drawing.Point(7, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 18);
+            this.label1.Size = new System.Drawing.Size(200, 18);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Введите номер скважины:";
+            this.label1.Text = "Введите номер объекта:";
             // 
             // button1
             // 
@@ -88,9 +88,9 @@
             this.label2.Location = new System.Drawing.Point(7, 79);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(202, 18);
+            this.label2.Size = new System.Drawing.Size(189, 18);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Выберите тип скважины:";
+            this.label2.Text = "Выберите тип объекта:";
             // 
             // comboBox1
             // 
@@ -120,7 +120,7 @@
             this.Name = "AddEditWell";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Скважина";
+            this.Text = "Объект";
             this.ResumeLayout(false);
             this.PerformLayout();
 
