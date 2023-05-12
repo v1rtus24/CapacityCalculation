@@ -54,6 +54,8 @@ namespace CapacityСalculationUI
             }
             else
             {
+                groupBox1.Visible = false;
+                checkBox1.Visible = false;
                 comboBox1.Items.Clear();
                 foreach (var fil in CabinetForm.ProfileForm.Fields)
                 {
@@ -91,6 +93,7 @@ namespace CapacityСalculationUI
             {
                 FieldID = Convert.ToInt32(comboBox1.SelectedIndex);
                 comboBox2.Items.Clear();
+                comboBox2.Text = "";
                 foreach (var wellpad in CabinetForm.ProfileForm.Fields[FieldID].WellPads)
                 {
                     comboBox2.Items.Add(wellpad.Num);
@@ -185,8 +188,38 @@ namespace CapacityСalculationUI
                     MessageBox.Show("Выберите месторожение и КП!");
                 }
             }
+            else
+            {
+                if (comboBox1.Text != "" && comboBox2.Text != "")
+                {
+                    dataGridView1.Rows.Add();
+                    dataGridView1["Column1", gridCount].Value = comboBox1.SelectedItem;
+                    dataGridView1["Column2", gridCount].Value = comboBox2.SelectedItem;
+                    wellCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.DobSkvaz);
+                    injCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.NagnSkvaz);
+                    dataGridView1["Column3", gridCount].Value = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.DobSkvaz);
+                    dataGridView1["Column4", gridCount].Value = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.NagnSkvaz);
+                    //Считаем все сигналы на площадке
+                    Cabinet SignalCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].SignalCount(wellCount,injCount);
+                    //считаем резерв
+                    Cabinet SignalCountWithRez = Cabinet.Rezerv(SignalCount);
+                    dataGridView1["AI", gridCount].Value = SignalCountWithRez.SignalAI; dataGridView1["AO", gridCount].Value = SignalCountWithRez.SignalAO; 
+                    dataGridView1["DI", gridCount].Value = SignalCountWithRez.SignalDI; dataGridView1["DO", gridCount].Value = SignalCountWithRez.SignalDO; 
+                    dataGridView1["RS485PLK", gridCount].Value = SignalCountWithRez.SignalRS485PLK; dataGridView1["RS485SHL", gridCount].Value = SignalCountWithRez.SignalRS485SHL;
+                    Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
+                    PodCab = Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
+                    dataGridView1["Type", gridCount].Value = PodCab.Name;
+                    gridCount++;
+                    dataGridView1.CurrentCell = dataGridView1[0, dataGridView1.Rows.Count - 2];
+
+                }
+
+            }
         }
 
+        public Cabinet PodCab { get; set; }
+        public int wellCount { get; set; }
+        public int injCount { get; set; }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -220,6 +253,43 @@ namespace CapacityСalculationUI
                         }
                     }
                 }
+            }
+            else
+            {
+                if (dataGridView1.SelectedRows[0].Cells[0] != null)
+                {
+                    PodborKlik();
+                }
+            }
+        }
+        public void PodborKlik()
+        {
+            wellCount = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[2].Value);
+            injCount = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[3].Value);
+            //Считаем все сигналы на площадке
+            Cabinet SignalCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].SignalCount(wellCount, injCount);
+            //считаем резерв
+            Cabinet SignalCountWithRez = Cabinet.Rezerv(SignalCount);
+            Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
+            PodCab = Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
+            dataGridView2.Rows.Clear();
+            dataGridView2.Rows.Add();
+            dataGridView2["dgType", 0].Value = PodCab.Name;
+            dataGridView2["dgAI", 0].Value = PodCab.SignalAI;
+            dataGridView2["dgDI", 0].Value = PodCab.SignalDI;
+            dataGridView2["dgAO", 0].Value = PodCab.SignalAO;
+            dataGridView2["dgDO", 0].Value = PodCab.SignalDO;
+            dataGridView2["dgRS485PLK", 0].Value = PodCab.SignalRS485PLK;
+            dataGridView2["dgRS485SHL", 0].Value = PodCab.SignalRS485SHL;
+        }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (!LoginForm.localLogin)
+            {
+            }
+            else 
+            {
+                PodborKlik();
             }
         }
         private void профилиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -524,5 +594,7 @@ namespace CapacityСalculationUI
                     ExcelApp.Quit();
             }
         }
+
+
     }
 }

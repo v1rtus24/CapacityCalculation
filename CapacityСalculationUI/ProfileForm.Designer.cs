@@ -53,6 +53,7 @@
             this.профилиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.подборШкафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.PhysCharDataGridView = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
@@ -83,6 +84,12 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.labelCountProd = new System.Windows.Forms.Label();
+            this.labelCountInj = new System.Windows.Forms.Label();
+            this.подключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WellDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -94,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PhysCharDataGridView)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -102,11 +110,11 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.WellDataGridView);
             this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(528, 0);
+            this.groupBox3.Location = new System.Drawing.Point(406, 0);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(236, 336);
+            this.groupBox3.Size = new System.Drawing.Size(358, 336);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Объект";
@@ -115,7 +123,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(88, 23);
+            this.label4.Location = new System.Drawing.Point(87, 23);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 19);
@@ -126,7 +134,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(11, 23);
+            this.label3.Location = new System.Drawing.Point(7, 23);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 19);
@@ -154,7 +162,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.WellDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.WellDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.WellDataGridView.Location = new System.Drawing.Point(14, 47);
+            this.WellDataGridView.Location = new System.Drawing.Point(10, 47);
             this.WellDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.WellDataGridView.MultiSelect = false;
             this.WellDataGridView.Name = "WellDataGridView";
@@ -163,7 +171,7 @@
             this.WellDataGridView.RowHeadersWidth = 51;
             this.WellDataGridView.RowTemplate.Height = 24;
             this.WellDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.WellDataGridView.Size = new System.Drawing.Size(215, 269);
+            this.WellDataGridView.Size = new System.Drawing.Size(344, 269);
             this.WellDataGridView.TabIndex = 10;
             this.WellDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WellDataGridView_CellClick);
             this.WellDataGridView.SelectionChanged += new System.EventHandler(this.WellDataGridView_SelectionChanged);
@@ -174,25 +182,25 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.WellPadDataGridView);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(329, 0);
+            this.groupBox2.Location = new System.Drawing.Point(318, 0);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(195, 336);
+            this.groupBox2.Size = new System.Drawing.Size(84, 336);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Кустовая площадка";
+            this.groupBox2.Text = "КП";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(10, 23);
+            this.label2.Location = new System.Drawing.Point(6, 23);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 19);
+            this.label2.Size = new System.Drawing.Size(52, 19);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Номер КП";
+            this.label2.Text = "№ КП";
             // 
             // WellPadDataGridView
             // 
@@ -215,7 +223,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.WellPadDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.WellPadDataGridView.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.WellPadDataGridView.Location = new System.Drawing.Point(13, 49);
+            this.WellPadDataGridView.Location = new System.Drawing.Point(9, 49);
             this.WellPadDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.WellPadDataGridView.MultiSelect = false;
             this.WellPadDataGridView.Name = "WellPadDataGridView";
@@ -224,7 +232,7 @@
             this.WellPadDataGridView.RowHeadersWidth = 51;
             this.WellPadDataGridView.RowTemplate.Height = 24;
             this.WellPadDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.WellPadDataGridView.Size = new System.Drawing.Size(178, 267);
+            this.WellPadDataGridView.Size = new System.Drawing.Size(71, 267);
             this.WellPadDataGridView.TabIndex = 9;
             this.WellPadDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.WellPadDataGridView_CellClick);
             this.WellPadDataGridView.SelectionChanged += new System.EventHandler(this.WellPadDataGridView_SelectionChanged);
@@ -239,7 +247,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(226, 336);
+            this.groupBox1.Size = new System.Drawing.Size(215, 336);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Месторождение";
@@ -285,7 +293,7 @@
             this.FieldDataGridView.RowHeadersWidth = 51;
             this.FieldDataGridView.RowTemplate.Height = 24;
             this.FieldDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.FieldDataGridView.Size = new System.Drawing.Size(210, 269);
+            this.FieldDataGridView.Size = new System.Drawing.Size(199, 269);
             this.FieldDataGridView.TabIndex = 5;
             this.FieldDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.FieldDataGridView_CellClick);
             this.FieldDataGridView.SelectionChanged += new System.EventHandler(this.FieldDataGridView_SelectionChanged);
@@ -328,6 +336,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.textBox1);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.PhysCharDataGridView);
             this.groupBox4.Controls.Add(this.label6);
@@ -340,6 +350,16 @@
             this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Подключения";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(15, 49);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(269, 172);
+            this.textBox1.TabIndex = 14;
             // 
             // label5
             // 
@@ -359,6 +379,7 @@
             this.PhysCharDataGridView.AllowUserToResizeRows = false;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.PhysCharDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.PhysCharDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.PhysCharDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.PhysCharDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PhysCharDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
@@ -424,7 +445,8 @@
             this.AddFieldToolStripMenuItem,
             this.WellPadToolStripMenuItem,
             this.AddWellToolStripMenuItem,
-            this.PhysCharToolStripMenuItem});
+            this.PhysCharToolStripMenuItem,
+            this.подключениеToolStripMenuItem});
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
             this.AddToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
             this.AddToolStripMenuItem.Text = "Добавить";
@@ -447,7 +469,7 @@
             // 
             this.AddWellToolStripMenuItem.Name = "AddWellToolStripMenuItem";
             this.AddWellToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
-            this.AddWellToolStripMenuItem.Text = "Скважина";
+            this.AddWellToolStripMenuItem.Text = "Объект";
             this.AddWellToolStripMenuItem.Click += new System.EventHandler(this.AddWellToolStripMenuItem_Click);
             // 
             // PhysCharToolStripMenuItem
@@ -455,7 +477,6 @@
             this.PhysCharToolStripMenuItem.Name = "PhysCharToolStripMenuItem";
             this.PhysCharToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.PhysCharToolStripMenuItem.Text = "Подключение";
-           // this.PhysCharToolStripMenuItem.Click += new System.EventHandler(this.PhysCharToolStripMenuItem_Click);
             // 
             // UpdateToolStripMenuItem
             // 
@@ -486,7 +507,7 @@
             // 
             this.UpdateWellToolStripMenuItem.Name = "UpdateWellToolStripMenuItem";
             this.UpdateWellToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
-            this.UpdateWellToolStripMenuItem.Text = "Скважина";
+            this.UpdateWellToolStripMenuItem.Text = "Объект";
             this.UpdateWellToolStripMenuItem.Click += new System.EventHandler(this.UpdateWellToolStripMenuItem_Click);
             // 
             // UpdatePhysCharToolStripMenuItem
@@ -494,7 +515,6 @@
             this.UpdatePhysCharToolStripMenuItem.Name = "UpdatePhysCharToolStripMenuItem";
             this.UpdatePhysCharToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.UpdatePhysCharToolStripMenuItem.Text = "Подключение";
-           // this.UpdatePhysCharToolStripMenuItem.Click += new System.EventHandler(this.UpdatePhysCharToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
@@ -525,7 +545,7 @@
             // 
             this.DeleteWellToolStripMenuItem.Name = "DeleteWellToolStripMenuItem";
             this.DeleteWellToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
-            this.DeleteWellToolStripMenuItem.Text = "Скважина";
+            this.DeleteWellToolStripMenuItem.Text = "Объект";
             this.DeleteWellToolStripMenuItem.Click += new System.EventHandler(this.DeleteWellToolStripMenuItem_Click);
             // 
             // DeletePhysCharToolStripMenuItem
@@ -533,7 +553,6 @@
             this.DeletePhysCharToolStripMenuItem.Name = "DeletePhysCharToolStripMenuItem";
             this.DeletePhysCharToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.DeletePhysCharToolStripMenuItem.Text = "Подключение";
-           // this.DeletePhysCharToolStripMenuItem.Click += new System.EventHandler(this.DeletePhysCharToolStripMenuItem_Click);
             // 
             // обновитьToolStripMenuItem
             // 
@@ -607,6 +626,72 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.labelCountInj);
+            this.groupBox5.Controls.Add(this.labelCountProd);
+            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox5.Location = new System.Drawing.Point(4, 226);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Size = new System.Drawing.Size(280, 106);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Количество скважин:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(7, 60);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(155, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Нагнетательные : ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(7, 31);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(127, 19);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Добывающие:";
+            // 
+            // labelCountProd
+            // 
+            this.labelCountProd.AutoSize = true;
+            this.labelCountProd.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCountProd.Location = new System.Drawing.Point(138, 31);
+            this.labelCountProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCountProd.Name = "labelCountProd";
+            this.labelCountProd.Size = new System.Drawing.Size(18, 19);
+            this.labelCountProd.TabIndex = 14;
+            this.labelCountProd.Text = "0";
+            // 
+            // labelCountInj
+            // 
+            this.labelCountInj.AutoSize = true;
+            this.labelCountInj.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCountInj.Location = new System.Drawing.Point(166, 60);
+            this.labelCountInj.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCountInj.Name = "labelCountInj";
+            this.labelCountInj.Size = new System.Drawing.Size(18, 19);
+            this.labelCountInj.TabIndex = 15;
+            this.labelCountInj.Text = "0";
+            // 
+            // подключениеToolStripMenuItem
+            // 
+            this.подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
+            this.подключениеToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.подключениеToolStripMenuItem.Text = "Подключение";
+            // 
             // ProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -643,6 +728,8 @@
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -695,5 +782,12 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem поУмолчаниюToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выбратьПутьToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label labelCountInj;
+        private System.Windows.Forms.Label labelCountProd;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripMenuItem подключениеToolStripMenuItem;
     }
 }

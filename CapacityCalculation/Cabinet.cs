@@ -31,13 +31,61 @@ namespace CapacityCalculation
             SignalRS485PLK = signalRS485PLK;
             SignalRS485SHL = signalRS485SHL;
         }
-        
+        public Cabinet(int signalAI, int signalDI, int signalAO, int signalDO, int signalRS485PLK, int signalRS485SHL)
+        {
+            Name = "";
+            SignalAI = signalAI;
+            SignalDI = signalDI;
+            SignalAO = signalAO;
+            SignalDO = signalDO;
+            SignalRS485PLK = signalRS485PLK;
+            SignalRS485SHL = signalRS485SHL;
+        }
+        // ДЛЯ ЛОКАЛКИ//////////////////////////////////////////////////////////////////////////////////
+        //Плюсуем резерв к кусту и возвращаем шкаф с резервом
+        public static Cabinet Rezerv(Cabinet cab)
+        {
+            return new Cabinet((int)Math.Ceiling(cab.SignalAI + cab.SignalAI * 0.2), (int)Math.Ceiling(cab.SignalDI + cab.SignalDI * 0.3),
+                (int)Math.Ceiling(cab.SignalAO + cab.SignalAO * 0.2), (int)Math.Ceiling(cab.SignalDO + cab.SignalDO * 0.3),
+                cab.SignalRS485PLK, cab.SignalRS485SHL);
+        }
+
+        //ПОДБОР ШКАФА
+        public static Cabinet PodborCab(Cabinet WellPad,List<Cabinet> cabs)
+        {
+            List<Cabinet> cabinets = new List<Cabinet>();
+            foreach(var cab in cabs)
+            {
+                if (MoreSignal(cab, WellPad))
+                    cabinets.Add(cab);
+            }
+
+            List<int> AverSignal = new List<int>();
+            foreach(var a in cabinets)
+            {
+                AverSignal.Add(AverageSignal(a));
+            }
+            int min = AverSignal.Min();
+            return cabinets[AverSignal.IndexOf(min)];
+        }
+
+
+
+
+
+        // ДЛЯ ЛОКАЛКИ//////////////////////////////////////////////////////////////////////////////////
+
         public int AverageSignal()
         {
-            double s = (SignalAI + SignalDI + SignalAO + SignalDO + SignalRS485PLK + SignalRS485SHL) / 6;
+            double s = (double)((SignalAI + SignalDI + SignalAO + SignalDO + SignalRS485PLK + SignalRS485SHL) / 6);
             return (int)Math.Round(s);
         }
-        
+        public static int AverageSignal(Cabinet cabinet)
+        {
+            double s = (double)((cabinet.SignalAI + cabinet.SignalDI + cabinet.SignalAO + cabinet.SignalDO + cabinet.SignalRS485PLK + cabinet.SignalRS485SHL) / 6);
+            return (int)Math.Round(s);
+        }
+
         public static int RazSig(Cabinet cab1,Cabinet cab2)
         {
             return (cab1.SignalAI - cab2.SignalAI) + (cab1.SignalDI - cab2.SignalDI) + (cab1.SignalAO - cab2.SignalAO) +
@@ -45,9 +93,9 @@ namespace CapacityCalculation
         }
         public static bool  MoreSignal(Cabinet cab1, Cabinet cab2)
         {
-            if (cab1.SignalAI > cab2.SignalAI && cab1.SignalDI > cab2.SignalDI &&
-                    cab1.SignalAO > cab2.SignalAO && cab1.SignalDO > cab2.SignalDO &&
-                    cab1.SignalRS485PLK > cab2.SignalRS485PLK && cab1.SignalRS485SHL > cab2.SignalRS485SHL)
+            if (cab1.SignalAI >= cab2.SignalAI && cab1.SignalDI >= cab2.SignalDI &&
+                    cab1.SignalAO >= cab2.SignalAO && cab1.SignalDO >= cab2.SignalDO &&
+                    cab1.SignalRS485PLK >= cab2.SignalRS485PLK && cab1.SignalRS485SHL >= cab2.SignalRS485SHL)
                 return true;
             else
                 return false;

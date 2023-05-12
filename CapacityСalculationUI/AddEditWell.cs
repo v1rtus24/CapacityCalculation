@@ -16,29 +16,21 @@ namespace CapacityСalculationUI
         public string TypeWell { get; set; }   
         public TypeTecObj Type { get; set; }
         public int NumWell { get; set; }
+        public int ObjectCount { get; set; }
         public AddEditWell()
         {
             InitializeComponent();
             comboBox1.Items.Add("Добывающая скважина");
             comboBox1.Items.Add("Нагнетательная скважина");
-            comboBox1.Items.Add("Емкость подземная дренажная");
-            comboBox1.Items.Add("Нагнетательный коллектор");
-            comboBox1.Items.Add("Нефтегазосборный трубопровод от ИУ");
-            comboBox1.Items.Add("Измерительная установка");
-            comboBox1.Items.Add("УДЭ");
-            comboBox1.Items.Add("ДФКУ");
-            comboBox1.Items.Add("Блок контейнер НКУ");
-            comboBox1.Items.Add("Шкаф ПС");
-            comboBox1.Items.Add("Шкаф ОС");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox1.Text) || !string.IsNullOrEmpty(comboBox1.Text))
+            if (!string.IsNullOrEmpty(numericUpDown1.Text) && !string.IsNullOrEmpty(comboBox1.Text))
             {
                 try
                 {
-                    NumWell = Convert.ToInt32(textBox1.Text);
+                   // NumWell = Convert.ToInt32(textBox1.Text);
                     TypeWell = comboBox1.SelectedItem.ToString();
                     switch (comboBox1.Text)
                     {
@@ -76,6 +68,7 @@ namespace CapacityСalculationUI
                             Type = TypeTecObj.CabOS;
                             break;
                     }
+                    ObjectCount = (int)numericUpDown1.Value;
                     DialogResult = DialogResult.OK;
                 }
                 catch
