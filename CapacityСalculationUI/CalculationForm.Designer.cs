@@ -41,6 +41,7 @@
             this.профилиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.подборШкафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.загрузитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pDFПечатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +83,7 @@
             this.ALLRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -162,6 +164,7 @@
             // 
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.загрузитьToolStripMenuItem,
             this.сохранитьToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
@@ -170,6 +173,13 @@
             this.menuStrip2.Size = new System.Drawing.Size(807, 24);
             this.menuStrip2.TabIndex = 15;
             this.menuStrip2.Text = "menuStrip2";
+            // 
+            // загрузитьToolStripMenuItem
+            // 
+            this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.загрузитьToolStripMenuItem.Text = "Загрузить c Excel";
+            this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
@@ -613,6 +623,10 @@
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // CalculationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -703,5 +717,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pDFПечатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem загрузитьToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

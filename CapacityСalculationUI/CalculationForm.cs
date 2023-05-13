@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using CapacityCalculation;
 using DGVPrinterHelper;
 using System.Drawing.Printing;
+using ExcelDataReader;
+using BotAgent.Ifrit.DataExporter;
 
 namespace CapacityСalculationUI
 {
@@ -25,6 +27,7 @@ namespace CapacityСalculationUI
         public LoginForm LoginForm { get; set; }
         private int FieldID { get; set; }
         private int WellPadID { get; set; }
+        public bool ExcelPodb { get; set; } = false;
         public CalculationForm(CabinetForm cabinetForm)
         {
             CabinetForm = cabinetForm;
@@ -200,11 +203,11 @@ namespace CapacityСalculationUI
                     dataGridView1["Column3", gridCount].Value = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.DobSkvaz);
                     dataGridView1["Column4", gridCount].Value = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].WellCount(TypeTecObj.NagnSkvaz);
                     //Считаем все сигналы на площадке
-                    Cabinet SignalCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].SignalCount(wellCount,injCount);
+                    Cabinet SignalCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].SignalCount(wellCount, injCount);
                     //считаем резерв
                     Cabinet SignalCountWithRez = Cabinet.Rezerv(SignalCount);
-                    dataGridView1["AI", gridCount].Value = SignalCountWithRez.SignalAI; dataGridView1["AO", gridCount].Value = SignalCountWithRez.SignalAO; 
-                    dataGridView1["DI", gridCount].Value = SignalCountWithRez.SignalDI; dataGridView1["DO", gridCount].Value = SignalCountWithRez.SignalDO; 
+                    dataGridView1["AI", gridCount].Value = SignalCountWithRez.SignalAI; dataGridView1["AO", gridCount].Value = SignalCountWithRez.SignalAO;
+                    dataGridView1["DI", gridCount].Value = SignalCountWithRez.SignalDI; dataGridView1["DO", gridCount].Value = SignalCountWithRez.SignalDO;
                     dataGridView1["RS485PLK", gridCount].Value = SignalCountWithRez.SignalRS485PLK; dataGridView1["RS485SHL", gridCount].Value = SignalCountWithRez.SignalRS485SHL;
                     Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
                     PodCab = Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
@@ -267,7 +270,7 @@ namespace CapacityСalculationUI
             wellCount = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[2].Value);
             injCount = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[3].Value);
             //Считаем все сигналы на площадке
-            Cabinet SignalCount = CabinetForm.ProfileForm.Fields[comboBox1.SelectedIndex].WellPads[comboBox2.SelectedIndex].SignalCount(wellCount, injCount);
+            Cabinet SignalCount = Cabinet.SignalCount(wellCount, injCount);
             //считаем резерв
             Cabinet SignalCountWithRez = Cabinet.Rezerv(SignalCount);
             Cabinet.PodborCab(SignalCountWithRez, CabinetForm.constCabs);
@@ -287,7 +290,7 @@ namespace CapacityСalculationUI
             if (!LoginForm.localLogin)
             {
             }
-            else 
+            else if (LoginForm.localLogin && !ExcelPodb)
             {
                 PodborKlik();
             }
@@ -333,7 +336,7 @@ namespace CapacityСalculationUI
                 {
                     CabinetForm.LoginForm.dataBase.sqlConnection.Close();
                 }
-                
+
             }
             else
             {
@@ -556,45 +559,49 @@ namespace CapacityСalculationUI
             saveFileDialog1.Filter = ".xlsx|.xlsx";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
-                Cursor.Current = Cursors.WaitCursor;
-                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-                var workbook = ExcelApp.Application.Workbooks.Add();
-                ExcelApp.Columns[9].ColumnWidth = 15;
-                ExcelApp.Columns[10].ColumnWidth = 15;
-                ExcelApp.Columns[11].ColumnWidth = 25;
-                ExcelApp.Cells[1, 1] = "Месторождение";
-                ExcelApp.Cells[1, 2] = "№ КП";
-                ExcelApp.Cells[1, 3] = "Доб.";
-                ExcelApp.Cells[1, 4] = "Нагнет.";
-                ExcelApp.Cells[1, 5] = "AI";
-                ExcelApp.Cells[1, 6] = "DI";
-                ExcelApp.Cells[1, 7] = "AO";
-                ExcelApp.Cells[1, 8] = "DO";
-                ExcelApp.Cells[1, 9] = "RS485(ПЛК)";
-                ExcelApp.Cells[1, 10] = "RS485(ШЛЮЗ)";
-                ExcelApp.Cells[1, 11] = "Тип шкафа";
-
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName.Length > 0)
                 {
-                    for (int j = 0; j < dataGridView1.RowCount; j++)
+                    Cursor.Current = Cursors.WaitCursor;
+                    Excel excelEx = new Excel();
+                    List<string> spisok = new List<string>();
+                    List<string> ColSpis = new List<string> { "Месторождение", "№ КП", "Доб.", "Нагн.", "AI", "DI", "AO", "DO", "RS485(ПЛК)", "RS485(ШЛЮЗ)", "Тип" };
+                    excelEx.Rows.Add(ColSpis);
+                    for (int i = 0; i < dataGridView1.RowCount; i++)
                     {
-                        if (dataGridView1[i, j].Value != null)
-                            ExcelApp.Cells[j + 2, i + 1] = (dataGridView1[i, j].Value).ToString();
-                    }
-                }
-                ExcelApp.AlertBeforeOverwriting = true;
-                workbook.SaveAs(saveFileDialog1.FileName);
+                        if (dataGridView1["Column1", i].Value != null)
+                        {
+                            spisok.Clear();
+                            spisok.Add(dataGridView1["Column1", i].Value.ToString()); spisok.Add(dataGridView1["Column2", i].Value.ToString());
+                            spisok.Add(dataGridView1["Column3", i].Value.ToString()); spisok.Add(dataGridView1["Column4", i].Value.ToString());
+                            spisok.Add(dataGridView1["AI", i].Value.ToString()); spisok.Add(dataGridView1["DI", i].Value.ToString());
+                            spisok.Add(dataGridView1["AO", i].Value.ToString()); spisok.Add(dataGridView1["DO", i].Value.ToString());
+                            spisok.Add(dataGridView1["RS485PLK", i].Value.ToString()); spisok.Add(dataGridView1["RS485SHL", i].Value.ToString());
+                            spisok.Add(dataGridView1["Type", i].Value.ToString());
+                            excelEx.Rows.Add(spisok);
+                        }
 
-                DialogResult dialogResult = MessageBox.Show("Сохранение завершено. Открыть файл?", "Экспорт .xlsx", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    ExcelApp.Visible = true;
+                    }
+
+                    excelEx.FileSave(saveFileDialog1.FileName, true);
                 }
-                else
-                    ExcelApp.Quit();
             }
         }
+        public string ExcelFileName { get; set; }
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExcelPodb = true;
+            dataGridView1.Rows.Clear();
+            int gridCount = 0;
+            
+            if (openFileDialog1.ShowDialog() == DialogResult.OK && openFileDialog1.FileName.Length > 0)
+            {
+                CalcExcelForm calcExcelForm = new CalcExcelForm(this);
+                ExcelFileName = openFileDialog1.FileName;
+                Cursor.Current = Cursors.WaitCursor;
 
-
+                calcExcelForm.ShowDialog();
+                
+            }
+        }
     }
 }

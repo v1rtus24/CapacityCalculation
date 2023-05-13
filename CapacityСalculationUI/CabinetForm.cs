@@ -298,7 +298,7 @@ namespace CapacityСalculationUI
             printer.PrintDataGridView(dataGridView1);
            
         }
-
+        
         private void excelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.DefaultExt = ".xlsx";
