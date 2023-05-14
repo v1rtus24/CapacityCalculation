@@ -1,10 +1,12 @@
 ﻿using BotAgent.Ifrit.DataExporter;
 using CapacityCalculation;
+using DGVPrinterHelper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -92,6 +94,14 @@ namespace CapacityСalculationUI
                 }
                 excelEx.FileSave(saveFileDialog1.FileName,true);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            Margins margin = new Margins(30, 30, 30, 30);
+            printer.PrintMargins = margin;
+            printer.PrintDataGridView(dataGridView1);
         }
     }
 }
