@@ -122,6 +122,7 @@ namespace CapacityСalculationUI
         {
             if (!LoginForm.localLogin)
             {
+               
                 if (comboBox1.Text != "" && comboBox2.Text != "")
                 {
                     dataGridView1.Rows.Add();

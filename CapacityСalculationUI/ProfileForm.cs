@@ -30,6 +30,7 @@ namespace CapacityСalculationUI
             openFileDialog1.Title = "Выберите файл с профилями.";
             if (!cabinetForm.LoginForm.localLogin)
             {
+                textBox1.Visible = false;
                 UpdateFieldTableOnline();
                 сохранитьToolStripMenuItem.Enabled = false;
                 загрузитьToolStripMenuItem.Enabled = false;
@@ -130,7 +131,7 @@ namespace CapacityСalculationUI
                     WellPadDataGridView.DataSource = cabinetForm.LoginForm.dataBase.ShowData("SELECT * FROM WellPad WHERE Field_id =" + idField.ToString() + "");
                     WellPadDataGridView.Columns[0].Visible = false;
                     WellPadDataGridView.Columns[2].Visible = false;
-                    WellPadDataGridView.Columns[1].Width = 140;
+                    WellPadDataGridView.Columns[1].Width = 50;
                     WellPadDataGridView.ClearSelection();
                 }
                 catch
@@ -164,7 +165,7 @@ namespace CapacityСalculationUI
                     WellDataGridView.Columns[0].Visible = false;
                     WellDataGridView.Columns[3].Visible = false;
                     WellDataGridView.Columns[1].Width = 45;
-                    WellDataGridView.Columns[2].Width = 160;
+                    WellDataGridView.Columns[2].Width = 240;
                     WellDataGridView.ClearSelection();
 
                 }
