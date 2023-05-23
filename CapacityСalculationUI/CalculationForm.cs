@@ -13,6 +13,7 @@ using DGVPrinterHelper;
 using System.Drawing.Printing;
 using ExcelDataReader;
 using BotAgent.Ifrit.DataExporter;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapacityСalculationUI
 {
@@ -566,22 +567,33 @@ namespace CapacityСalculationUI
                 List<string> spisok = new List<string>();
                 List<string> ColSpis = new List<string> { "Месторождение", "№ КП", "Доб.", "Нагн.", "AI", "DI", "AO", "DO", "RS485(ПЛК)", "RS485(ШЛЮЗ)", "Тип" };
                 excelEx.Rows.Add(ColSpis);
+                string[] spis = new string[11];
+                //for (int i = 0; i < dataGridView1.RowCount; i++)
+                //{
+                //    if (dataGridView1["Column1", i].Value != null)
+                //    {
+                //        spisok.Clear();
+                //        spisok.Add(dataGridView1["Column1", i].Value.ToString()); spisok.Add(dataGridView1["Column2", i].Value.ToString());
+                //        spisok.Add(dataGridView1["Column3", i].Value.ToString()); spisok.Add(dataGridView1["Column4", i].Value.ToString());
+                //        spisok.Add(dataGridView1["AI", i].Value.ToString()); spisok.Add(dataGridView1["DI", i].Value.ToString());
+                //        spisok.Add(dataGridView1["AO", i].Value.ToString()); spisok.Add(dataGridView1["DO", i].Value.ToString());
+                //        spisok.Add(dataGridView1["RS485PLK", i].Value.ToString()); spisok.Add(dataGridView1["RS485SHL", i].Value.ToString());
+                //        spisok.Add(dataGridView1["Type", i].Value.ToString());
+                //        excelEx.Rows.Add(spisok);
+                //    }
+
+                //}
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     if (dataGridView1["Column1", i].Value != null)
                     {
-                        spisok.Clear();
-                        spisok.Add(dataGridView1["Column1", i].Value.ToString()); spisok.Add(dataGridView1["Column2", i].Value.ToString());
-                        spisok.Add(dataGridView1["Column3", i].Value.ToString()); spisok.Add(dataGridView1["Column4", i].Value.ToString());
-                        spisok.Add(dataGridView1["AI", i].Value.ToString()); spisok.Add(dataGridView1["DI", i].Value.ToString());
-                        spisok.Add(dataGridView1["AO", i].Value.ToString()); spisok.Add(dataGridView1["DO", i].Value.ToString());
-                        spisok.Add(dataGridView1["RS485PLK", i].Value.ToString()); spisok.Add(dataGridView1["RS485SHL", i].Value.ToString());
-                        spisok.Add(dataGridView1["Type", i].Value.ToString());
-                        excelEx.Rows.Add(spisok);
+                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                        {
+                            spis[j] = dataGridView1[j, i].Value.ToString();
+                        }
+                        excelEx.AddRow(spis);
                     }
-
                 }
-
                 excelEx.FileSave(saveFileDialog1.FileName, true);
             }
             
