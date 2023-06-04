@@ -142,7 +142,15 @@ namespace CapacityСalculationUI
                     dataGridView1.Rows[dataGridView1.RowCount - 2].Selected = true;
                     if (MessageBox.Show("Добавить состав шкафа?", "Оборудование шкафа", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        LoginForm.dataBase.AddMainCabSpec((int)dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value);
+                        try
+                        {
+                            int id = Convert.ToInt32(dataGridView1.Rows[dataGridView1.RowCount - 2].Cells[0].Value.ToString());
+                            LoginForm.dataBase.AddMainCabSpec(id);
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
                     else
                     {
@@ -165,12 +173,12 @@ namespace CapacityСalculationUI
                 if (dataGridView1.SelectedRows[0].Cells[1].Value != null)
                 {
                     CabinetTM.Name = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-                    CabinetTM.SignalAI = (int)dataGridView1.SelectedRows[0].Cells[2].Value;
-                    CabinetTM.SignalAO = (int)dataGridView1.SelectedRows[0].Cells[3].Value;
-                    CabinetTM.SignalDI = (int)dataGridView1.SelectedRows[0].Cells[4].Value;
-                    CabinetTM.SignalDO = (int)dataGridView1.SelectedRows[0].Cells[5].Value;
-                    CabinetTM.SignalRS485PLK = (int)dataGridView1.SelectedRows[0].Cells[6].Value;
-                    CabinetTM.SignalRS485SHL = (int)dataGridView1.SelectedRows[0].Cells[7].Value;
+                    CabinetTM.SignalAI = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[2].Value.ToString());
+                    CabinetTM.SignalAO = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[3].Value.ToString());
+                    CabinetTM.SignalDI = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[4].Value.ToString());
+                    CabinetTM.SignalDO = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[5].Value.ToString());
+                    CabinetTM.SignalRS485PLK = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[6].Value.ToString());
+                    CabinetTM.SignalRS485SHL = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
                     form.CabinetTM = CabinetTM;
                     if (form.ShowDialog() == DialogResult.OK)
                     {

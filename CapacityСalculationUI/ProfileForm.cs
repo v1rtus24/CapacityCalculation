@@ -363,7 +363,7 @@ namespace CapacityСalculationUI
             AddWell();
         }
 
-        /* private void AddPhysChar()
+        private void AddPhysChar()
         {
             var form = new AddEditPhysChar();
             if (!cabinetForm.LoginForm.localLogin)
@@ -388,25 +388,15 @@ namespace CapacityСalculationUI
                 }
             }
             else
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
-                    {
-                        idWell = WellDataGridView.SelectedRows[0].Index;
-                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals.Add(new Signal(form.NamePhysChar, form.Signal));
-                        UpdatePhysCharTableLocal(idWell);
-                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
-                    }
-                    else
-                        return;
-                }
+            {               
+                return;
+                
             }
-        }*/
-        //private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    AddPhysChar();
-        //}
+        }
+        private void PhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddPhysChar();
+        }
 
         private void UpdateField()
         {
@@ -547,7 +537,7 @@ namespace CapacityСalculationUI
         {
             UpdateWell();
         }
-       /* private void UpdatePhysChar()
+       private void UpdatePhysChar()
         {
             AddEditPhysChar form = new AddEditPhysChar();
             if (!cabinetForm.LoginForm.localLogin)
@@ -573,29 +563,13 @@ namespace CapacityСalculationUI
             }
             else
             {
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    if (PhysCharDataGridView.SelectedRows[0].Cells[0].Value != null)
-                    {
-                        idField = FieldDataGridView.SelectedRows[0].Index;
-                        idWellPad = WellPadDataGridView.SelectedRows[0].Index;
-                        idWell = WellDataGridView.SelectedRows[0].Index;
-                        idPhysChar = PhysCharDataGridView.SelectedRows[0].Index;
-                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals[idPhysChar].NameSignal = form.NamePhysChar;
-                        Fields[idField].WellPads[idWellPad].Wells[idWell].Signals[idPhysChar].TypeSignal = form.Signal;
-                        UpdatePhysCharTableLocal(idWell);
-                        PhysCharDataGridView.Rows[indexDataGrid].Selected = true;
-                    }
-                    else
-                        return;
-                }
+               return;            
             }
-        } */
-        //private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    UpdatePhysChar();
-        //}
+        } 
+        private void UpdatePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdatePhysChar();
+        }
 
         private void DeleteField()
         {
@@ -736,7 +710,7 @@ namespace CapacityСalculationUI
             DeleteWell();
         }
 
-        /*private void DeletePhysChar()
+        private void DeletePhysChar()
         {
             if (!cabinetForm.LoginForm.localLogin)
             {
@@ -756,31 +730,14 @@ namespace CapacityСalculationUI
             }
             else
             {
-                if (WellDataGridView.SelectedRows[0].Cells[0].Value != null)
-                {
-                    idField = FieldDataGridView.SelectedRows[0].Index;
-                    idWellPad = WellPadDataGridView.SelectedRows[0].Index;
-                    idWell = WellDataGridView.SelectedRows[0].Index;
-                    idPhysChar = PhysCharDataGridView.SelectedRows[0].Index;
-                    Fields[idField].WellPads[idWellPad].Wells[idWell].Signals.RemoveAt(idPhysChar);
-                    UpdatePhysCharTableLocal(idWell);
-                    try
-                    {
-                        PhysCharDataGridView.Rows[PhysCharDataGridView.Rows.Count - 2].Selected = true;
-                    }
-                    catch
-                    {
-                        return;
-                    }
-                }
-                else
+                
                     return;
             }
-        }*/
-        //private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    DeletePhysChar();
-        //}
+        }
+        private void DeletePhysCharToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeletePhysChar();
+        }
 
         private void WellDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -962,10 +919,10 @@ namespace CapacityСalculationUI
             {
                 AddWell();
             }
-            //if (Pozition == "PhysChar")
-            //{
-            //    AddPhysChar();
-            //}
+            if (Pozition == "PhysChar")
+            {
+                AddPhysChar();
+            }
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -982,10 +939,10 @@ namespace CapacityСalculationUI
             {
                 UpdateWell();
             }
-            //if (Pozition == "PhysChar")
-            //{
-            //    UpdatePhysChar();
-            //}
+            if (Pozition == "PhysChar")
+            {
+                UpdatePhysChar();
+            }
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1004,7 +961,7 @@ namespace CapacityСalculationUI
             }
             if (Pozition == "PhysChar")
             {
-               // DeletePhysChar();
+               DeletePhysChar();
             }
             
         }
@@ -1203,6 +1160,8 @@ namespace CapacityСalculationUI
                 }
             }
         }
+
+     
     }
 }
 

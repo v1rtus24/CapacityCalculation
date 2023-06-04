@@ -53,6 +53,11 @@
             this.профилиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.подборШкафаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.labelCountInj = new System.Windows.Forms.Label();
+            this.labelCountProd = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.PhysCharDataGridView = new System.Windows.Forms.DataGridView();
@@ -63,6 +68,7 @@
             this.WellPadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddWellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PhysCharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.подключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateFieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateWellPadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,12 +90,6 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.labelCountProd = new System.Windows.Forms.Label();
-            this.labelCountInj = new System.Windows.Forms.Label();
-            this.подключениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WellDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -98,10 +98,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.FieldDataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhysCharDataGridView)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -351,6 +351,66 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Подключения";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.labelCountInj);
+            this.groupBox5.Controls.Add(this.labelCountProd);
+            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox5.Location = new System.Drawing.Point(4, 226);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Size = new System.Drawing.Size(280, 106);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Количество скважин:";
+            // 
+            // labelCountInj
+            // 
+            this.labelCountInj.AutoSize = true;
+            this.labelCountInj.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCountInj.Location = new System.Drawing.Point(166, 60);
+            this.labelCountInj.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCountInj.Name = "labelCountInj";
+            this.labelCountInj.Size = new System.Drawing.Size(18, 19);
+            this.labelCountInj.TabIndex = 15;
+            this.labelCountInj.Text = "0";
+            // 
+            // labelCountProd
+            // 
+            this.labelCountProd.AutoSize = true;
+            this.labelCountProd.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCountProd.Location = new System.Drawing.Point(138, 31);
+            this.labelCountProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCountProd.Name = "labelCountProd";
+            this.labelCountProd.Size = new System.Drawing.Size(18, 19);
+            this.labelCountProd.TabIndex = 14;
+            this.labelCountProd.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(7, 60);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(155, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Нагнетательные : ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(7, 31);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(127, 19);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Добывающие:";
+            // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -435,7 +495,7 @@
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.menuStrip2.Size = new System.Drawing.Size(102, 366);
+            this.menuStrip2.Size = new System.Drawing.Size(124, 366);
             this.menuStrip2.TabIndex = 17;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -448,7 +508,7 @@
             this.PhysCharToolStripMenuItem,
             this.подключениеToolStripMenuItem});
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-            this.AddToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.AddToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.AddToolStripMenuItem.Text = "Добавить";
             // 
             // AddFieldToolStripMenuItem
@@ -478,6 +538,12 @@
             this.PhysCharToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
             this.PhysCharToolStripMenuItem.Text = "Подключение";
             // 
+            // подключениеToolStripMenuItem
+            // 
+            this.подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
+            this.подключениеToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
+            this.подключениеToolStripMenuItem.Text = "Подключение";
+            // 
             // UpdateToolStripMenuItem
             // 
             this.UpdateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -486,7 +552,7 @@
             this.UpdateWellToolStripMenuItem,
             this.UpdatePhysCharToolStripMenuItem});
             this.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
-            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.UpdateToolStripMenuItem.Text = "Изменить";
             // 
             // UpdateFieldToolStripMenuItem
@@ -524,7 +590,7 @@
             this.DeleteWellToolStripMenuItem,
             this.DeletePhysCharToolStripMenuItem});
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.DeleteToolStripMenuItem.Text = "Удалить";
             // 
             // DeleteFieldToolStripMenuItem
@@ -557,7 +623,7 @@
             // обновитьToolStripMenuItem
             // 
             this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
-            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.обновитьToolStripMenuItem.Text = "Обновить";
             this.обновитьToolStripMenuItem.Click += new System.EventHandler(this.обновитьToolStripMenuItem_Click);
             // 
@@ -567,7 +633,7 @@
             this.поУмолчаниюToolStripMenuItem,
             this.выбратьПутьToolStripMenuItem});
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -588,7 +654,7 @@
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(93, 25);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(115, 25);
             this.загрузитьToolStripMenuItem.Text = "Загрузить";
             this.загрузитьToolStripMenuItem.Click += new System.EventHandler(this.загрузитьToolStripMenuItem_Click);
             // 
@@ -626,72 +692,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.labelCountInj);
-            this.groupBox5.Controls.Add(this.labelCountProd);
-            this.groupBox5.Controls.Add(this.label7);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox5.Location = new System.Drawing.Point(4, 226);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox5.Size = new System.Drawing.Size(280, 106);
-            this.groupBox5.TabIndex = 15;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Количество скважин:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(7, 60);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(155, 19);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Нагнетательные : ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(7, 31);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(127, 19);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Добывающие:";
-            // 
-            // labelCountProd
-            // 
-            this.labelCountProd.AutoSize = true;
-            this.labelCountProd.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountProd.Location = new System.Drawing.Point(138, 31);
-            this.labelCountProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelCountProd.Name = "labelCountProd";
-            this.labelCountProd.Size = new System.Drawing.Size(18, 19);
-            this.labelCountProd.TabIndex = 14;
-            this.labelCountProd.Text = "0";
-            // 
-            // labelCountInj
-            // 
-            this.labelCountInj.AutoSize = true;
-            this.labelCountInj.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountInj.Location = new System.Drawing.Point(166, 60);
-            this.labelCountInj.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelCountInj.Name = "labelCountInj";
-            this.labelCountInj.Size = new System.Drawing.Size(18, 19);
-            this.labelCountInj.TabIndex = 15;
-            this.labelCountInj.Text = "0";
-            // 
-            // подключениеToolStripMenuItem
-            // 
-            this.подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
-            this.подключениеToolStripMenuItem.Size = new System.Drawing.Size(220, 26);
-            this.подключениеToolStripMenuItem.Text = "Подключение";
-            // 
             // ProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -724,12 +724,12 @@
             this.menuStrip1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhysCharDataGridView)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

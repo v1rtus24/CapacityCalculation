@@ -41,7 +41,6 @@ namespace CapacityCalculation
                 IU = 2;
             else 
                 IU = 1;
-
             //АИ от доб скважин
             AI += prodWell * 2;
             //АИ от нагн скважин
@@ -71,8 +70,6 @@ namespace CapacityCalculation
             //RS485 ШЛЮЗ ОТ СУ ЭЦН( 1 сигнал от каждыйх 6 СУ ЭЦН(СУ ЭЦН на каждую скважину)
             double SUECN = Math.Ceiling((double)(prodWell + injWell)/6);
             RS485SHL += (int)SUECN;
-
-
             return new Cabinet(AI,DI,AO,DO,RS485PLK,RS485SHL);
         }
 
