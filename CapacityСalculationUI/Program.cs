@@ -16,7 +16,7 @@ namespace CapacityСalculationUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CabinetForm());
+            Application.Run(new LoginForm());
         }
     }
 }

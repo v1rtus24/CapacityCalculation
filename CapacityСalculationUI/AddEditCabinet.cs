@@ -13,13 +13,32 @@ namespace CapacityСalculationUI
 {
     public partial class AddEditCabinet : Form
     {
-        public Cabinet cabinet { get; set; } 
+        public Cabinet CabinetTM { get; set; } 
         public AddEditCabinet()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddCabinet_Load(object sender, EventArgs e)
+        {
+            if (CabinetTM != null)
+            {
+                textBox1.Text = CabinetTM.Name;
+                textBox2.Text = CabinetTM.SignalAI.ToString();
+                textBox3.Text = CabinetTM.SignalAO.ToString();
+                textBox4.Text = CabinetTM.SignalDI.ToString();
+                textBox5.Text = CabinetTM.SignalDO.ToString();
+                textBox6.Text = CabinetTM.SignalRS485PLK.ToString();
+                textBox7.Text = CabinetTM.SignalRS485SHL.ToString();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OkButton_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -27,14 +46,14 @@ namespace CapacityСalculationUI
                    && !string.IsNullOrEmpty(textBox4.Text) && !string.IsNullOrEmpty(textBox5.Text)
                    && !string.IsNullOrEmpty(textBox6.Text) && !string.IsNullOrEmpty(textBox7.Text))
                 {
-                    cabinet = new Cabinet();
-                    cabinet.Name = textBox1.Text;
-                    cabinet.SignalAI = Convert.ToInt32(textBox2.Text);
-                    cabinet.SignalAO = Convert.ToInt32(textBox3.Text);
-                    cabinet.SignalDI = Convert.ToInt32(textBox4.Text);
-                    cabinet.SignalDO = Convert.ToInt32(textBox5.Text);
-                    cabinet.SignalRS485PLK = Convert.ToInt32(textBox6.Text);
-                    cabinet.SignalRS485SHL = Convert.ToInt32(textBox7.Text);
+                    CabinetTM = new Cabinet();
+                    CabinetTM.Name = textBox1.Text;
+                    CabinetTM.SignalAI = Convert.ToInt32(textBox2.Text);
+                    CabinetTM.SignalAO = Convert.ToInt32(textBox3.Text);
+                    CabinetTM.SignalDI = Convert.ToInt32(textBox4.Text);
+                    CabinetTM.SignalDO = Convert.ToInt32(textBox5.Text);
+                    CabinetTM.SignalRS485PLK = Convert.ToInt32(textBox6.Text);
+                    CabinetTM.SignalRS485SHL = Convert.ToInt32(textBox7.Text);
                     DialogResult = DialogResult.OK;
                 }
                 else
@@ -46,20 +65,6 @@ namespace CapacityСalculationUI
             catch
             {
                 MessageBox.Show("Несоответсвие типов(Проверьте ввод данных)");
-            }
-        }
-
-        private void AddCabinet_Load(object sender, EventArgs e)
-        {
-            if (cabinet != null)
-            {
-                textBox1.Text = cabinet.Name;
-                textBox2.Text = cabinet.SignalAI.ToString();
-                textBox3.Text = cabinet.SignalAO.ToString();
-                textBox4.Text = cabinet.SignalDI.ToString();
-                textBox5.Text = cabinet.SignalDO.ToString();
-                textBox6.Text = cabinet.SignalRS485PLK.ToString();
-                textBox7.Text = cabinet.SignalRS485SHL.ToString();
             }
         }
     }
